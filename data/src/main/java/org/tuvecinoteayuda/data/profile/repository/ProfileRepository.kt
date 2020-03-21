@@ -8,6 +8,7 @@ import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.ServiceFactory
 import org.tuvecinoteayuda.data.commons.models.User
 import org.tuvecinoteayuda.data.profile.api.UserApi
+import org.tuvecinoteayuda.data.profile.models.ProfileResponse
 import org.tuvecinoteayuda.data.profile.models.UpdateProfileResponse
 
 class ProfileRepository private constructor(
@@ -15,7 +16,7 @@ class ProfileRepository private constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseRepository() {
 
-    suspend fun getProfile(): ResultWrapper<User> {
+    suspend fun getProfile(): ResultWrapper<ProfileResponse> {
         return safeApiCall(dispatcher) { api.getProfile() }
     }
 

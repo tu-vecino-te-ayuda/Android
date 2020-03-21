@@ -4,37 +4,37 @@ import com.google.gson.annotations.SerializedName
 
 data class User(
     @field:SerializedName("associations")
-    val associations: List<Any?>? = null,
+    var associations: List<Any?>? = null,
     @field:SerializedName("address")
-    val address: String? = null,
+    var address: String? = null,
 
     @field:SerializedName("phone")
-    val phone: String? = null,
+    var phone: String? = null,
 
     @field:SerializedName("city")
-    val city: String? = null,
+    var city: String? = null,
 
     @field:SerializedName("user_status_id")
-    val userStatusId: UserStatusId? = null,
+    var userStatusId: UserStatusId? = null,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:SerializedName("user_type_id")
-    val userTypeId: UserTypeId? = null,
+    var userTypeId: UserTypeId? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    var id: Int? = null,
 
     @field:SerializedName("state")
-    val state: String? = null,
+    var state: String? = null,
 
     @field:SerializedName("nearby_areas_id")
-    val nearbyAreasId: Int? = null,
+    var nearbyAreasId: AreaTypeId? = null,
 
     @field:SerializedName("email")
-    val email: String? = null,
+    var email: String? = null,
 
     @field:SerializedName("zip_code")
-    val zipCode: String? = null
+    var zipCode: String? = null
 )
