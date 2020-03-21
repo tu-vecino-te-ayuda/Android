@@ -33,6 +33,7 @@ class RegisterRepositoryTest {
                 "", "", "", "", "",
                 "", "", "", "", "", 1, null, null
             )
+
             assertEquals(ResultWrapper.Success(registerResponse), result)
         }
     }

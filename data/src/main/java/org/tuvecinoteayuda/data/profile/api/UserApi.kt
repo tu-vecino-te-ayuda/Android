@@ -1,6 +1,7 @@
 package org.tuvecinoteayuda.data.profile.api
 
 import org.tuvecinoteayuda.data.commons.models.User
+import org.tuvecinoteayuda.data.profile.models.ProfileResponse
 import org.tuvecinoteayuda.data.profile.models.UpdateProfileResponse
 import retrofit2.http.Body
 
@@ -10,7 +11,7 @@ import retrofit2.http.PUT
 interface UserApi {
 
     @GET("user/update")
-    fun getProfile(): User
+    fun getProfile(): ProfileResponse
 
     @PUT("user/update")
     fun updateProfile(@Body request: User): UpdateProfileResponse
