@@ -6,12 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.tuvecinoteayuda.app.R
 
-class RegisterFormActivity : AppCompatActivity() {
+class RegisterFormActivity : AppCompatActivity(), RegisterFormPresenter.RegisterFormView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_form)
+
+        var presenter: RegisterFormPresenter = RegisterFormPresenter.newInstance(this)
+        presenter.initialize()
     }
 
     companion object {
@@ -25,6 +28,10 @@ class RegisterFormActivity : AppCompatActivity() {
             intent.putExtra(ARG_REGISTER, registerType)
             return intent
         }
+    }
+
+    override fun onError() {
+
     }
 
 }

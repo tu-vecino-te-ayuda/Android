@@ -1,9 +1,11 @@
 package org.tuvecinoteayuda.app.register
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tuvecinoteayuda.app.coroutines.CoroutineContextProvider
+import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 
 class RegisterFormPresenter constructor(
@@ -13,12 +15,12 @@ class RegisterFormPresenter constructor(
 ) {
 
     interface RegisterFormView {
+        fun onError()
 
     }
 
     fun initialize() {
-
-
+        getRegions()
     }
 
     private fun getRegions() {
@@ -27,27 +29,24 @@ class RegisterFormPresenter constructor(
 
             try {
                 val result = withContext(coroutineContextProvider.IO) {
-//                    repository.doLogin(user, password)
+                    repository.getRegions()
                 }
-
 
                 onRegionsLoaded(result)
             } catch (throwable: Throwable) {
-
-
-//                ui.onError()
+                ui.onError()
             }
         }
     }
 
-    private fun onRegionsLoaded(result: Any) {
-
+    private fun onRegionsLoaded(result: List<Region>) {
+        Log.d("REGIONS",result.toString())
     }
 
     companion object {
 
-        fun newInstance(ui: RegisterFormView) {
-//            return RegisterFormPresenter(ui)
+        fun newInstance(ui: RegisterFormView): RegisterFormPresenter {
+            return RegisterFormPresenter(ui, CoroutineContextProvider(), RegionRepository.newInstance())
         }
     }
 }
