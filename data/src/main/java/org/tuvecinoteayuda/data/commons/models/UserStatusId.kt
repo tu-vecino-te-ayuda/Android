@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.data.login.models
+package org.tuvecinoteayuda.data.commons.models
 
 import com.google.gson.annotations.SerializedName
 
