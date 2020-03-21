@@ -1,20 +1,30 @@
 package org.tuvecinoteayuda.data.login.repository
 
-import org.tuvecinoteayuda.data.BaseFactory
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import org.tuvecinoteayuda.data.BaseRepository
 import org.tuvecinoteayuda.data.CommonInterceptor
+import org.tuvecinoteayuda.data.ResultWrapper
+import org.tuvecinoteayuda.data.ServiceFactory
+import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.api.LoginApi
 import org.tuvecinoteayuda.data.login.models.LoginRequest
-import org.tuvecinoteayuda.data.commons.models.AuthResponse
 
-class LoginRepository private constructor(private val api: LoginApi) {
+class LoginRepository private constructor(
+    private val api: LoginApi,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) : BaseRepository() {
 
-    suspend fun doLogin(user: String, password: String): AuthResponse {
-        return api.login(LoginRequest(user, password))
+    suspend fun doLogin(user: String, password: String): ResultWrapper<AuthResponse> {
+        return safeApiCall(dispatcher) { api.login(LoginRequest(user, password)) }
     }
 
     companion object {
-        fun newInstance(): LoginRepository {
-            return LoginRepository(BaseFactory.create<LoginApi>(CommonInterceptor.newInstance()))
+        fun newInstance(dispatcher: CoroutineDispatcher): LoginRepository {
+            return LoginRepository(
+                ServiceFactory.create<LoginApi>(CommonInterceptor.newInstance()),
+                dispatcher
+            )
         }
     }
 }
