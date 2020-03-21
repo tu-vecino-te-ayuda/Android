@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/hero_bg">
+        android:background="@drawable/hero_bg"
+        tools:context="org.tuvecinoteayuda.login.LoginFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/logo"

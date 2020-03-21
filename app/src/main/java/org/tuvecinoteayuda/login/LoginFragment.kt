@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.databinding.FragmentLoginBinding
+import org.tuvecinoteayuda.login.LoginFragmentDirections.actionLoginFragmentToNeedHelpFragment
 import org.tuvecinoteayuda.login.LoginFragmentDirections.actionLoginFragmentToWantToHelpFragment
 import org.tuvecinoteayuda.utils.ScreenState
 
@@ -49,6 +50,9 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnButtonClickListener{ loginViewModel.login() }
         binding.loginWantToHelp.setOnClickListener {
             findNavController().navigate(actionLoginFragmentToWantToHelpFragment())
+        }
+        binding.loginNeedHelp.setOnClickListener {
+            findNavController().navigate(actionLoginFragmentToNeedHelpFragment())
         }
     }
 
