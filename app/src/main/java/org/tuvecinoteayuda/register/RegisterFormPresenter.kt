@@ -1,10 +1,10 @@
-package org.tuvecinoteayuda.app.register
+package org.tuvecinoteayuda.register
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tuvecinoteayuda.app.coroutines.CoroutineContextProvider
+import org.tuvecinoteayuda.coroutines.CoroutineContextProvider
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 

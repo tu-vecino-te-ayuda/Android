@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tuvecinoteayuda.app">
+    package="org.tuvecinoteayuda">
 
     <permission android:name="android.permission.INTERNET" />
 
@@ -11,22 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".register.RegisterFormActivity"></activity>
-        <activity
-            android:name=".login.LoginActivity"
-            android:theme="@style/LoginTheme">
+
+        <activity android:name="org.tuvecinoteayuda.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intro.IntroActivity" />
+
+        <activity android:name="org.tuvecinoteayuda.register.RegisterFormActivity" />
+
+        <activity android:name="org.tuvecinoteayuda.intro.IntroActivity" />
         <activity
-            android:name=".help.WantToHelpActivity"
+            android:name="org.tuvecinoteayuda.help.WantToHelpActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".needhelp.NeedHelpActivity"
+            android:name="org.tuvecinoteayuda.needhelp.NeedHelpActivity"
             android:theme="@style/AppTheme" />
     </application>
 

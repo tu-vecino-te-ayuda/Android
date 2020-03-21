@@ -1,12 +1,12 @@
-package org.tuvecinoteayuda.app.needhelp
+package org.tuvecinoteayuda.needhelp
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_need_help.*
-import org.tuvecinoteayuda.app.R
-import org.tuvecinoteayuda.app.navigation.InAppNavigator
+import org.tuvecinoteayuda.R
+import org.tuvecinoteayuda.navigation.InAppNavigator
 
 class NeedHelpActivity : AppCompatActivity(), NeedHelpPresenter.NeedHelpView {
 

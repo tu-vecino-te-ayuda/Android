@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="org.tuvecinoteayuda.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/hero_bg">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/logo_width"
+            android:layout_height="@dimen/logo_height"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_text_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@drawable/form_background"
+            android:padding="@dimen/activity_horizontal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/login_user"
+                style="@style/MainEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/login_user"
+                android:padding="@dimen/default_margin"
+                android:text="@={vm.user}"
+                android:theme="@style/MainEditTextTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="@string/login_user" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/login_password"
+                style="@style/MainEditText.Password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/login_password"
+                android:padding="@dimen/default_margin"
+                android:text="@={vm.password}"
+                android:theme="@style/MainEditTextTheme"
+                app:layout_constraintEnd_toEndOf="@id/login_user"
+                app:layout_constraintStart_toStartOf="@id/login_user"
+                app:layout_constraintTop_toBottomOf="@id/login_user"
+                tools:hint="@string/login_password" />
+
+            <org.tuvecinoteayuda.view.LoadingButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/min_tappable_size"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/default_margin_xxxlarge"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+                app:layout_constraintEnd_toEndOf="@id/login_password"
+                app:layout_constraintStart_toStartOf="@id/login_password"
+                app:layout_constraintTop_toBottomOf="@id/login_password"
+                app:loading_button_text="@string/login_do_login" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_want_to_help"
+            style="@style/Button.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/min_tappable_size"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/default_margin_xxxlarge"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+            android:onClick="@{ () -> vm.onWantToHelp()}"
+            android:text="@string/login_want_to_help"
+            app:layout_constraintEnd_toEndOf="@id/login_text_container"
+            app:layout_constraintStart_toStartOf="@id/login_text_container"
+            app:layout_constraintTop_toBottomOf="@id/login_text_container"
+            tools:text="@string/login_want_to_help" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_need_help"
+            style="@style/Button.SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/min_tappable_size"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/default_margin_xxxlarge"
+            android:layout_marginTop="@dimen/default_margin"
+            android:onClick="@{ () -> vm.onNeedHelp()}"
+            android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+            android:text="@string/login_need_help"
+            app:layout_constraintEnd_toEndOf="@id/login_text_container"
+            app:layout_constraintStart_toStartOf="@id/login_text_container"
+            app:layout_constraintTop_toBottomOf="@id/login_want_to_help"
+            tools:text="@string/login_need_help" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

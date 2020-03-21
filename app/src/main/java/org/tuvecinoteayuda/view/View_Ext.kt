@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.app.view
+package org.tuvecinoteayuda.view
 
 import android.view.View
 

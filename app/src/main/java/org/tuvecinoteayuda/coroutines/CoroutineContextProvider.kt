@@ -1,6 +1,5 @@
-package org.tuvecinoteayuda.app.coroutines
+package org.tuvecinoteayuda.coroutines
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

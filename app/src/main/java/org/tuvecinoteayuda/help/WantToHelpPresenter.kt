@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.app.help
+package org.tuvecinoteayuda.help
 
 class WantToHelpPresenter(private val ui: WantToHelpView) {
 
