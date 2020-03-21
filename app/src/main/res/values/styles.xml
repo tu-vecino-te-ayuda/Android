@@ -1,0 +1,97 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="LoginTheme" parent="AppTheme">
+
+    </style>
+
+    <style name="MainEditText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:colorControlNormal">@color/black</item>
+        <item name="android:colorControlActivated">@color/black</item>
+        <item name="android:colorControlHighlight">@color/black</item>
+    </style>
+
+    <style name="MainEditTextTheme">
+        <item name="android:colorControlNormal">@color/black</item>
+        <item name="android:colorControlActivated">@color/black</item>
+        <item name="android:colorControlHighlight">@color/black</item>
+    </style>
+
+    <style name="MainEditText.Password">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Button.MainButton">
+        <item name="android:background">@drawable/ripple_rounded</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:theme">@style/PrimaryButtonTheme</item>
+    </style>
+
+    <style name="PrimaryButtonTheme">
+        <item name="android:colorControlHighlight">@color/colorAccentDark</item>
+        <item name="rounded_background">@drawable/rounded_button_bg</item>
+        <item name="button_color">@color/colorAccent</item>
+    </style>
+
+    <style name="Button.SecondaryButton">
+        <item name="android:background">@drawable/ripple_rounded</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:theme">@style/SecondaryButtonTheme</item>
+    </style>
+
+    <style name="SecondaryButtonTheme">
+        <item name="android:colorControlHighlight">@color/amber300</item>
+        <item name="rounded_background">@drawable/rounded_button_bg</item>
+        <item name="button_color">@color/amberother</item>
+    </style>
+
+    <style name="Button.MainButtonYellow">
+        <item name="android:background">@drawable/ripple_rounded</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:theme">@style/PrimaryButtonYellowTheme</item>
+    </style>
+
+    <style name="PrimaryButtonYellowTheme">
+        <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="rounded_background">@drawable/rounded_button_bg</item>
+        <item name="button_color">@color/colorPrimary</item>
+    </style>
+
+    <style name="H1">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="H2">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">@color/h2color</item>
+    </style>
+
+    <style name="H3">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/h3color</item>
+    </style>
+
+    <style name="Spinner" parent="@style/Widget.AppCompat.Spinner.Underlined">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:colorControlNormal">@color/black</item>
+        <item name="android:colorControlActivated">@color/black</item>
+        <item name="android:colorControlHighlight">@color/black</item>
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
+
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/amber</color>
+    <color name="colorPrimaryDark">@color/amber400</color>
+    <color name="colorAccent">#6bd1bd</color>
+    <color name="colorAccentDark">#55a797</color>
+
+    <!--material amber -->
+    <color name="amber">#FDD31d</color>
+    <color name="amber50">#FFF8E1</color>
+    <color name="amber100">#FFECB3</color>
+    <color name="amber200">#FFE082</color>
+    <color name="amber300">#FFD54F</color>
+    <color name="amber400">#FFCA28</color>
+    <color name="amber600">#FFB300</color>
+    <color name="amber700">#FFA000</color>
+    <color name="amber800">#FF8F00</color>
+    <color name="amber900">#FF6F00</color>
+    <color name="amberother">#FFF4AC</color>
+
+    <color name="h2color">#151516</color>
+    <color name="h3color">#151516</color>
+
+    <!-- Others -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#a9a9a9</color>
+
+</resources>
