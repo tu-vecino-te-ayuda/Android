@@ -1,19 +1,20 @@
 package org.tuvecinoteayuda.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-
+import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.databinding.FragmentLoginBinding
-import org.tuvecinoteayuda.login.LoginFragmentDirections.actionLoginFragmentToNeedHelpFragment
-import org.tuvecinoteayuda.login.LoginFragmentDirections.actionLoginFragmentToWantToHelpFragment
+import org.tuvecinoteayuda.login.LoginFragmentDirections.*
 import org.tuvecinoteayuda.utils.ScreenState
+import org.tuvecinoteayuda.utils.observeEvent
+import org.tuvecinoteayuda.view.showToast
 
 class LoginFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.loginButton.setOnButtonClickListener{ loginViewModel.login() }
+        binding.loginButton.setOnButtonClickListener { loginViewModel.login() }
         binding.loginWantToHelp.setOnClickListener {
             findNavController().navigate(actionLoginFragmentToWantToHelpFragment())
         }
@@ -57,10 +58,24 @@ class LoginFragment : Fragment() {
 
     private fun observeScreenState() {
         loginViewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
-            when(state) {
+            when (state) {
                 ScreenState.LOADING_DATA -> binding.loginButton.showLoading()
                 else -> binding.loginButton.hideLoading()
             }
         })
+        loginViewModel.userError.observe(viewLifecycleOwner, Observer { error ->
+            binding.loginUser.error =
+                if (error) getString(R.string.login_login_error_invalid_user) else null
+        })
+        loginViewModel.passwordError.observe(viewLifecycleOwner, Observer { error ->
+            binding.loginPassword.error =
+                if (error) getString(R.string.login_login_error_invalid_password) else null
+        })
+        loginViewModel.onLoginSuccessEvent.observeEvent(viewLifecycleOwner) {
+            findNavController().navigate(actionLoginFragmentToDashboardFragment())
+        }
+        loginViewModel.onLoginFailedEvent.observeEvent(viewLifecycleOwner) {
+            showToast(R.string.login_login_error)
+        }
     }
 }

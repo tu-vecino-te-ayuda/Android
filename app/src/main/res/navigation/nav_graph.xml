@@ -22,6 +22,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_login_fragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -60,5 +67,10 @@
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="org.tuvecinoteayuda.dashboard.DashboardFragment"
+        android:label="DashboardFragment" />
 
 </navigation>
