@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import org.tuvecinoteayuda.databinding.FragmentNeedHelpBinding
-import org.tuvecinoteayuda.databinding.FragmentWantToHelpBinding
+import org.tuvecinoteayuda.needhelp.NeedHelpFragmentDirections.actionNeedHelpFragmentToRegisterFormFragment
+import org.tuvecinoteayuda.register.RegisterType
 
 class NeedHelpFragment : Fragment() {
 
@@ -35,8 +37,11 @@ class NeedHelpFragment : Fragment() {
     }
 
     private fun setupListeners() {
-       binding.needHelpButton.setOnClickListener {
-           // TODO startRegisterNeeded
-       }
+        binding.needHelpButton.setOnClickListener {
+            findNavController().navigate(
+                actionNeedHelpFragmentToRegisterFormFragment()
+                    .setRegisterType(RegisterType.Requester.ordinal)
+            )
+        }
     }
 }

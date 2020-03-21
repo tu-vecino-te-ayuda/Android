@@ -12,7 +12,7 @@ import org.tuvecinoteayuda.data.login.models.LoginRequest
 
 class LoginRepository private constructor(
     private val api: LoginApi,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
     suspend fun doLogin(user: String, password: String): ResultWrapper<AuthResponse> {
@@ -20,9 +20,9 @@ class LoginRepository private constructor(
     }
 
     companion object {
-        fun newInstance(dispatcher: CoroutineDispatcher): LoginRepository {
+        fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): LoginRepository {
             return LoginRepository(
-                ServiceFactory.create<LoginApi>(CommonInterceptor.newInstance()),
+                ServiceFactory.create(CommonInterceptor.newInstance()),
                 dispatcher
             )
         }
