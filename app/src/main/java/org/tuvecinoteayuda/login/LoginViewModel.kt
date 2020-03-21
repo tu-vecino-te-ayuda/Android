@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.models.LoginResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.utils.Event
@@ -68,7 +69,7 @@ class LoginViewModel(
         }
     }
 
-    private fun onLoginSuccess(loginResponse: LoginResponse) {
+    private fun onLoginSuccess(authResponse: AuthResponse) {
         _screenState.value = ScreenState.DATA_LOADED
     }
 
