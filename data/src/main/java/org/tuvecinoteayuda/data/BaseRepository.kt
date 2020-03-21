@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okio.IOException
+import org.tuvecinoteayuda.data.commons.models.ErrorResponse
 import retrofit2.HttpException
 
 open class BaseRepository {

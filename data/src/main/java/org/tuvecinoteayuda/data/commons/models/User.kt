@@ -3,10 +3,8 @@ package org.tuvecinoteayuda.data.commons.models
 import com.google.gson.annotations.SerializedName
 
 data class User(
-
     @field:SerializedName("associations")
     val associations: List<Any?>? = null,
-
     @field:SerializedName("address")
     val address: String? = null,
 
