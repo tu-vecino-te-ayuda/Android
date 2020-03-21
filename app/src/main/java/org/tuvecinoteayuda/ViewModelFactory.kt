@@ -3,11 +3,10 @@ package org.tuvecinoteayuda
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import org.tuvecinoteayuda.coroutines.CoroutineContextProvider
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
+import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.login.LoginViewModel
+import org.tuvecinoteayuda.register.RegisterViewModel
 
 class ViewModelFactory private constructor(
 ) : ViewModelProvider.NewInstanceFactory() {
@@ -17,7 +16,9 @@ class ViewModelFactory private constructor(
         with(modelClass) {
             when {
                 isAssignableFrom(LoginViewModel::class.java) ->
-                    LoginViewModel(LoginRepository.newInstance(Dispatchers.IO))
+                    LoginViewModel(LoginRepository.newInstance())
+                isAssignableFrom(RegisterViewModel::class.java) ->
+                    RegisterViewModel(RegionRepository.newInstance())
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

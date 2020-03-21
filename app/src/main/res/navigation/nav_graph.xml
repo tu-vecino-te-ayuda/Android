@@ -7,23 +7,58 @@
     <fragment
         android:id="@+id/login_fragment"
         android:name="org.tuvecinoteayuda.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_login_fragment_to_wantToHelpFragment"
-            app:destination="@id/wantToHelpFragment" />
+            app:destination="@id/wantToHelpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_login_fragment_to_needHelpFragment"
-            app:destination="@id/needHelpFragment" />
+            app:destination="@id/needHelpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/wantToHelpFragment"
         android:name="org.tuvecinoteayuda.wanttohelp.WantToHelpFragment"
-        android:label="WantToHelpFragment" />
+        android:label="WantToHelpFragment">
+        <action
+            android:id="@+id/action_wantToHelpFragment_to_registerFormFragment"
+            app:destination="@id/registerFormFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
 
     <fragment
         android:id="@+id/needHelpFragment"
         android:name="org.tuvecinoteayuda.needhelp.NeedHelpFragment"
-        android:label="NeedHelpFragment" />
+        android:label="NeedHelpFragment">
+        <action
+            android:id="@+id/action_needHelpFragment_to_registerFormFragment"
+            app:destination="@id/registerFormFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFormFragment"
+        android:name="org.tuvecinoteayuda.register.RegisterFragment"
+        android:label="RegisterFormFragment">
+
+        <argument
+            android:name="registerType"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

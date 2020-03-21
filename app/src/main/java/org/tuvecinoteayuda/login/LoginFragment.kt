@@ -18,8 +18,7 @@ import org.tuvecinoteayuda.utils.ScreenState
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val loginViewModel: LoginViewModel
-            by viewModels { ViewModelFactory.getInstance() }
+    private val loginViewModel: LoginViewModel by viewModels { ViewModelFactory.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
