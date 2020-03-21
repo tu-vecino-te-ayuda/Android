@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
-import org.tuvecinoteayuda.data.login.models.LoginResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.utils.Event
 import org.tuvecinoteayuda.utils.ScreenState
