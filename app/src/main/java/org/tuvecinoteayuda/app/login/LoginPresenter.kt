@@ -23,7 +23,6 @@ class LoginPresenter(
     }
 
     fun doLogin(user: String, password: String) {
-
         CoroutineScope(coroutineContextProvider.Main).launch {
 
             ui.showLoading()
