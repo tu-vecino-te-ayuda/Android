@@ -9,9 +9,10 @@ import org.tuvecinoteayuda.data.regions.models.Region
 class RegionRepository(private val contextWrapper: DataContextWrapper) {
 
     fun getRegions(): List<Region> {
-        val fileData = getJsonDataFromAsset(contextWrapper.context, REGIONS)
+        val fileData: String? = getJsonDataFromAsset(contextWrapper.context, REGIONS)
         val regionsListType = object : TypeToken<Array<Region>>() {}.type
-        return Gson().fromJson(fileData, regionsListType)
+        return fileData?.let { Gson().fromJson<List<Region>>(it, regionsListType) }
+            ?: emptyList<Region>()
     }
 
     companion object {
