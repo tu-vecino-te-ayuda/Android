@@ -27,7 +27,7 @@ class RegisterFormPresenter constructor(
 
             try {
                 val result = withContext(coroutineContextProvider.IO) {
-                    repository.doLogin(user, password)
+//                    repository.doLogin(user, password)
                 }
 
 
@@ -35,7 +35,7 @@ class RegisterFormPresenter constructor(
             } catch (throwable: Throwable) {
 
 
-                ui.onError()
+//                ui.onError()
             }
         }
     }
@@ -47,7 +47,7 @@ class RegisterFormPresenter constructor(
     companion object {
 
         fun newInstance(ui: RegisterFormView) {
-            return RegisterFormPresenter(ui)
+//            return RegisterFormPresenter(ui)
         }
     }
 }

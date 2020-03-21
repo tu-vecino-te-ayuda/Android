@@ -1,2 +1,3 @@
-include ':app', ':data'
-rootProject.name='TuVecinoTeAyuda'
+include ':app',
+        ':data'
+rootProject.name = 'TuVecinoTeAyuda'
