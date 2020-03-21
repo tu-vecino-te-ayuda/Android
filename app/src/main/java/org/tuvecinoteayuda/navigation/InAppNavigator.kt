@@ -1,10 +1,10 @@
-package org.tuvecinoteayuda.app.navigation
+package org.tuvecinoteayuda.navigation
 
 import android.content.Context
 import android.content.Intent
-import org.tuvecinoteayuda.app.help.WantToHelpActivity
-import org.tuvecinoteayuda.app.needhelp.NeedHelpActivity
-import org.tuvecinoteayuda.app.register.RegisterFormActivity
+import org.tuvecinoteayuda.help.WantToHelpActivity
+import org.tuvecinoteayuda.needhelp.NeedHelpActivity
+import org.tuvecinoteayuda.register.RegisterFormActivity
 
 class InAppNavigator : RouterContract {
 

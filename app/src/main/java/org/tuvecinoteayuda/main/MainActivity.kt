@@ -1,13 +1,13 @@
-package org.tuvecinoteayuda.app.intro
+package org.tuvecinoteayuda.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.tuvecinoteayuda.app.R
+import org.tuvecinoteayuda.R
 
-class IntroActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intro)
+        setContentView(R.layout.activity_main)
     }
 }

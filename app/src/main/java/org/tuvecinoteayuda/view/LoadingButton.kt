@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.app.view
+package org.tuvecinoteayuda.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.loading_button.view.*
-import org.tuvecinoteayuda.app.R
+import org.tuvecinoteayuda.R
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

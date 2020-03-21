@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.app.navigation
+package org.tuvecinoteayuda.navigation
 
 import android.content.Context
 

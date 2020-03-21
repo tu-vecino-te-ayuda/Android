@@ -1,10 +1,10 @@
-package org.tuvecinoteayuda.app.register
+package org.tuvecinoteayuda.register
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.tuvecinoteayuda.app.R
+import org.tuvecinoteayuda.R
 
 class RegisterFormActivity : AppCompatActivity(), RegisterFormPresenter.RegisterFormView {
 

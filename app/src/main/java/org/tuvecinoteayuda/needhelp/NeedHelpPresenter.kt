@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.app.needhelp
+package org.tuvecinoteayuda.needhelp
 
 class NeedHelpPresenter(private val ui: NeedHelpView) {
 
