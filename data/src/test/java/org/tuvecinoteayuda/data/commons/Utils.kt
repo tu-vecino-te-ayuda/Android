@@ -1,0 +1,7 @@
+package org.tuvecinoteayuda.data.commons
+
+const val LOGIN_RESPONSE_OK =
+    "{\"token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnR1dmVjaW5vdGVheXVkYS5vcmdcL2FwaVwvbG9naW4iLCJpYXQiOjE1ODQ4MjE2MjEsImV4cCI6MTU4NTA4MDgyMSwibmJmIjoxNTg0ODIxNjIxLCJqdGkiOiJDUmdwa2NRMkduRjZSWXlwIiwic3ViIjoxNzEsInBydiI6ImI5MTI3OTk3OGYxMWFhN2JjNTY3MDQ4N2ZmZjAxZTIyODI1M2ZlNDgifQ.ISLrYkYh7l12zmv0n6D3yi4ucsT-ZscIiaOyuIjRupI\",\"user\":{\"id\":171,\"email\":\"necesitado@necesitado.com\",\"phone\":\"661630009\",\"name\":\"Javier Test\",\"user_type_id\":{\"id\":1,\"name\":\"Solicitante\"},\"address\":\"c\\/ san carlos, 4 2\\u00baESC 3\\u00baB\",\"city\":\"09059\",\"state\":\"09\",\"zip_code\":\"09003\",\"nearby_areas_id\":99,\"user_status_id\":{\"id\":1,\"name\":\"activo\"},\"associations\":[]}}"
+const val REGISTER_RESPONSE_OK =
+    "{\"token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnR1dmVjaW5vdGVheXVkYS5vcmdcL2FwaVwvbG9naW4iLCJpYXQiOjE1ODQ4MjE2MjEsImV4cCI6MTU4NTA4MDgyMSwibmJmIjoxNTg0ODIxNjIxLCJqdGkiOiJDUmdwa2NRMkduRjZSWXlwIiwic3ViIjoxNzEsInBydiI6ImI5MTI3OTk3OGYxMWFhN2JjNTY3MDQ4N2ZmZjAxZTIyODI1M2ZlNDgifQ.ISLrYkYh7l12zmv0n6D3yi4ucsT-ZscIiaOyuIjRupI\",\"user\":{\"id\":171,\"email\":\"necesitado@necesitado.com\",\"phone\":\"661630009\",\"name\":\"Javier Test\",\"user_type_id\":{\"id\":1,\"name\":\"Solicitante\"},\"address\":\"c\\/ san carlos, 4 2\\u00baESC 3\\u00baB\",\"city\":\"09059\",\"state\":\"09\",\"zip_code\":\"09003\",\"nearby_areas_id\":99,\"user_status_id\":{\"id\":1,\"name\":\"activo\"},\"associations\":[]}}"
+
