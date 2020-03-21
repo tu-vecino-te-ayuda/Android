@@ -7,6 +7,15 @@
     <fragment
         android:id="@+id/login_fragment"
         android:name="org.tuvecinoteayuda.login.LoginFragment"
-        android:label="Login" />
+        android:label="Login" >
+        <action
+            android:id="@+id/action_login_fragment_to_wantToHelpFragment"
+            app:destination="@id/wantToHelpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wantToHelpFragment"
+        android:name="org.tuvecinoteayuda.wanttohelp.WantToHelpFragment"
+        android:label="WantToHelpFragment" />
 
 </navigation>

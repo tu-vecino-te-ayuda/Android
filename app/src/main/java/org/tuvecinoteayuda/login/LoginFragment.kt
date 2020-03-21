@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.databinding.FragmentLoginBinding
+import org.tuvecinoteayuda.login.LoginFragmentDirections.actionLoginFragmentToWantToHelpFragment
 import org.tuvecinoteayuda.utils.ScreenState
 
 class LoginFragment : Fragment() {
@@ -28,13 +30,14 @@ class LoginFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = loginViewModel
+            setupListeners()
             return root
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupViewModelListeners()
+        observeScreenState()
     }
 
     override fun onResume() {
@@ -42,8 +45,14 @@ class LoginFragment : Fragment() {
         loginViewModel.start()
     }
 
-    private fun setupViewModelListeners() {
+    private fun setupListeners() {
         binding.loginButton.setOnButtonClickListener{ loginViewModel.login() }
+        binding.loginWantToHelp.setOnClickListener {
+            findNavController().navigate(actionLoginFragmentToWantToHelpFragment())
+        }
+    }
+
+    private fun observeScreenState() {
         loginViewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
             when(state) {
                 ScreenState.LOADING_DATA -> binding.loginButton.showLoading()

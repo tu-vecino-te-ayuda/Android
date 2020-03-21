@@ -24,9 +24,6 @@
 
         <activity android:name="org.tuvecinoteayuda.intro.IntroActivity" />
         <activity
-            android:name="org.tuvecinoteayuda.help.WantToHelpActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name="org.tuvecinoteayuda.needhelp.NeedHelpActivity"
             android:theme="@style/AppTheme" />
     </application>
