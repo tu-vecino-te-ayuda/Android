@@ -23,9 +23,6 @@
         <activity android:name="org.tuvecinoteayuda.register.RegisterFormActivity" />
 
         <activity android:name="org.tuvecinoteayuda.intro.IntroActivity" />
-        <activity
-            android:name="org.tuvecinoteayuda.needhelp.NeedHelpActivity"
-            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
