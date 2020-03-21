@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.utils.Event
@@ -57,13 +58,10 @@ class LoginViewModel(
                 return@launch
             }
 
-            try {
-                val login = withContext(Dispatchers.IO) {
-                    repository.doLogin(currentUser, currentPassword)
-                }
-                onLoginSuccess(login)
-            } catch (e: Exception) {
-                onLoginFailed()
+            val loginResult = repository.doLogin(currentUser, currentPassword)
+            when(loginResult){
+                is ResultWrapper.Success -> onLoginSuccess(loginResult.value)
+                else  -> onLoginFailed()
             }
         }
     }
@@ -74,5 +72,13 @@ class LoginViewModel(
 
     private fun onLoginFailed() {
         _screenState.value = ScreenState.ERROR
+    }
+
+    fun onWantToHelp(){
+
+    }
+
+    fun onNeedHelp(){
+
     }
 }

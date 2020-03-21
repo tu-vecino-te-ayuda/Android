@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class BaseFactory {
+class ServiceFactory {
 
     companion object {
         inline fun <reified S> create(interceptor: CommonInterceptor): S {
