@@ -11,7 +11,6 @@ class RegionRepository {
         return Gson().fromJson(REGIONS, regionsListType)
     }
 
-    //TODO MOVE THIS TO A FILE
     companion object {
         private const val REGIONS: String =
             "[\n" +
