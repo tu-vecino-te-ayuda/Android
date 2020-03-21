@@ -10,6 +10,9 @@
     <string name="login_do_login">Acceder</string>
     <string name="login_want_to_help">Quiero Ayudar</string>
     <string name="login_need_help">Necesito Ayuda</string>
+    <string name="login_login_error">Error en el login</string>
+    <string name="login_login_error_invalid_user">Usuario no válido</string>
+    <string name="login_login_error_invalid_password">Contraseña no válida</string>
 
     <!--Need help-->
     <string name="need_help_title">Necesito Ayuda</string>
