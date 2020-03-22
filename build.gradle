@@ -1,3 +1,5 @@
+apply from: 'configurations.gradle'
+
 buildscript {
     repositories {
         google()
