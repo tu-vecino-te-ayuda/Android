@@ -17,6 +17,8 @@ import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
 import org.tuvecinoteayuda.utils.AutoCompleteAdapter
 import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
+import org.tuvecinoteayuda.view.removeErrorOnTyping
+import org.tuvecinoteayuda.view.showSnackBarError
 import org.tuvecinoteayuda.view.showToast
 
 class RegisterFragment : Fragment() {
@@ -56,9 +58,18 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupListeners() {
+
         binding.registerButton.setOnButtonClickListener {
             viewModel.register()
         }
+
+        binding.nameContainer.removeErrorOnTyping()
+        binding.emailContainer.removeErrorOnTyping()
+        binding.phoneContainer.removeErrorOnTyping()
+        binding.passwordContainer.removeErrorOnTyping()
+        binding.repeatedPasswordContainer.removeErrorOnTyping()
+        binding.postalCodeContainer.removeErrorOnTyping()
+        binding.addressContainer.removeErrorOnTyping()
     }
 
     private fun observeViewModelData() {
@@ -110,11 +121,12 @@ class RegisterFragment : Fragment() {
             binding.postalCodeContainer.error =
                 if (error) getString(R.string.register_postal_code_invalid) else null
         })
+
         viewModel.onRegisterSuccessEvent.observeEvent(viewLifecycleOwner) {
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFormFragmentToDashboardFragment())
         }
         viewModel.onRegisterFailedEvent.observeEvent(viewLifecycleOwner) {
-            showToast(R.string.register_error)
+            showSnackBarError(R.string.register_error)
         }
     }
 }
