@@ -49,8 +49,8 @@ class LoginViewModel(
 
         viewModelScope.launch {
             // Reset errors
-            _userError.postValue(true)
-            _passwordError.postValue(true)
+            _userError.postValue(false)
+            _passwordError.postValue(false)
             // Validate input
             val currentUser = user.value?.trim()
             if (currentUser.isNullOrBlank()) {
