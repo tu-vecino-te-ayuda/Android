@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:title="Mis Solicitudes" />
+    <item
+        android:id="@+id/navigation_sms"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:title="Solicitudes " />
+    <item
+        android:id="@+id/Profile"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:title="Perfil" />
+</menu>
