@@ -9,12 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
-import org.tuvecinoteayuda.register.RegisterFragmentDirections.actionRegisterFragmentToRegionsFragment
 import org.tuvecinoteayuda.utils.AutoCompleteAdapter
+import org.tuvecinoteayuda.utils.ScreenState
+import org.tuvecinoteayuda.utils.observeEvent
+import org.tuvecinoteayuda.view.showToast
 
 class RegisterFragment : Fragment() {
 
@@ -35,6 +38,8 @@ class RegisterFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            region.setAdapter(regionsAdapter)
+            city.setAdapter(citiesAdapter)
             setupListeners()
             return root
         }
@@ -42,7 +47,7 @@ class RegisterFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        observeScreenState()
+        observeViewModelData()
     }
 
     override fun onResume() {
@@ -51,20 +56,65 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.loginButton.setOnButtonClickListener {
-            findNavController().navigate(actionRegisterFragmentToRegionsFragment())
+        binding.registerButton.setOnButtonClickListener {
+            viewModel.register()
         }
-        binding.region.setAdapter(regionsAdapter)
-        binding.city.setAdapter(citiesAdapter)
     }
 
-    private fun observeScreenState() {
+    private fun observeViewModelData() {
+        viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                ScreenState.LOADING_DATA -> binding.registerButton.showLoading()
+                else -> binding.registerButton.hideLoading()
+            }
+        })
         viewModel.regions.observe(viewLifecycleOwner, Observer { regions ->
             regionsAdapter.setData(regions)
         })
         viewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
             citiesAdapter.setData(cities)
         })
+        viewModel.nameError.observe(viewLifecycleOwner, Observer { error ->
+            binding.nameContainer.error =
+                if (error) getString(R.string.register_name_invalid) else null
+        })
+        viewModel.emailError.observe(viewLifecycleOwner, Observer { error ->
+            binding.emailContainer.error =
+                if (error) getString(R.string.register_email_invalid) else null
+        })
+        viewModel.phoneError.observe(viewLifecycleOwner, Observer { error ->
+            binding.phoneContainer.error =
+                if (error) getString(R.string.register_phone_invalid) else null
+        })
+        viewModel.passwordError.observe(viewLifecycleOwner, Observer { error ->
+            binding.passwordContainer.error =
+                if (error) getString(R.string.register_password_invalid) else null
+        })
+        viewModel.repeatedPasswordError.observe(viewLifecycleOwner, Observer { error ->
+            binding.repeatedPasswordContainer.error =
+                if (error) getString(R.string.register_repeat_password_invalid) else null
+        })
+        viewModel.regionError.observe(viewLifecycleOwner, Observer { error ->
+            binding.regionContainer.error =
+                if (error) getString(R.string.register_region_invalid) else null
+        })
+        viewModel.cityError.observe(viewLifecycleOwner, Observer { error ->
+            binding.cityContainer.error =
+                if (error) getString(R.string.register_city_invalid) else null
+        })
+        viewModel.addressError.observe(viewLifecycleOwner, Observer { error ->
+            binding.addressContainer.error =
+                if (error) getString(R.string.register_address_invalid) else null
+        })
+        viewModel.postalCodeError.observe(viewLifecycleOwner, Observer { error ->
+            binding.postalCodeContainer.error =
+                if (error) getString(R.string.register_postal_code_invalid) else null
+        })
+        viewModel.onRegisterSuccessEvent.observeEvent(viewLifecycleOwner) {
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFormFragmentToDashboardFragment())
+        }
+        viewModel.onRegisterFailedEvent.observeEvent(viewLifecycleOwner) {
+            showToast(R.string.register_error)
+        }
     }
-
 }

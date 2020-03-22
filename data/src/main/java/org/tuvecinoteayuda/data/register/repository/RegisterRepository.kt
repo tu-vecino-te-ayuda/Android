@@ -13,19 +13,28 @@ import org.tuvecinoteayuda.data.register.models.RegisterUserRequest
 
 class RegisterRepository private constructor(
     private val api: RegisterApi,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
     suspend fun registerUser(
-        name: String, phone: String, password: String, passwordConfirmation: String,
-        address: String, city: String, state: String, zipCode: String, corporateName: String?
-        , cif: String?, @UserTypeId.Companion.UserType userTypeId: Int,
-        @RegisterUserRequest.Companion.NearByAreaType nearbyAreasId: Int?,
-        @RegisterUserRequest.Companion.ActivityAreaType activityAreaType: Int?
+        name: String,
+        email: String,
+        phone: String,
+        password: String,
+        passwordConfirmation: String,
+        address: String,
+        city: String,
+        state: String,
+        zipCode: String,
+        corporateName: String? = null,
+        cif: String? = null,
+        @UserTypeId.Companion.UserType userTypeId: Int,
+        @RegisterUserRequest.Companion.NearByAreaType nearbyAreasId: Int? = null,
+        @RegisterUserRequest.Companion.ActivityAreaType activityAreaType: Int? = null
     ): ResultWrapper<AuthResponse> {
 
         val request = RegisterUserRequest(
-            name, phone, password, passwordConfirmation, address,
+            name, email, phone, password, passwordConfirmation, address,
             city, state, zipCode, corporateName, cif, userTypeId, nearbyAreasId, activityAreaType
         )
 
@@ -33,9 +42,9 @@ class RegisterRepository private constructor(
     }
 
     companion object {
-        fun newInstance(dispatcher: CoroutineDispatcher): RegisterRepository {
+        fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): RegisterRepository {
             return RegisterRepository(
-                ServiceFactory.create<RegisterApi>(CommonInterceptor.newInstance()),
+                ServiceFactory.create(CommonInterceptor.newInstance()),
                 dispatcher
             )
         }
