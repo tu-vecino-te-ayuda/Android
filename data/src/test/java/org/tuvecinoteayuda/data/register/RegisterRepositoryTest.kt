@@ -31,7 +31,7 @@ class RegisterRepositoryTest {
 
             val result = repository.registerUser(
                 "", "", "", "", "",
-                "", "", "", "", "", 1, null, null
+                "", "", "", "", "", "",1, null, null
             )
 
             assertEquals(ResultWrapper.Success(registerResponse), result)
