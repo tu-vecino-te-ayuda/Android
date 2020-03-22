@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.data.dashboard.models
+package org.tuvecinoteayuda.data.helprequests.models
 
 import com.google.gson.annotations.SerializedName
 
