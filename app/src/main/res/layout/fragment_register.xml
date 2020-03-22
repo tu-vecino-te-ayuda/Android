@@ -38,7 +38,8 @@
                     android:id="@+id/name"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="textPersonName"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +55,8 @@
                     android:id="@+id/email"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.email}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +72,8 @@
                     android:id="@+id/phone"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="phone"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.phone}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +89,8 @@
                     android:id="@+id/password"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.password}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,12 +106,13 @@
                     android:id="@+id/repeated_password"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.repeatedPassword}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/regions_container"
+                android:id="@+id/region_container"
                 style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
                 android:hint="@string/register_region"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,9 +120,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/repeated_password_container">
 
                 <AutoCompleteTextView
-                    android:id="@+id/regions"
+                    android:id="@+id/region"
+                    style="@style/AutoCompleteTextView"
                     android:inputType="none"
-                    style="@style/AutoCompleteTextView" />
+                    android:text="@={vm.region}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,17 +133,18 @@
                 android:hint="@string/register_city"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regions_container">
+                app:layout_constraintTop_toBottomOf="@+id/region_container">
 
                 <AutoCompleteTextView
                     android:id="@+id/city"
+                    style="@style/AutoCompleteTextView"
                     android:inputType="none"
-                    style="@style/AutoCompleteTextView" />
+                    android:text="@={vm.city}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/address_password_container"
+                android:id="@+id/address_container"
                 style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_address"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +155,8 @@
                     android:id="@+id/address"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="textPostalAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.address}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,13 +166,14 @@
                 android:hint="@string/register_postal_code"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address_password_container">
+                app:layout_constraintTop_toBottomOf="@id/address_container">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/postal_code"
                     style="@style/TextInputEditTextOutlined"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={vm.postalCode}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
