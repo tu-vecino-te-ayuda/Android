@@ -6,12 +6,12 @@ import org.tuvecinoteayuda.data.BaseRepository
 import org.tuvecinoteayuda.data.CommonInterceptor
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.ServiceFactory
-import org.tuvecinoteayuda.data.helprequests.DashboardApi
+import org.tuvecinoteayuda.data.helprequests.HelpRequestApi
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 
 class HelpRequestRepository(
-    private val api: DashboardApi,
+    private val api: HelpRequestApi,
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 

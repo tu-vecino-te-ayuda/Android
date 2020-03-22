@@ -5,7 +5,7 @@ import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface DashboardApi {
+interface HelpRequestApi {
 
     @GET("help-requests/pending")
     fun pendingRequest(): HelpRequestResponse
