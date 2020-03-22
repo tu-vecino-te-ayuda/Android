@@ -10,18 +10,18 @@ import retrofit2.http.Path
 interface HelpRequestApi {
 
     @GET("help-requests/pending")
-    fun pendingRequest(): HelpRequestResponse
+    suspend fun pendingRequest(): HelpRequestResponse
 
     @GET("help-requests")
-    fun getRequest(): HelpRequestListResponse
+    suspend fun getRequest(): HelpRequestListResponse
 
     @GET("help-requests/accept/{id}")
-    fun acceptRequest(@Path("id") id: String): HelpRequestListResponse
+    suspend fun acceptRequest(@Path("id") id: String): HelpRequestListResponse
 
     @DELETE("help-requests/revert/{id}")
-    fun cancelAcceptedRequest(@Path("id") id: String): MessageResponse
+    suspend fun cancelAcceptedRequest(@Path("id") id: String): MessageResponse
 
     @DELETE("help-requests/{id}")
-    fun cancelMyRequest(@Path("id") id: String): MessageResponse
+    suspend fun cancelMyRequest(@Path("id") id: String): MessageResponse
 
 }
