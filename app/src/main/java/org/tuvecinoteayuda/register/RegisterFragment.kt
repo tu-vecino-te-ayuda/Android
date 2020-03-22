@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.ViewModelFactory
@@ -18,6 +19,8 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance() }
 
+    private val regionsAdapter by lazy { RegionsAdapter(requireContext()) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,13 +31,14 @@ class RegisterFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            setupListeners()
             return root
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupListeners()
+        observeScreenState()
     }
 
     override fun onResume() {
@@ -46,6 +50,13 @@ class RegisterFragment : Fragment() {
         binding.loginButton.setOnButtonClickListener {
             findNavController().navigate(actionRegisterFragmentToRegionsFragment())
         }
+        binding.regions.setAdapter(regionsAdapter)
+    }
+
+    private fun observeScreenState() {
+        viewModel.regions.observe(viewLifecycleOwner, Observer { regions ->
+            regionsAdapter.setRegions(regions)
+        })
     }
 
 }

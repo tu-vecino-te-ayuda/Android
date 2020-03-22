@@ -12,7 +12,7 @@ class RegionRepository(private val contextWrapper: DataContextWrapper) {
         val fileData: String? = getJsonDataFromAsset(contextWrapper.context, REGIONS)
         val regionsListType = object : TypeToken<List<Region>>() {}.type
         return fileData?.let { Gson().fromJson<List<Region>>(it, regionsListType) }
-            ?: emptyList<Region>()
+            ?: emptyList()
     }
 
     companion object {
