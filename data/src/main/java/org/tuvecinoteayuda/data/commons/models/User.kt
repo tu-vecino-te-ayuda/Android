@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @field:SerializedName("associations")
     var associations: List<Any?>? = null,
+
     @field:SerializedName("address")
     var address: String? = null,
 
