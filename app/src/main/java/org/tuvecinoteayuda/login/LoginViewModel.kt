@@ -48,9 +48,6 @@ class LoginViewModel(
         _screenState.value = ScreenState.LOADING_DATA
 
         viewModelScope.launch {
-            // Reset errors
-            _userError.postValue(false)
-            _passwordError.postValue(false)
             // Validate input
             val currentUser = user.value?.trim()
             if (currentUser.isNullOrBlank()) {

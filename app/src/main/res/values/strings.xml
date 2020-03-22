@@ -29,15 +29,25 @@
     <string name="want_to_help_button">"¡Quiero Ayudar!"</string>
 
     <!--Register-->
-    <string name="register_user">Nombre y Apellidos</string>
+    <string name="register_name">Nombre y Apellidos</string>
+    <string name="register_name_invalid">Nombre y Apellidos no válidos</string>
     <string name="register_phone">Teléfono</string>
+    <string name="register_phone_invalid">Teléfono no válido</string>
     <string name="register_email">Email</string>
-    <string name="register_password">Contraseña (8 car.min</string>
+    <string name="register_email_invalid">Email no válida</string>
+    <string name="register_password">Contraseña (8 car.min)</string>
+    <string name="register_password_invalid">Contraseña no válida</string>
     <string name="register_repeat_password">Confirmar Conraseña</string>
+    <string name="register_repeat_password_invalid">Las contraseñas no coinciden</string>
     <string name="register_region">Provincia</string>
+    <string name="register_region_invalid">Provincia no válida</string>
     <string name="register_city">Ciudad</string>
+    <string name="register_city_invalid">Ciudad no válida</string>
     <string name="register_address">Dirección (Calle, Número, etc..)</string>
+    <string name="register_address_invalid">Dirección no válida</string>
     <string name="register_postal_code">Codigo Postal</string>
+    <string name="register_postal_code_invalid">Codigo Postal no válido</string>
     <string name="register_button">Inscribirme</string>
+    <string name="register_error">Error en el registro</string>
 
 </resources>

@@ -64,11 +64,11 @@ class LoginFragment : Fragment() {
             }
         })
         loginViewModel.userError.observe(viewLifecycleOwner, Observer { error ->
-            binding.loginUser.error =
+            binding.loginUserContainer.error =
                 if (error) getString(R.string.login_login_error_invalid_user) else null
         })
         loginViewModel.passwordError.observe(viewLifecycleOwner, Observer { error ->
-            binding.loginPassword.error =
+            binding.loginPasswordContainer.error =
                 if (error) getString(R.string.login_login_error_invalid_password) else null
         })
         loginViewModel.onLoginSuccessEvent.observeEvent(viewLifecycleOwner) {

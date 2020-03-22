@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
+import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
 import org.tuvecinoteayuda.register.RegisterViewModel
 
@@ -18,7 +19,10 @@ class ViewModelFactory private constructor(
                 isAssignableFrom(LoginViewModel::class.java) ->
                     LoginViewModel(LoginRepository.newInstance())
                 isAssignableFrom(RegisterViewModel::class.java) ->
-                    RegisterViewModel(RegionRepository.newInstance())
+                    RegisterViewModel(
+                        RegionRepository.newInstance(),
+                        RegisterRepository.newInstance()
+                    )
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

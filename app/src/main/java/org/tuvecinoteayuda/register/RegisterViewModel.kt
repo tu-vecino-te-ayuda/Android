@@ -2,11 +2,18 @@ package org.tuvecinoteayuda.register
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.tuvecinoteayuda.data.ResultWrapper
+import org.tuvecinoteayuda.data.commons.models.AuthResponse
+import org.tuvecinoteayuda.data.commons.models.UserTypeId
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
+import org.tuvecinoteayuda.data.register.repository.RegisterRepository
+import org.tuvecinoteayuda.utils.Event
 import org.tuvecinoteayuda.utils.ScreenState
 
 class RegisterViewModel(
-    private val repository: RegionRepository
+    private val regionRepository: RegionRepository,
+    private val registerRepository: RegisterRepository
 ) : ViewModel() {
 
     // State
@@ -14,7 +21,16 @@ class RegisterViewModel(
     val screenState: LiveData<ScreenState>
         get() = _screenState
 
+    // Events
+    private val _onRegisterSuccessEvent = MutableLiveData<Event<Unit>>()
+    val onRegisterSuccessEvent: LiveData<Event<Unit>>
+        get() = _onRegisterSuccessEvent
+    private val _onRegisterFailedEvent = MutableLiveData<Event<Unit>>()
+    val onRegisterFailedEvent: LiveData<Event<Unit>>
+        get() = _onRegisterFailedEvent
+
     // Data - form
+    private lateinit var registerType: RegisterType
     val name = MutableLiveData<String>()
     private val _nameError = MutableLiveData(false)
     val nameError: LiveData<Boolean>
@@ -54,14 +70,119 @@ class RegisterViewModel(
 
     // Data
     val regions = liveData(Dispatchers.IO) {
-        emit(repository.getRegions())
+        emit(regionRepository.getRegions())
     }
     val cities = Transformations.map(region) { regionName ->
-        repository.getCitiesFromRegion(regionName)
+        regionRepository.getCitiesFromRegion(regionName)
     }
 
     fun start(registerType: RegisterType) {
         if (_screenState.value != ScreenState.INITIAL) return
-        // TODO adjust screen based on register type
+        this.registerType = registerType
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            // Name
+            val currentName = name.value
+            if (currentName.isNullOrBlank()) {
+                _nameError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Email
+            val currentEmail = email.value
+            if (currentEmail.isNullOrBlank()) {
+                _emailError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Phone
+            val currentPhone = phone.value
+            if (currentPhone.isNullOrBlank()) {
+                _phoneError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Password
+            val currentPassword = password.value
+            if (currentPassword.isNullOrBlank()) {
+                _passwordError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Repeated password
+            val currentRepeatedPassword = repeatedPassword.value
+            if (currentRepeatedPassword.isNullOrBlank()
+                || currentRepeatedPassword != currentPassword
+            ) {
+                _repeatedPasswordError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Region
+            val currentRegion = region.value
+            if (currentRegion.isNullOrBlank()) {
+                _regionError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // City
+            val currentCity = city.value
+            if (currentCity.isNullOrBlank()) {
+                _cityError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Address
+            val currentAddress = address.value
+            if (currentAddress.isNullOrBlank()) {
+                _addressError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Postal code
+            val currentPostalCode = postalCode.value
+            if (currentPostalCode.isNullOrBlank()) {
+                _postalCodeError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+
+            // Call register endpoint
+            val response = registerRepository.registerUser(
+                name = currentName,
+                email = currentEmail,
+                phone = currentPhone,
+                password = currentPassword,
+                passwordConfirmation = currentRepeatedPassword,
+                address = currentAddress,
+                city = currentCity,
+                state = currentRegion,
+                zipCode = currentPostalCode,
+                userTypeId = when (registerType) {
+                    RegisterType.Voluntary -> UserTypeId.VOLUNTARIO
+                    RegisterType.Requester -> UserTypeId.SOLICITANTE
+                }
+            )
+            when(response) {
+                is ResultWrapper.Success -> onRegisterSuccess(response.value)
+                else  -> onRegisterFailed()
+            }
+        }
+    }
+
+    private fun onInvalidData() {
+        _screenState.value = ScreenState.DATA_LOADED
+    }
+
+    private fun onRegisterSuccess(authResponse: AuthResponse) {
+        _screenState.value = ScreenState.DATA_LOADED
+        _onRegisterSuccessEvent.postValue(Event(Unit))
+    }
+
+    private fun onRegisterFailed() {
+        _screenState.value = ScreenState.DATA_LOADED
+        _onRegisterFailedEvent.postValue(Event(Unit))
     }
 }

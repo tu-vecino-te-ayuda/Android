@@ -6,6 +6,7 @@ import org.tuvecinoteayuda.data.commons.models.UserTypeId
 
 data class RegisterUserRequest(
     @field:SerializedName("name") var name: String,
+    @field:SerializedName("email") var email: String,
     @field:SerializedName("phone") var phone: String,
     @field:SerializedName("password") var password: String,
     @field:SerializedName("password_confirmation") var passwordConfirmation: String,

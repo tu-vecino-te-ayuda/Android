@@ -29,7 +29,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name_container"
                 style="@style/TextInputLayoutOutlined"
-                android:hint="@string/register_user"
+                android:hint="@string/register_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -81,6 +81,7 @@
                 android:id="@+id/password_container"
                 style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_password"
+                app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/phone_container">
@@ -98,6 +99,7 @@
                 android:id="@+id/repeated_password_container"
                 style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_repeat_password"
+                app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_container">
@@ -123,6 +125,7 @@
                     android:id="@+id/region"
                     style="@style/AutoCompleteTextView"
                     android:inputType="none"
+                    android:maxLines="1"
                     android:text="@={vm.region}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +142,7 @@
                     android:id="@+id/city"
                     style="@style/AutoCompleteTextView"
                     android:inputType="none"
+                    android:maxLines="1"
                     android:text="@={vm.city}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -178,7 +182,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <org.tuvecinoteayuda.view.LoadingButton
-                android:id="@+id/login_button"
+                android:id="@+id/register_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/min_tappable_size"
                 android:layout_gravity="center"
