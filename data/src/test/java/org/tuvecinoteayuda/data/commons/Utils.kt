@@ -17,3 +17,7 @@ const val HELP_REQUESTS_RESPONSE_OK =
 
 const val ACCEPT_HELP_REQUESTS_RESPONSE_OK =
     "{\"data\":[{\"id\":19,\"user\":{\"id\":190,\"name\":\"Bego\\u00f1a Mart\\u00ednez Gutierrez\",\"user_type_id\":{\"id\":1,\"name\":\"Solicitante\"},\"city\":\"28148\",\"state\":\"28\",\"zip_code\":\"28850\"},\"help_request_type\":{\"id\":1,\"name\":\"Suministro de alimentos y\\/o f\\u00e1rmacos\"},\"message\":\"Me gustar\\u00eda sentir que puedo tener a alcurnia cercano que pueda traeme compra y medicamentos de vez en cuando. Mi marido est\\u00e1 en casa con coronavirus y yo soy persona de riesgo inmunodeficiencia\",\"assigned_user_id\":[],\"assigned_user_count\":0,\"accepted_at\":null,\"created_at\":\"20\\/03\\/2020 08:43\"}]}"
+
+const val CANCEL_HELP_REQUESTS_RESPONSE_OK =
+    "{\"message\":\"Se ha cancelado la inscripci\\u00f3n. \\u00a1L\\u00e1stima, esperamos que en otra ocasi\\u00f3n puedas ayudar a tus vecin@s!\",\"status_code\":200,\"status\":\"200 OK\"}"
+
