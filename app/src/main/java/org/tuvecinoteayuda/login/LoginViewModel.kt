@@ -24,9 +24,13 @@ class LoginViewModel(
     private val _onLoginSuccessEvent = MutableLiveData<Event<Unit>>()
     val onLoginSuccessEvent: LiveData<Event<Unit>>
         get() = _onLoginSuccessEvent
-    private val _onLoginFailedEvent = MutableLiveData<Event<Unit>>()
-    val onLoginFailedEvent: LiveData<Event<Unit>>
+    private val _onLoginFailedEvent = MutableLiveData<Event<String>>()
+    val onLoginFailedEvent: LiveData<Event<String>>
         get() = _onLoginFailedEvent
+    private val _onLoginFailedGenericEvent = MutableLiveData<Event<Unit>>()
+    val onLoginFailedGenericEvent: LiveData<Event<Unit>>
+        get() = _onLoginFailedGenericEvent
+
 
     // Data
     val user = MutableLiveData<String>()
@@ -64,7 +68,8 @@ class LoginViewModel(
             // Login request
             when(val loginResult = repository.doLogin(currentUser, currentPassword)){
                 is ResultWrapper.Success -> onLoginSuccess(loginResult.value)
-                else  -> onLoginFailed()
+                is ResultWrapper.GenericError -> onLoginFailed(loginResult.error.toString())
+                else  -> onLoginGenericFailed()
             }
         }
     }
@@ -78,8 +83,14 @@ class LoginViewModel(
         _onLoginSuccessEvent.postValue(Event(Unit))
     }
 
-    private fun onLoginFailed() {
+    private fun onLoginFailed(error: String) {
         _screenState.value = ScreenState.DATA_LOADED
-        _onLoginFailedEvent.postValue(Event(Unit))
+        _onLoginFailedEvent.postValue(Event(error))
     }
+
+    private fun onLoginGenericFailed() {
+        _screenState.value = ScreenState.DATA_LOADED
+        _onLoginFailedGenericEvent.postValue(Event(Unit))
+    }
+
 }

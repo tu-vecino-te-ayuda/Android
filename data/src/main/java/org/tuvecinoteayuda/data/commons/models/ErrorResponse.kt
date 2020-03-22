@@ -7,4 +7,8 @@ data class ErrorResponse(
     @field:SerializedName("status_code") var statusCode: Int,
     @field:SerializedName("message") var message: String,
     @field:SerializedName("status") var status: String
-)
+) {
+    override fun toString(): String {
+        return message
+    }
+}

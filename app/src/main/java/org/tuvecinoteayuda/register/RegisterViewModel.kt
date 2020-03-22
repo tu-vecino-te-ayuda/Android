@@ -106,7 +106,8 @@ class RegisterViewModel(
             }
             // Password
             val currentPassword = password.value
-            if (currentPassword.isNullOrBlank()) {
+            if (currentPassword.isNullOrBlank()
+                || currentPassword.length > MAX_PASSWORD_CHARACTERS) {
                 _passwordError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -115,6 +116,7 @@ class RegisterViewModel(
             val currentRepeatedPassword = repeatedPassword.value
             if (currentRepeatedPassword.isNullOrBlank()
                 || currentRepeatedPassword != currentPassword
+                || currentRepeatedPassword.length > MAX_PASSWORD_CHARACTERS
             ) {
                 _repeatedPasswordError.postValue(true)
                 onInvalidData()
@@ -184,5 +186,11 @@ class RegisterViewModel(
     private fun onRegisterFailed() {
         _screenState.value = ScreenState.DATA_LOADED
         _onRegisterFailedEvent.postValue(Event(Unit))
+    }
+
+    companion object {
+        const val MAX_PASSWORD_CHARACTERS = 8
+        //TODO
+        const val MIN_PASSWORD_CHARACTERS = 4
     }
 }

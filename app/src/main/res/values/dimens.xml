@@ -13,5 +13,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_button_radius">15dp</dimen>
     <dimen name="form_line_width">1dp</dimen>
+    <dimen name="app_bar_elevation">1dp</dimen>
 
 </resources>

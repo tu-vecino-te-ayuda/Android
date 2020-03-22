@@ -14,7 +14,7 @@ import org.tuvecinoteayuda.databinding.FragmentLoginBinding
 import org.tuvecinoteayuda.login.LoginFragmentDirections.*
 import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
-import org.tuvecinoteayuda.view.showToast
+import org.tuvecinoteayuda.view.showSnackBarError
 
 class LoginFragment : Fragment() {
 
@@ -75,7 +75,10 @@ class LoginFragment : Fragment() {
             findNavController().navigate(actionLoginFragmentToDashboardFragment())
         }
         loginViewModel.onLoginFailedEvent.observeEvent(viewLifecycleOwner) {
-            showToast(R.string.login_login_error)
+            showSnackBarError(it)
+        }
+        loginViewModel.onLoginFailedGenericEvent.observeEvent(viewLifecycleOwner) {
+            showSnackBarError(R.string.login_login_error)
         }
     }
 }
