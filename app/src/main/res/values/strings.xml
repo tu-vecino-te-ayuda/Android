@@ -34,6 +34,8 @@
     <string name="register_email">Email</string>
     <string name="register_password">Contraseña (8 car.min</string>
     <string name="register_repeat_password">Confirmar Conraseña</string>
+    <string name="register_region">Provincia</string>
+    <string name="register_city">Ciudad</string>
     <string name="register_address">Dirección (Calle, Número, etc..)</string>
     <string name="register_postal_code">Codigo Postal</string>
     <string name="register_button">Inscribirme</string>

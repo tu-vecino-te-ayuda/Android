@@ -48,7 +48,7 @@ class RegionsFragment : Fragment(), BaseFilterableAdapter.Contract {
 
     private fun observeScreenState() {
         viewModel.regions.observe(viewLifecycleOwner, Observer { regionList ->
-            recycler.adapter = RegionsAdapter(ArrayList(regionList), {}, this)
+//            recycler.adapter = RegionsAdapter(ArrayList(regionList), {}, this)
         })
     }
 

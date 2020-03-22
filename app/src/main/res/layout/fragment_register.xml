@@ -26,134 +26,147 @@
             android:background="@drawable/form_background"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/login_name"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_user"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                app:layout_constraintTop_toTopOf="parent"
-                tools:hint="@string/register_user" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/email"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_email"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_name"
-                tools:hint="@string/register_email" />
+                app:layout_constraintTop_toBottomOf="@id/name_container">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/phone"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_phone"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email"
-                tools:hint="@string/register_phone" />
+                app:layout_constraintTop_toBottomOf="@id/email_container">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/password"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="phone"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_password"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phone"
-                tools:hint="@string/register_password" />
+                app:layout_constraintTop_toBottomOf="@id/phone_container">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/repeated_password"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/repeated_password_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_repeat_password"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password"
-                tools:hint="@string/register_repeat_password" />
+                app:layout_constraintTop_toBottomOf="@id/password_container">
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/regions"
-                style="@style/Spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/register_repeat_password"
-                android:paddingTop="@dimen/default_margin"
-                android:paddingBottom="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repeated_password"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/regions_container"
+                style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                android:hint="@string/register_region"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/repeated_password"
-                tools:hint="@string/register_repeat_password" />
+                app:layout_constraintTop_toBottomOf="@+id/repeated_password_container">
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/city"
-                style="@style/Spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/register_repeat_password"
-                android:paddingTop="@dimen/default_margin"
-                android:paddingBottom="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
+                <AutoCompleteTextView
+                    android:id="@+id/regions"
+                    android:inputType="none"
+                    style="@style/AutoCompleteTextView" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_container"
+                style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                android:hint="@string/register_city"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/regions"
-                tools:hint="@string/register_repeat_password" />
+                app:layout_constraintTop_toBottomOf="@+id/regions_container">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/address"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <AutoCompleteTextView
+                    android:id="@+id/city"
+                    android:inputType="none"
+                    style="@style/AutoCompleteTextView" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_password_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_address"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/city"
-                tools:hint="@string/register_address" />
+                app:layout_constraintTop_toBottomOf="@id/city_container">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/postal_code"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPostalAddress"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/postal_code_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/register_postal_code"
-                android:padding="@dimen/default_margin"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address"
-                tools:hint="@string/register_postal_code" />
+                app:layout_constraintTop_toBottomOf="@id/address_password_container">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/postal_code"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <org.tuvecinoteayuda.view.LoadingButton
                 android:id="@+id/login_button"
@@ -165,7 +178,7 @@
                 android:layout_marginEnd="@dimen/default_margin_xxxlarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postal_code"
+                app:layout_constraintTop_toBottomOf="@id/postal_code_container"
                 app:loading_button_text="@string/register_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

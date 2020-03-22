@@ -39,35 +39,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logo">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/login_user"
-                style="@style/MainEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_user_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/login_user"
-                android:padding="@dimen/default_margin"
-                android:text="@={vm.user}"
-                android:theme="@style/MainEditTextTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:hint="@string/login_user" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/login_password"
-                style="@style/MainEditText.Password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_user"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:text="@={vm.user}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_password_container"
+                style="@style/TextInputLayoutOutlined"
                 android:hint="@string/login_password"
-                android:padding="@dimen/default_margin"
-                android:text="@={vm.password}"
-                android:theme="@style/MainEditTextTheme"
-                app:layout_constraintEnd_toEndOf="@id/login_user"
-                app:layout_constraintStart_toStartOf="@id/login_user"
-                app:layout_constraintTop_toBottomOf="@id/login_user"
-                tools:hint="@string/login_password" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_user_container">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_password"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:text="@={vm.password}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <org.tuvecinoteayuda.view.LoadingButton
                 android:id="@+id/login_button"
@@ -77,13 +81,12 @@
                 android:layout_marginStart="@dimen/default_margin_xxxlarge"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin_xxxlarge"
-                app:layout_constraintEnd_toEndOf="@id/login_password"
-                app:layout_constraintStart_toStartOf="@id/login_password"
-                app:layout_constraintTop_toBottomOf="@id/login_password"
+                app:layout_constraintEnd_toEndOf="@id/login_password_container"
+                app:layout_constraintStart_toStartOf="@id/login_password_container"
+                app:layout_constraintTop_toBottomOf="@id/login_password_container"
                 app:loading_button_text="@string/login_do_login" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_want_to_help"

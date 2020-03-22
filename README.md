@@ -24,4 +24,4 @@ TODO
 
 [MIT License](https://github.com/tu-vecino-te-ayuda/TuVecinoTeAyuda-Android/blob/develop/LICENCE)
 
-Copyright (c) 2020 - Asociación Burgalesa de Ingenieros Informáticos
+Copyright (c) 2020 - [Asociación Burgalesa de Ingenieros Informáticos](https://abi2burgos.es/)
