@@ -23,8 +23,8 @@ class AssociationsRepository(
         return safeApiCall(dispatcher) { api.detachAssociation(id) }
     }
 
-    suspend fun getMyAssociations(): ResultWrapper<AssociationListResponse> {
-        return safeApiCall(dispatcher) { api.getMyAssociations() }
+    suspend fun getAssociationMembers(): ResultWrapper<AssociationListResponse> {
+        return safeApiCall(dispatcher) { api.getAssociationMembers() }
     }
 
     suspend fun getAllAssociations(): ResultWrapper<AssociationListResponse> {

@@ -15,7 +15,7 @@ interface AssociationApi {
     fun detachAssociation(@Path("id") id: String): MessageResponse
 
     @GET("/user/associates")
-    fun getMyAssociations(): AssociationListResponse
+    fun getAssociationMembers(): AssociationListResponse
 
     @GET("/user/associates")
     fun getAllAssociations(): AssociationListResponse
