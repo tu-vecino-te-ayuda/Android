@@ -9,14 +9,14 @@ import retrofit2.http.Path
 interface AssociationApi {
 
     @POST("user/association/join/{id}")
-    fun joinAssociation(@Path("id") id: String): MessageResponse
+    suspend fun joinAssociation(@Path("id") id: String): MessageResponse
 
     @POST("user/association/detach/{id}")
-    fun detachAssociation(@Path("id") id: String): MessageResponse
+    suspend fun detachAssociation(@Path("id") id: String): MessageResponse
 
-    @GET("/user/associates")
-    fun getAssociationMembers(): AssociationListResponse
+    @GET("user/associates")
+    suspend fun getAssociationMembers(): AssociationListResponse
 
-    @GET("/user/associates")
-    fun getAllAssociations(): AssociationListResponse
+    @GET("user/associates")
+    suspend fun getAllAssociations(): AssociationListResponse
 }

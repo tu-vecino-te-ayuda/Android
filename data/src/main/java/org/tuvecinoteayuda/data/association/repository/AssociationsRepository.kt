@@ -15,11 +15,11 @@ class AssociationsRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseRepository() {
 
-    suspend fun joinAssocitation(id: String): ResultWrapper<MessageResponse> {
+    suspend fun joinAssociation(id: String): ResultWrapper<MessageResponse> {
         return safeApiCall(dispatcher) { api.joinAssociation(id) }
     }
 
-    suspend fun detachAssocitation(id: String): ResultWrapper<MessageResponse> {
+    suspend fun detachAssociation(id: String): ResultWrapper<MessageResponse> {
         return safeApiCall(dispatcher) { api.detachAssociation(id) }
     }
 

@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.data.helprequests
+package org.tuvecinoteayuda.data.helprequests.api
 
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse

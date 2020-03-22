@@ -56,10 +56,10 @@ class AssociationRepositoryTest {
                 Gson().fromJson<MessageResponse>(JOIN_ASSOCIATION_RESPONSE_OK, MessageResponse::class.java)
 
             coEvery {
-                repository.joinAssocitation(any())
+                repository.joinAssociation(any())
             } returns ResultWrapper.Success(message)
 
-            val result =   repository.joinAssocitation("")
+            val result =   repository.joinAssociation("")
             assertEquals(ResultWrapper.Success(message), result)
         }
     }
@@ -71,10 +71,10 @@ class AssociationRepositoryTest {
                 Gson().fromJson<MessageResponse>(DETACH_ASSOCIATIONS_RESPONSE_OK, MessageResponse::class.java)
 
             coEvery {
-                repository.detachAssocitation(any())
+                repository.detachAssociation(any())
             } returns ResultWrapper.Success(message)
 
-            val result =   repository.detachAssocitation("")
+            val result =   repository.detachAssociation("")
             assertEquals(ResultWrapper.Success(message), result)
         }
     }
