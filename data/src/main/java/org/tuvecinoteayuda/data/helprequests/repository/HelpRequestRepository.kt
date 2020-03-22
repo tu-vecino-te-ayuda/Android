@@ -7,7 +7,7 @@ import org.tuvecinoteayuda.data.CommonInterceptor
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.ServiceFactory
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
-import org.tuvecinoteayuda.data.helprequests.HelpRequestApi
+import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 
