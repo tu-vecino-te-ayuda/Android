@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
+import org.tuvecinoteayuda.register.RegisterFragmentDirections.actionRegisterFragmentToRegionsFragment
 
 class RegisterFragment : Fragment() {
 
@@ -30,8 +32,20 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setupListeners()
+    }
+
     override fun onResume() {
         super.onResume()
         viewModel.start(RegisterType.values()[args.registerType])
     }
+
+    private fun setupListeners() {
+        binding.loginButton.setOnButtonClickListener {
+            findNavController().navigate(actionRegisterFragmentToRegionsFragment())
+        }
+    }
+
 }

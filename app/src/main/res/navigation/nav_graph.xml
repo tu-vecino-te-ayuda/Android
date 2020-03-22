@@ -66,11 +66,25 @@
             android:name="registerType"
             android:defaultValue="0"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_registerFragment_to_regionsFragment"
+            app:destination="@id/regionsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
     </fragment>
 
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="org.tuvecinoteayuda.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
+
+    <fragment
+        android:id="@+id/regionsFragment"
+        android:name="org.tuvecinoteayuda.regions.RegionsFragment"
+        android:label="RegionsFragment" />
 
 </navigation>
