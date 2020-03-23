@@ -22,7 +22,6 @@ import org.tuvecinoteayuda.view.removeErrorOnTyping
 import org.tuvecinoteayuda.view.setMaxLenght
 import org.tuvecinoteayuda.view.showOrHide
 import org.tuvecinoteayuda.view.showSnackBarError
-import org.tuvecinoteayuda.view.showToast
 
 class RegisterFragment : Fragment() {
 
@@ -30,9 +29,9 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance() }
 
+    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
     private val regionsAdapter by lazy { AutoCompleteAdapter<Region>(requireContext()) }
     private val citiesAdapter by lazy { AutoCompleteAdapter<City>(requireContext()) }
-    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +43,9 @@ class RegisterFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+            area.setAdapter(areaAdapter)
             region.setAdapter(regionsAdapter)
             city.setAdapter(citiesAdapter)
-            areaId.setAdapter(areaAdapter)
             setupListeners()
             configureViews()
             return root
@@ -78,8 +77,8 @@ class RegisterFragment : Fragment() {
     }
 
     private fun configureViews(){
-        binding.phone.setMaxLenght(RegisterViewModel.MAX_PHONE_LENGHT)
-        binding.postalCode.setMaxLenght(RegisterViewModel.MAX_ZIP_CODE_LENGHT)
+        binding.phone.setMaxLenght(RegisterViewModel.MAX_PHONE_LENGTH)
+        binding.postalCode.setMaxLenght(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
     }
 
     private fun observeViewModelData() {
@@ -89,20 +88,16 @@ class RegisterFragment : Fragment() {
                 else -> binding.registerButton.hideLoading()
             }
         })
-
-        viewModel.showAreaTypeId.observe(viewLifecycleOwner, Observer {show ->
-            binding.areaIdContainer.showOrHide(show)
-        })
-        viewModel.onAreaSuccessEvent.observeEvent(viewLifecycleOwner) { areas ->
+        viewModel.areas.observe(viewLifecycleOwner, Observer { areas ->
             areaAdapter.setData(areas)
-        }
-
+        })
         viewModel.regions.observe(viewLifecycleOwner, Observer { regions ->
             regionsAdapter.setData(regions)
         })
         viewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
             citiesAdapter.setData(cities)
         })
+        // Errors
         viewModel.nameError.observe(viewLifecycleOwner, Observer { error ->
             binding.nameContainer.error =
                 if (error) getString(R.string.register_name_invalid) else null
@@ -123,6 +118,10 @@ class RegisterFragment : Fragment() {
             binding.repeatedPasswordContainer.error =
                 if (error) getString(R.string.register_repeat_password_invalid) else null
         })
+        viewModel.areaError.observe(viewLifecycleOwner, Observer { error ->
+            binding.cityContainer.error =
+                if (error) getString(R.string.register_area_invalid) else null
+        })
         viewModel.regionError.observe(viewLifecycleOwner, Observer { error ->
             binding.regionContainer.error =
                 if (error) getString(R.string.register_region_invalid) else null
@@ -139,7 +138,7 @@ class RegisterFragment : Fragment() {
             binding.postalCodeContainer.error =
                 if (error) getString(R.string.register_postal_code_invalid) else null
         })
-
+        // Navigation
         viewModel.onRegisterSuccessEvent.observeEvent(viewLifecycleOwner) {
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFormFragmentToDashboardFragment())
         }

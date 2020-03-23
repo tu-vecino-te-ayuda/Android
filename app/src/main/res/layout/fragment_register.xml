@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="org.tuvecinoteayuda.register.RegisterViewModel" />
@@ -113,25 +115,26 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/area_id_container"
+                android:id="@+id/area_container"
                 style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
-                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:hint="@string/register_area"
+                android:visibility="@{vm.areas.size() == 0 ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/repeated_password_container">
 
                 <AutoCompleteTextView
-                    android:id="@+id/area_id"
+                    android:id="@+id/area"
                     style="@style/AutoCompleteTextView"
-                    android:editable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
                     android:inputType="none"
                     android:maxLines="1"
-                android:hint="@string/register_area"
-                />
+                    android:text="@={vm.area}" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -140,7 +143,7 @@
                 android:hint="@string/register_region"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/area_id_container">
+                app:layout_constraintTop_toBottomOf="@+id/area_container">
 
                 <AutoCompleteTextView
                     android:id="@+id/region"

@@ -23,9 +23,6 @@ class RegisterViewModel(
         get() = _screenState
 
     // Events
-    private val _onAreasSuccessEvent = MutableLiveData<Event<List<NearByAreaTypeId>>>()
-    val onAreaSuccessEvent: LiveData<Event<List<NearByAreaTypeId>>>
-        get() = _onAreasSuccessEvent
     private val _onRegisterSuccessEvent = MutableLiveData<Event<Unit>>()
     val onRegisterSuccessEvent: LiveData<Event<Unit>>
         get() = _onRegisterSuccessEvent
@@ -34,7 +31,7 @@ class RegisterViewModel(
         get() = _onRegisterFailedEvent
 
     // Data - form
-    private lateinit var registerType: RegisterType
+    private var registerType = MutableLiveData<RegisterType>()
     val name = MutableLiveData<String>()
     private val _nameError = MutableLiveData(false)
     val nameError: LiveData<Boolean>
@@ -63,6 +60,10 @@ class RegisterViewModel(
     private val _cityError = MutableLiveData(false)
     val cityError: LiveData<Boolean>
         get() = _cityError
+    val area = MutableLiveData<String>()
+    private val _areaError = MutableLiveData(false)
+    val areaError: LiveData<Boolean>
+        get() = _areaError
     val address = MutableLiveData<String>()
     private val _addressError = MutableLiveData(false)
     val addressError: LiveData<Boolean>
@@ -75,9 +76,6 @@ class RegisterViewModel(
     private val _termsAndConditionsError = MutableLiveData<Event<Unit>>()
     val termsAndConditionsError: LiveData<Event<Unit>>
         get() = _termsAndConditionsError
-    val showAreaTypeId = MutableLiveData(false)
-    private val _showAreaSelector: MutableLiveData<Boolean>
-        get() = showAreaTypeId
 
     // Data
     val regions = liveData(Dispatchers.IO) {
@@ -86,32 +84,16 @@ class RegisterViewModel(
     val cities = Transformations.map(region) { regionName ->
         regionRepository.getCitiesFromRegion(regionName)
     }
+    val areas = Transformations.map(registerType) { registerType ->
+        when(registerType) {
+            RegisterType.Voluntary -> registerRepository.getNearByAreaType()
+            else -> listOf()
+        }
+    }
 
     fun start(registerType: RegisterType) {
         if (_screenState.value != ScreenState.INITIAL) return
-        this.registerType = registerType
-
-        when (this.registerType) {
-            RegisterType.Voluntary -> {
-                getAreas()
-            }
-            else -> {
-                _showAreaSelector.postValue(false)
-            }
-        }
-    }
-
-    private fun getAreas() {
-        viewModelScope.launch {
-            val areasList = registerRepository.getNearByAreaType()
-            onAreasSuccess(areasList)
-        }
-    }
-
-    private fun onAreasSuccess(areasList: List<NearByAreaTypeId>) {
-        _screenState.value = ScreenState.DATA_LOADED
-        _showAreaSelector.postValue(true)
-        _onAreasSuccessEvent.postValue(Event(areasList))
+        this.registerType.postValue(registerType)
     }
 
     fun register() {
@@ -197,9 +179,10 @@ class RegisterViewModel(
                 city = currentCity,
                 state = currentRegion,
                 zipCode = currentPostalCode,
-                userTypeId = when (registerType) {
+                userTypeId = when (registerType.value) {
                     RegisterType.Voluntary -> UserTypeId.VOLUNTARIO_ID
                     RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
+                    else -> error("Invalid register type!")
                 }
             )
             when (response) {
@@ -224,8 +207,8 @@ class RegisterViewModel(
     }
 
     companion object {
-        const val MAX_PHONE_LENGHT = 9
-        const val MAX_ZIP_CODE_LENGHT = 9
+        const val MAX_PHONE_LENGTH = 9
+        const val MAX_ZIP_CODE_LENGTH = 9
         const val MIN_PASSWORD_CHARACTERS = 8
     }
 }

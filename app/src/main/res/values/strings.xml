@@ -40,6 +40,7 @@
     <string name="register_repeat_password">Confirmar Conraseña</string>
     <string name="register_repeat_password_invalid">Las contraseñas no coinciden</string>
     <string name="register_area">Preferencia de desplazamiento</string>
+    <string name="register_area_invalid">Preferencia de desplazamiento no válida</string>
     <string name="register_region">Provincia</string>
     <string name="register_region_invalid">Provincia no válida</string>
     <string name="register_city">Ciudad</string>
