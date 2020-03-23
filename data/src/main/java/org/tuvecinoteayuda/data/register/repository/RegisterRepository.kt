@@ -18,9 +18,8 @@ class RegisterRepository private constructor(
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
-    suspend fun getNearByAreaType(): List<NearByAreaTypeId> {
-
-        return arrayListOf(
+    fun getNearByAreaType(): List<NearByAreaTypeId> {
+        return listOf(
             NearByAreaTypeId.BUILDING,
             NearByAreaTypeId.NEIGHBORHOOD,
             NearByAreaTypeId.CITY,
