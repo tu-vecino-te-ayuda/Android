@@ -60,7 +60,7 @@ class RegisterViewModel(
     private val _cityError = MutableLiveData(false)
     val cityError: LiveData<Boolean>
         get() = _cityError
-    val area = MutableLiveData<String>()
+    val area = MutableLiveData<NearByAreaTypeId>()
     private val _areaError = MutableLiveData(false)
     val areaError: LiveData<Boolean>
         get() = _areaError

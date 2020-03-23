@@ -20,7 +20,6 @@ import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
 import org.tuvecinoteayuda.view.removeErrorOnTyping
 import org.tuvecinoteayuda.view.setMaxLenght
-import org.tuvecinoteayuda.view.showOrHide
 import org.tuvecinoteayuda.view.showSnackBarError
 
 class RegisterFragment : Fragment() {
@@ -65,6 +64,9 @@ class RegisterFragment : Fragment() {
     private fun setupListeners() {
         binding.registerButton.setOnButtonClickListener {
             viewModel.register()
+        }
+        binding.area.setOnItemClickListener { _, _, position, _ ->
+            viewModel.area.value = areaAdapter.getItem(position)
         }
 
         binding.nameContainer.removeErrorOnTyping()
