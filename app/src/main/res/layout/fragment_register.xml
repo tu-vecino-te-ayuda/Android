@@ -16,15 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="org.tuvecinoteayuda.register.RegisterFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/form_background"
             android:padding="@dimen/activity_horizontal_margin">
 
@@ -34,7 +35,8 @@
                 android:hint="@string/register_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/ic_person_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
@@ -51,7 +53,8 @@
                 android:hint="@string/register_email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_container">
+                app:layout_constraintTop_toBottomOf="@id/name_container"
+                app:startIconDrawable="@drawable/ic_email_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
@@ -68,7 +71,8 @@
                 android:hint="@string/register_phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_container">
+                app:layout_constraintTop_toBottomOf="@id/email_container"
+                app:startIconDrawable="@drawable/ic_local_phone_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
@@ -86,7 +90,8 @@
                 app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phone_container">
+                app:layout_constraintTop_toBottomOf="@id/phone_container"
+                app:startIconDrawable="@drawable/ic_lock_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
@@ -94,24 +99,6 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:text="@={vm.password}" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/repeated_password_container"
-                style="@style/TextInputLayoutOutlined"
-                android:hint="@string/register_repeat_password"
-                app:endIconMode="password_toggle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_container">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/repeated_password"
-                    style="@style/TextInputEditTextOutlined"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:text="@={vm.repeatedPassword}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +111,8 @@
                 android:visibility="@{vm.areas.size() == 0 ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/repeated_password_container">
+                app:layout_constraintTop_toBottomOf="@id/password_container"
+                app:startIconDrawable="@drawable/ic_map_black_24dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/area"
@@ -138,12 +126,30 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_container"
+                style="@style/TextInputLayoutOutlined"
+                android:hint="@string/register_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/area_container"
+                app:startIconDrawable="@drawable/ic_place_black_24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    style="@style/TextInputEditTextOutlined"
+                    android:inputType="textPostalAddress"
+                    android:maxLines="1"
+                    android:text="@={vm.address}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/region_container"
                 style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
                 android:hint="@string/register_region"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/area_container">
+                app:layout_constraintTop_toBottomOf="@+id/address_container">
 
                 <AutoCompleteTextView
                     android:id="@+id/region"
@@ -157,8 +163,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/city_container"
                 style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_marginEnd="4dp"
+                android:enabled="@{vm.cities.size() == 0 ? false : true}"
                 android:hint="@string/register_city"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/postal_code_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/region_container">
 
@@ -172,29 +181,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/address_container"
-                style="@style/TextInputLayoutOutlined"
-                android:hint="@string/register_address"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/city_container">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address"
-                    style="@style/TextInputEditTextOutlined"
-                    android:inputType="textPostalAddress"
-                    android:maxLines="1"
-                    android:text="@={vm.address}" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/postal_code_container"
                 style="@style/TextInputLayoutOutlined"
+                android:layout_width="0dp"
+                android:layout_marginStart="4dp"
+                android:enabled="@{vm.cities.size() == 0 ? false : true}"
                 android:hint="@string/register_postal_code"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address_container">
+                app:layout_constraintStart_toEndOf="@id/city_container"
+                app:layout_constraintTop_toBottomOf="@id/region_container">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/postal_code"

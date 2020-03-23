@@ -30,54 +30,60 @@ class RegisterViewModel(
     val onRegisterFailedEvent: LiveData<Event<Unit>>
         get() = _onRegisterFailedEvent
 
-    // Data - form
+    // Form fields
     private var registerType = MutableLiveData<RegisterType>()
+
     val name = MutableLiveData<String>()
     private val _nameError = MutableLiveData(false)
     val nameError: LiveData<Boolean>
         get() = _nameError
+
     val email = MutableLiveData<String>()
     private val _emailError = MutableLiveData(false)
     val emailError: LiveData<Boolean>
         get() = _emailError
+
     val phone = MutableLiveData<String>()
     private val _phoneError = MutableLiveData(false)
     val phoneError: LiveData<Boolean>
         get() = _phoneError
+
     val password = MutableLiveData<String>()
     private val _passwordError = MutableLiveData(false)
     val passwordError: LiveData<Boolean>
         get() = _passwordError
-    val repeatedPassword = MutableLiveData<String>()
-    private val _repeatedPasswordError = MutableLiveData(false)
-    val repeatedPasswordError: LiveData<Boolean>
-        get() = _repeatedPasswordError
-    val region = MutableLiveData<String>()
-    private val _regionError = MutableLiveData(false)
-    val regionError: LiveData<Boolean>
-        get() = _regionError
-    val city = MutableLiveData<String>()
-    private val _cityError = MutableLiveData(false)
-    val cityError: LiveData<Boolean>
-        get() = _cityError
+
     val area = MutableLiveData<NearByAreaTypeId>()
     private val _areaError = MutableLiveData(false)
     val areaError: LiveData<Boolean>
         get() = _areaError
+
     val address = MutableLiveData<String>()
     private val _addressError = MutableLiveData(false)
     val addressError: LiveData<Boolean>
         get() = _addressError
+
+    val region = MutableLiveData<String>()
+    private val _regionError = MutableLiveData(false)
+    val regionError: LiveData<Boolean>
+        get() = _regionError
+
+    val city = MutableLiveData<String>()
+    private val _cityError = MutableLiveData(false)
+    val cityError: LiveData<Boolean>
+        get() = _cityError
+
     val postalCode = MutableLiveData<String>()
     private val _postalCodeError = MutableLiveData(false)
     val postalCodeError: LiveData<Boolean>
         get() = _postalCodeError
+
     val termsAndConditions = MutableLiveData<Boolean>()
     private val _termsAndConditionsError = MutableLiveData<Event<Unit>>()
     val termsAndConditionsError: LiveData<Event<Unit>>
         get() = _termsAndConditionsError
 
-    // Data
+    // Spinners data
     val regions = liveData(Dispatchers.IO) {
         emit(regionRepository.getRegions())
     }
@@ -128,13 +134,17 @@ class RegisterViewModel(
                 onInvalidData()
                 return@launch
             }
-            // Repeated password
-            val currentRepeatedPassword = repeatedPassword.value
-            if (currentRepeatedPassword.isNullOrBlank()
-                || currentRepeatedPassword != currentPassword
-                || currentRepeatedPassword.length < MIN_PASSWORD_CHARACTERS
-            ) {
-                _repeatedPasswordError.postValue(true)
+            // Area
+            val currentArea = area.value
+            if (currentArea != null) {
+                _areaError.postValue(true)
+                onInvalidData()
+                return@launch
+            }
+            // Address
+            val currentAddress = address.value
+            if (currentAddress.isNullOrBlank()) {
+                _addressError.postValue(true)
                 onInvalidData()
                 return@launch
             }
@@ -152,13 +162,6 @@ class RegisterViewModel(
                 onInvalidData()
                 return@launch
             }
-            // Address
-            val currentAddress = address.value
-            if (currentAddress.isNullOrBlank()) {
-                _addressError.postValue(true)
-                onInvalidData()
-                return@launch
-            }
             // Postal code
             val currentPostalCode = postalCode.value
             if (currentPostalCode.isNullOrBlank()) {
@@ -166,15 +169,13 @@ class RegisterViewModel(
                 onInvalidData()
                 return@launch
             }
-
             // Call register endpoint
-            //TODO ADD AREA TYPE
             val response = registerRepository.registerUser(
                 name = currentName,
                 email = currentEmail,
                 phone = currentPhone,
                 password = currentPassword,
-                passwordConfirmation = currentRepeatedPassword,
+                passwordConfirmation = currentPassword,
                 address = currentAddress,
                 city = currentCity,
                 state = currentRegion,
@@ -183,7 +184,8 @@ class RegisterViewModel(
                     RegisterType.Voluntary -> UserTypeId.VOLUNTARIO_ID
                     RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
                     else -> error("Invalid register type!")
-                }
+                },
+                activityAreaType = currentArea?.id
             )
             when (response) {
                 is ResultWrapper.Success -> onRegisterSuccess(response.value)

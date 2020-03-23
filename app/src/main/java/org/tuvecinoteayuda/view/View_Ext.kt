@@ -27,7 +27,7 @@ fun TextInputLayout?.removeErrorOnTyping() {
     this?.editText?.addTextChangedListener { this.error = null }
 }
 
-fun TextInputEditText?.setMaxLenght(maxLength: Int) {
+fun TextInputEditText?.setMaxLength(maxLength: Int) {
     this?.filters = arrayOf<InputFilter>(LengthFilter(maxLength))
 }
 

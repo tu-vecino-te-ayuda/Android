@@ -19,7 +19,7 @@ import org.tuvecinoteayuda.utils.AutoCompleteAdapter
 import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
 import org.tuvecinoteayuda.view.removeErrorOnTyping
-import org.tuvecinoteayuda.view.setMaxLenght
+import org.tuvecinoteayuda.view.setMaxLength
 import org.tuvecinoteayuda.view.showSnackBarError
 
 class RegisterFragment : Fragment() {
@@ -68,28 +68,38 @@ class RegisterFragment : Fragment() {
         binding.area.setOnItemClickListener { _, _, position, _ ->
             viewModel.area.value = areaAdapter.getItem(position)
         }
-
         binding.nameContainer.removeErrorOnTyping()
         binding.emailContainer.removeErrorOnTyping()
         binding.phoneContainer.removeErrorOnTyping()
         binding.passwordContainer.removeErrorOnTyping()
-        binding.repeatedPasswordContainer.removeErrorOnTyping()
-        binding.postalCodeContainer.removeErrorOnTyping()
         binding.addressContainer.removeErrorOnTyping()
+        binding.regionContainer.removeErrorOnTyping()
+        binding.cityContainer.removeErrorOnTyping()
+        binding.postalCodeContainer.removeErrorOnTyping()
     }
 
-    private fun configureViews(){
-        binding.phone.setMaxLenght(RegisterViewModel.MAX_PHONE_LENGTH)
-        binding.postalCode.setMaxLenght(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
+    private fun configureViews() {
+        binding.phone.setMaxLength(RegisterViewModel.MAX_PHONE_LENGTH)
+        binding.postalCode.setMaxLength(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
     }
 
     private fun observeViewModelData() {
+        observeScreenState()
+        observeSpinnersData()
+        observeFieldsErrors()
+        observeNavigationEvents()
+    }
+
+    private fun observeScreenState() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
                 ScreenState.LOADING_DATA -> binding.registerButton.showLoading()
                 else -> binding.registerButton.hideLoading()
             }
         })
+    }
+
+    private fun observeSpinnersData() {
         viewModel.areas.observe(viewLifecycleOwner, Observer { areas ->
             areaAdapter.setData(areas)
         })
@@ -99,7 +109,9 @@ class RegisterFragment : Fragment() {
         viewModel.cities.observe(viewLifecycleOwner, Observer { cities ->
             citiesAdapter.setData(cities)
         })
-        // Errors
+    }
+
+    private fun observeFieldsErrors() {
         viewModel.nameError.observe(viewLifecycleOwner, Observer { error ->
             binding.nameContainer.error =
                 if (error) getString(R.string.register_name_invalid) else null
@@ -115,10 +127,6 @@ class RegisterFragment : Fragment() {
         viewModel.passwordError.observe(viewLifecycleOwner, Observer { error ->
             binding.passwordContainer.error =
                 if (error) getString(R.string.register_password_invalid) else null
-        })
-        viewModel.repeatedPasswordError.observe(viewLifecycleOwner, Observer { error ->
-            binding.repeatedPasswordContainer.error =
-                if (error) getString(R.string.register_repeat_password_invalid) else null
         })
         viewModel.areaError.observe(viewLifecycleOwner, Observer { error ->
             binding.cityContainer.error =
@@ -140,7 +148,9 @@ class RegisterFragment : Fragment() {
             binding.postalCodeContainer.error =
                 if (error) getString(R.string.register_postal_code_invalid) else null
         })
-        // Navigation
+    }
+
+    private fun observeNavigationEvents() {
         viewModel.onRegisterSuccessEvent.observeEvent(viewLifecycleOwner) {
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFormFragmentToDashboardFragment())
         }
