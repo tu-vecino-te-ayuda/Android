@@ -65,6 +65,10 @@ ext {
         return System.getenv()["RELEASE_KEY_PASS"]
     }
 
+    getGradlePlayPublisherServiceAccCredentials = { ->
+        return file('secrets/gradle-play-publisher-service-acc-credentials.json')
+    }
+
     isRunningInCI = { ->
         return System.getenv()["GITHUB_ACTIONS"] as Boolean ?: false
     }

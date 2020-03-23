@@ -3,10 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: "com.github.triplet.play"
 
 ext.versionMajor = 0  // API Changes, adding big new feature, redesign the App
 ext.versionMinor = 1  // New features in a backwards-compatible manner
-ext.versionPatch = 1  // Backwards-compatible bug fixes
+ext.versionPatch = 3  // Backwards-compatible bug fixes
 ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
 android {
@@ -60,6 +61,13 @@ android {
     }
 }
 
+play {
+    serviceAccountCredentials = getGradlePlayPublisherServiceAccCredentials()
+    defaultToAppBundles = true
+    track = 'internal'
+    retain.artifacts = [generateVersionCode(versionMajor, versionMinor, versionPatch)]
+}
+
 dependencies {
     implementation project(":data")
 
@@ -70,7 +78,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.0'
     // JetPack : https://developer.android.com/jetpack/androidx/releases/
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.2.2'
+    implementation 'androidx.fragment:fragment-ktx:1.2.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
