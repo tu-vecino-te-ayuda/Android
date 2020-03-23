@@ -4,21 +4,24 @@ import androidx.annotation.IntDef
 import com.google.gson.annotations.SerializedName
 
 data class UserTypeId(
+    @field:SerializedName("id")
+    @UserType val id: Int,
 
-	@field:SerializedName("name")
-	val name: String? = null,
+    @field:SerializedName("name")
+    val name: String
+) {
+    companion object {
 
-	@field:SerializedName("id")
-	val id: Int? = null
-){
-	companion object {
+        @IntDef(SOLICITANTE_ID, VOLUNTARIO_ID, ENTIDAD_ID)
+        @Retention(AnnotationRetention.SOURCE)
+        annotation class UserType
 
-		@IntDef(SOLICITANTE, VOLUNTARIO, ENTIDAD)
-		@Retention(AnnotationRetention.SOURCE)
-		annotation class UserType
+        const val SOLICITANTE_ID = 1
+        const val VOLUNTARIO_ID = 2
+        const val ENTIDAD_ID = 3
 
-		const val SOLICITANTE = 1
-		const val VOLUNTARIO = 2
-		const val ENTIDAD = 3
-	}
+        val APPLICANT = UserTypeId(SOLICITANTE_ID, "Solicitante")
+        val VOLUNTARY = UserTypeId(SOLICITANTE_ID, "Voluntario")
+        val ENTITY = UserTypeId(ENTIDAD_ID, "Entidad")
+    }
 }

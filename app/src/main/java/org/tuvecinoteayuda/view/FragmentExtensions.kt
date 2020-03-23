@@ -39,7 +39,7 @@ fun Fragment.showSnackBarError(
 
     view?.also { view ->
         val snackbar = Snackbar.make(view, msg, duration)
-        snackbar?.also {
+        snackbar.also {
             val context = view.context
 
             val group = it.view as ViewGroup

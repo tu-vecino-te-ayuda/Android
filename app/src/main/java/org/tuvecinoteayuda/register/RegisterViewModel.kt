@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
+import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.UserTypeId
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
@@ -22,6 +23,9 @@ class RegisterViewModel(
         get() = _screenState
 
     // Events
+    private val _onAreasSuccessEvent = MutableLiveData<Event<List<NearByAreaTypeId>>>()
+    val onAreaSuccessEvent: LiveData<Event<List<NearByAreaTypeId>>>
+        get() = _onAreasSuccessEvent
     private val _onRegisterSuccessEvent = MutableLiveData<Event<Unit>>()
     val onRegisterSuccessEvent: LiveData<Event<Unit>>
         get() = _onRegisterSuccessEvent
@@ -67,6 +71,13 @@ class RegisterViewModel(
     private val _postalCodeError = MutableLiveData(false)
     val postalCodeError: LiveData<Boolean>
         get() = _postalCodeError
+    val termsAndConditions = MutableLiveData<Boolean>()
+    private val _termsAndConditionsError = MutableLiveData<Event<Unit>>()
+    val termsAndConditionsError: LiveData<Event<Unit>>
+        get() = _termsAndConditionsError
+    val showAreaTypeId = MutableLiveData(false)
+    private val _showAreaSelector: MutableLiveData<Boolean>
+        get() = showAreaTypeId
 
     // Data
     val regions = liveData(Dispatchers.IO) {
@@ -79,6 +90,28 @@ class RegisterViewModel(
     fun start(registerType: RegisterType) {
         if (_screenState.value != ScreenState.INITIAL) return
         this.registerType = registerType
+
+        when (this.registerType) {
+            RegisterType.Voluntary -> {
+                getAreas()
+            }
+            else -> {
+                _showAreaSelector.postValue(false)
+            }
+        }
+    }
+
+    private fun getAreas() {
+        viewModelScope.launch {
+            val areasList = registerRepository.getNearByAreaType()
+            onAreasSuccess(areasList)
+        }
+    }
+
+    private fun onAreasSuccess(areasList: List<NearByAreaTypeId>) {
+        _screenState.value = ScreenState.DATA_LOADED
+        _showAreaSelector.postValue(true)
+        _onAreasSuccessEvent.postValue(Event(areasList))
     }
 
     fun register() {
@@ -153,6 +186,7 @@ class RegisterViewModel(
             }
 
             // Call register endpoint
+            //TODO ADD AREA TYPE
             val response = registerRepository.registerUser(
                 name = currentName,
                 email = currentEmail,
@@ -164,8 +198,8 @@ class RegisterViewModel(
                 state = currentRegion,
                 zipCode = currentPostalCode,
                 userTypeId = when (registerType) {
-                    RegisterType.Voluntary -> UserTypeId.VOLUNTARIO
-                    RegisterType.Requester -> UserTypeId.SOLICITANTE
+                    RegisterType.Voluntary -> UserTypeId.VOLUNTARIO_ID
+                    RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
                 }
             )
             when (response) {

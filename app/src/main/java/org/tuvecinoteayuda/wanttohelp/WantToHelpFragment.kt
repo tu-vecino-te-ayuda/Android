@@ -40,7 +40,7 @@ class WantToHelpFragment : Fragment() {
         binding.wantToHelpButton.setOnClickListener {
             findNavController().navigate(
                 actionWantToHelpFragmentToRegisterFormFragment()
-                    .setRegisterType(RegisterType.Requester.ordinal)
+                    .setRegisterType(RegisterType.Voluntary.ordinal)
             )
         }
     }

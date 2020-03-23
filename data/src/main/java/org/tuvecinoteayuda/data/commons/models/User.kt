@@ -1,40 +1,41 @@
 package org.tuvecinoteayuda.data.commons.models
 
 import com.google.gson.annotations.SerializedName
+import org.tuvecinoteayuda.data.association.models.Association
 
 data class User(
     @field:SerializedName("associations")
-    var associations: List<Any?>? = null,
+    var associations: List<Association>,
 
     @field:SerializedName("address")
-    var address: String? = null,
+    var address: String,
 
     @field:SerializedName("phone")
-    var phone: String? = null,
+    var phone: String,
 
     @field:SerializedName("city")
-    var city: String? = null,
+    var city: String,
 
     @field:SerializedName("user_status_id")
-    var userStatusId: UserStatusId? = null,
+    var userStatusId: UserTypeId,
 
     @field:SerializedName("name")
-    var name: String? = null,
+    var name: String,
 
     @field:SerializedName("user_type_id")
-    var userTypeId: UserTypeId? = null,
+    var userTypeId: UserTypeId,
 
     @field:SerializedName("id")
-    var id: Int? = null,
+    var id: Int,
 
     @field:SerializedName("state")
-    var state: String? = null,
+    var state: String,
 
     @field:SerializedName("nearby_areas_id")
-    var nearbyAreasId: AreaTypeId? = null,
+    var nearbyAreasId: NearByAreaTypeId,
 
     @field:SerializedName("email")
-    var email: String? = null,
+    var email: String,
 
     @field:SerializedName("zip_code")
     var zipCode: String? = null
