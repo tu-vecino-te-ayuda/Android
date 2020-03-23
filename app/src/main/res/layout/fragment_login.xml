@@ -45,7 +45,8 @@
                 android:hint="@string/login_user"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/ic_person_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_user"
@@ -63,7 +64,8 @@
                 app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_user_container">
+                app:layout_constraintTop_toBottomOf="@id/login_user_container"
+                app:startIconDrawable="@drawable/ic_lock_black_24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_password"
