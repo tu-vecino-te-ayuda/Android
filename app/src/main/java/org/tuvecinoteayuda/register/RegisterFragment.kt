@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
+import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
@@ -19,6 +20,7 @@ import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
 import org.tuvecinoteayuda.view.removeErrorOnTyping
 import org.tuvecinoteayuda.view.setMaxLenght
+import org.tuvecinoteayuda.view.showOrHide
 import org.tuvecinoteayuda.view.showSnackBarError
 import org.tuvecinoteayuda.view.showToast
 
@@ -30,6 +32,7 @@ class RegisterFragment : Fragment() {
 
     private val regionsAdapter by lazy { AutoCompleteAdapter<Region>(requireContext()) }
     private val citiesAdapter by lazy { AutoCompleteAdapter<City>(requireContext()) }
+    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +46,7 @@ class RegisterFragment : Fragment() {
             vm = viewModel
             region.setAdapter(regionsAdapter)
             city.setAdapter(citiesAdapter)
+            areaId.setAdapter(areaAdapter)
             setupListeners()
             configureViews()
             return root
@@ -85,6 +89,14 @@ class RegisterFragment : Fragment() {
                 else -> binding.registerButton.hideLoading()
             }
         })
+
+        viewModel.showAreaTypeId.observe(viewLifecycleOwner, Observer {show ->
+            binding.areaIdContainer.showOrHide(show)
+        })
+        viewModel.onAreaSuccessEvent.observeEvent(viewLifecycleOwner) { areas ->
+            areaAdapter.setData(areas)
+        }
+
         viewModel.regions.observe(viewLifecycleOwner, Observer { regions ->
             regionsAdapter.setData(regions)
         })

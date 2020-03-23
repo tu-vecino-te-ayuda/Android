@@ -19,6 +19,10 @@ fun View?.invisible() {
     this?.visibility = View.INVISIBLE
 }
 
+fun View?.showOrHide(show: Boolean) {
+    this?.visibility = if (show) View.VISIBLE else View.GONE
+}
+
 fun TextInputLayout?.removeErrorOnTyping() {
     this?.editText?.addTextChangedListener { this.error = null }
 }

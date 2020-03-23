@@ -1,7 +1,8 @@
 package org.tuvecinoteayuda.data.association.models
 
 import com.google.gson.annotations.SerializedName
-import org.tuvecinoteayuda.data.commons.models.AreaTypeId
+import org.tuvecinoteayuda.data.commons.models.ActivityAreaTypeId
+import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.UserTypeId
 
 data class Association(
@@ -10,7 +11,7 @@ data class Association(
 	val cif: String,
 
 	@field:SerializedName("activity_areas_id")
-	val activityAreasId: AreaTypeId,
+	val activityAreasId: ActivityAreaTypeId,
 
 	@field:SerializedName("city")
 	val city: String,

@@ -113,13 +113,34 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/area_id_container"
+                style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeated_password_container">
+
+                <AutoCompleteTextView
+                    android:id="@+id/area_id"
+                    style="@style/AutoCompleteTextView"
+                    android:editable="false"
+                    android:inputType="none"
+                    android:maxLines="1"
+                android:hint="@string/register_area"
+                />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/region_container"
                 style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
                 android:hint="@string/register_region"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/repeated_password_container">
+                app:layout_constraintTop_toBottomOf="@+id/area_id_container">
 
                 <AutoCompleteTextView
                     android:id="@+id/region"
