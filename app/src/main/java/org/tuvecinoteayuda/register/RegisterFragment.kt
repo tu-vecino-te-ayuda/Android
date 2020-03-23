@@ -18,6 +18,7 @@ import org.tuvecinoteayuda.utils.AutoCompleteAdapter
 import org.tuvecinoteayuda.utils.ScreenState
 import org.tuvecinoteayuda.utils.observeEvent
 import org.tuvecinoteayuda.view.removeErrorOnTyping
+import org.tuvecinoteayuda.view.setMaxLenght
 import org.tuvecinoteayuda.view.showSnackBarError
 import org.tuvecinoteayuda.view.showToast
 
@@ -43,6 +44,7 @@ class RegisterFragment : Fragment() {
             region.setAdapter(regionsAdapter)
             city.setAdapter(citiesAdapter)
             setupListeners()
+            configureViews()
             return root
         }
     }
@@ -58,7 +60,6 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupListeners() {
-
         binding.registerButton.setOnButtonClickListener {
             viewModel.register()
         }
@@ -70,6 +71,11 @@ class RegisterFragment : Fragment() {
         binding.repeatedPasswordContainer.removeErrorOnTyping()
         binding.postalCodeContainer.removeErrorOnTyping()
         binding.addressContainer.removeErrorOnTyping()
+    }
+
+    private fun configureViews(){
+        binding.phone.setMaxLenght(RegisterViewModel.MAX_PHONE_LENGHT)
+        binding.postalCode.setMaxLenght(RegisterViewModel.MAX_ZIP_CODE_LENGHT)
     }
 
     private fun observeViewModelData() {

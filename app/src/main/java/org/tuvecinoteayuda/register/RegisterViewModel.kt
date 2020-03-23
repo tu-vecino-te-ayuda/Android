@@ -99,7 +99,7 @@ class RegisterViewModel(
             }
             // Phone
             val currentPhone = phone.value
-            if (currentPhone.isNullOrBlank()) {
+            if (currentPhone.isNullOrBlank() || currentPhone.length != 9) {
                 _phoneError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -107,7 +107,8 @@ class RegisterViewModel(
             // Password
             val currentPassword = password.value
             if (currentPassword.isNullOrBlank()
-                || currentPassword.length > MAX_PASSWORD_CHARACTERS) {
+                || currentPassword.length < MIN_PASSWORD_CHARACTERS
+            ) {
                 _passwordError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -116,7 +117,7 @@ class RegisterViewModel(
             val currentRepeatedPassword = repeatedPassword.value
             if (currentRepeatedPassword.isNullOrBlank()
                 || currentRepeatedPassword != currentPassword
-                || currentRepeatedPassword.length > MAX_PASSWORD_CHARACTERS
+                || currentRepeatedPassword.length < MIN_PASSWORD_CHARACTERS
             ) {
                 _repeatedPasswordError.postValue(true)
                 onInvalidData()
@@ -167,9 +168,9 @@ class RegisterViewModel(
                     RegisterType.Requester -> UserTypeId.SOLICITANTE
                 }
             )
-            when(response) {
+            when (response) {
                 is ResultWrapper.Success -> onRegisterSuccess(response.value)
-                else  -> onRegisterFailed()
+                else -> onRegisterFailed()
             }
         }
     }
@@ -189,8 +190,8 @@ class RegisterViewModel(
     }
 
     companion object {
-        const val MAX_PASSWORD_CHARACTERS = 8
-        //TODO
-        const val MIN_PASSWORD_CHARACTERS = 4
+        const val MAX_PHONE_LENGHT = 9
+        const val MAX_ZIP_CODE_LENGHT = 9
+        const val MIN_PASSWORD_CHARACTERS = 8
     }
 }
