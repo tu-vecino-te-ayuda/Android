@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import org.tuvecinoteayuda.databinding.FragmentNeedHelpBinding
 import org.tuvecinoteayuda.needhelp.NeedHelpFragmentDirections.actionNeedHelpFragmentToRegisterFormFragment
 import org.tuvecinoteayuda.register.RegisterType
-import org.tuvecinoteayuda.view.showToast
 
 class NeedHelpFragment : Fragment() {
 

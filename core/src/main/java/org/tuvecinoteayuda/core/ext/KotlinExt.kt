@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.data
+package org.tuvecinoteayuda.core.ext
 
 /**
  * Allows an else block for null values

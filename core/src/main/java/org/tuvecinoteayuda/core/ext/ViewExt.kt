@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.view
+package org.tuvecinoteayuda.core.ext
 
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter

@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.utils
+package org.tuvecinoteayuda.core.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
-import org.tuvecinoteayuda.databinding.AutoCompleteTextviewItemBinding
+import org.tuvecinoteayuda.core.databinding.AutoCompleteTextviewItemBinding
 import java.util.*
 
 /**
@@ -103,5 +103,4 @@ class AutoCompleteAdapter<T>(
             return this.trim().toString()
         }
     }
-
 }

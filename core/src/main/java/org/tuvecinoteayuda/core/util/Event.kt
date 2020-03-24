@@ -1,4 +1,6 @@
-package org.tuvecinoteayuda.utils
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+
+package org.tuvecinoteayuda.core.util
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

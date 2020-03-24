@@ -9,8 +9,8 @@ import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.UserTypeId
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
-import org.tuvecinoteayuda.utils.Event
-import org.tuvecinoteayuda.utils.ScreenState
+import org.tuvecinoteayuda.core.util.Event
+import org.tuvecinoteayuda.core.ui.ScreenState
 
 class RegisterViewModel(
     private val regionRepository: RegionRepository,
@@ -200,7 +200,11 @@ class RegisterViewModel(
 
     private fun onRegisterSuccess(authResponse: AuthResponse) {
         _screenState.value = ScreenState.DATA_LOADED
-        _onRegisterSuccessEvent.postValue(Event(Unit))
+        _onRegisterSuccessEvent.postValue(
+            Event(
+                Unit
+            )
+        )
     }
 
     private fun onRegisterFailed() {

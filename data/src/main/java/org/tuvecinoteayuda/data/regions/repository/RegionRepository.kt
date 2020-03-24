@@ -2,9 +2,9 @@ package org.tuvecinoteayuda.data.regions.repository
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.tuvecinoteayuda.core.ext.letOrElse
 import org.tuvecinoteayuda.data.DataContextWrapper
-import org.tuvecinoteayuda.data.getJsonDataFromAsset
-import org.tuvecinoteayuda.data.letOrElse
+import org.tuvecinoteayuda.core.util.getJsonDataFromAsset
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 
@@ -14,7 +14,11 @@ class RegionRepository(private val contextWrapper: DataContextWrapper) {
 
     fun getRegions(): List<Region> {
         return regions.letOrElse({ it }, {
-            val fileData: String? = getJsonDataFromAsset(contextWrapper.context, REGIONS)
+            val fileData: String? =
+                getJsonDataFromAsset(
+                    contextWrapper.context,
+                    REGIONS
+                )
             val regionsListType = object : TypeToken<List<Region>>() {}.type
             return (fileData?.let { Gson().fromJson<List<Region>>(it, regionsListType) }
                 ?: emptyList()).apply { regions = this }

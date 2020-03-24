@@ -76,7 +76,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <org.tuvecinoteayuda.view.LoadingButton
+            <org.tuvecinoteayuda.core.ui.LoadingButton
                 android:id="@+id/login_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/min_tappable_size"

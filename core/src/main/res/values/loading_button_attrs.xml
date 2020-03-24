@@ -6,6 +6,5 @@
 
     <declare-styleable name="LoadingButton">
         <attr name="loading_button_text" format="reference" />
-
     </declare-styleable>
 </resources>

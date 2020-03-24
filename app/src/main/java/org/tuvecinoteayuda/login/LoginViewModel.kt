@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
-import org.tuvecinoteayuda.utils.Event
-import org.tuvecinoteayuda.utils.ScreenState
+import org.tuvecinoteayuda.core.util.Event
+import org.tuvecinoteayuda.core.ui.ScreenState
 
 class LoginViewModel(
     private val repository: LoginRepository
@@ -90,7 +90,11 @@ class LoginViewModel(
 
     private fun onLoginGenericFailed() {
         _screenState.value = ScreenState.DATA_LOADED
-        _onLoginFailedGenericEvent.postValue(Event(Unit))
+        _onLoginFailedGenericEvent.postValue(
+            Event(
+                Unit
+            )
+        )
     }
 
 }

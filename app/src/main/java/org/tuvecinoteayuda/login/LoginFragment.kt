@@ -12,9 +12,9 @@ import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.databinding.FragmentLoginBinding
 import org.tuvecinoteayuda.login.LoginFragmentDirections.*
-import org.tuvecinoteayuda.utils.ScreenState
-import org.tuvecinoteayuda.utils.observeEvent
-import org.tuvecinoteayuda.view.showSnackBarError
+import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.core.ext.showSnackBarError
 
 class LoginFragment : Fragment() {
 

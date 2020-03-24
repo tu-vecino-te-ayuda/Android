@@ -15,12 +15,12 @@ import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
-import org.tuvecinoteayuda.utils.AutoCompleteAdapter
-import org.tuvecinoteayuda.utils.ScreenState
-import org.tuvecinoteayuda.utils.observeEvent
-import org.tuvecinoteayuda.view.removeErrorOnTyping
-import org.tuvecinoteayuda.view.setMaxLength
-import org.tuvecinoteayuda.view.showSnackBarError
+import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
+import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
+import org.tuvecinoteayuda.core.ext.setMaxLength
+import org.tuvecinoteayuda.core.ext.showSnackBarError
 
 class RegisterFragment : Fragment() {
 
@@ -28,9 +28,21 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance() }
 
-    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
-    private val regionsAdapter by lazy { AutoCompleteAdapter<Region>(requireContext()) }
-    private val citiesAdapter by lazy { AutoCompleteAdapter<City>(requireContext()) }
+    private val areaAdapter by lazy {
+        AutoCompleteAdapter<NearByAreaTypeId>(
+            requireContext()
+        )
+    }
+    private val regionsAdapter by lazy {
+        AutoCompleteAdapter<Region>(
+            requireContext()
+        )
+    }
+    private val citiesAdapter by lazy {
+        AutoCompleteAdapter<City>(
+            requireContext()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

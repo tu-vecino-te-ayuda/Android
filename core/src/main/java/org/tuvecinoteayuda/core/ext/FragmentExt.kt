@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.view
+package org.tuvecinoteayuda.core.ext
 
 import android.view.ViewGroup
 import android.widget.Toast
@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import org.tuvecinoteayuda.R
+import org.tuvecinoteayuda.core.R
 
 fun Fragment.showToast(
     @StringRes msg: Int,
@@ -55,4 +55,3 @@ fun Fragment.showSnackBarError(
         }
     }
 }
-

@@ -1,15 +1,13 @@
-package org.tuvecinoteayuda.data
+package org.tuvecinoteayuda.core.util
 
 import android.content.Context
-import okio.IOException
+import java.io.IOException
 
 fun getJsonDataFromAsset(context: Context, fileName: String): String? {
-    val jsonString: String
-    try {
-        jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+    return try {
+        context.assets.open(fileName).bufferedReader().use { it.readText() }
     } catch (ioException: IOException) {
         ioException.printStackTrace()
         return null
     }
-    return jsonString
 }
