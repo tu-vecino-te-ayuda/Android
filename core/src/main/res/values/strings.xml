@@ -50,4 +50,9 @@
     <string name="register_button">Inscribirme</string>
     <string name="register_error">Error en el registro</string>
 
+    <!-- Dashboard -->
+    <string name="dashboard_my_requests">Mis Solicitudes</string>
+    <string name="dashboard_requests">Solicitudes</string>
+    <string name="dashboard_profile">Perfil</string>
+
 </resources>
