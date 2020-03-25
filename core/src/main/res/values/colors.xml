@@ -20,11 +20,13 @@
 
     <color name="h2color">#151516</color>
     <color name="h3color">#151516</color>
+    <color name="h4color">#545454</color>
 
     <!-- Others -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray">#a9a9a9</color>
     <color name="red">#FF6347</color>
+    <color name="pending">#ffc107</color>
 
 </resources>

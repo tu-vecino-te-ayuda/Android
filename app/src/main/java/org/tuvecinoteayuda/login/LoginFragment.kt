@@ -54,6 +54,7 @@ class LoginFragment : Fragment() {
         binding.loginNeedHelp.setOnClickListener {
             findNavController().navigate(actionLoginFragmentToNeedHelpFragment())
         }
+
     }
 
     private fun observeScreenState() {
@@ -62,6 +63,9 @@ class LoginFragment : Fragment() {
                 ScreenState.LOADING_DATA -> binding.loginButton.showLoading()
                 else -> binding.loginButton.hideLoading()
             }
+
+            binding.loginUser.setText("prueba@voluntario.com")
+            binding.loginPassword.setText("xataka123")
         })
         loginViewModel.userError.observe(viewLifecycleOwner, Observer { error ->
             binding.loginUserContainer.error =

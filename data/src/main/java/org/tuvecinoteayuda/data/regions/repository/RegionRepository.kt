@@ -29,6 +29,14 @@ class RegionRepository(private val contextWrapper: DataContextWrapper) {
         return getRegions().firstOrNull { it.name == regionName }?.cities ?: listOf()
     }
 
+    fun getRegionFromId(id: String): Region? {
+        return getRegions().firstOrNull { it.id == id }
+    }
+
+    fun getCityFromId(stateId:String, cityId: String): City? {
+        return getRegions().firstOrNull { it.id == stateId }?.cities?.firstOrNull {it.id == cityId}
+    }
+
     companion object {
         private const val REGIONS: String = "regions.json"
 

@@ -69,6 +69,7 @@
     </style>
 
     <style name="H1">
+        <item name="android:textSize">35sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -80,6 +81,12 @@
     <style name="H3">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/h3color</item>
+    </style>
+
+    <style name="H4">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/h4color</item>
+        <item name="drawableTint">@color/h4color</item>
     </style>
 
     <style name="Spinner" parent="@style/Widget.AppCompat.Spinner.Underlined">
