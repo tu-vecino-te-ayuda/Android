@@ -32,7 +32,6 @@ class DashboardFragment : Fragment() {
             initViews()
             return root
         }
-
     }
 
     private fun initViews() {
@@ -60,7 +59,4 @@ class DashboardFragment : Fragment() {
             adapter.setData(requestList)
         })
     }
-
 }
-
-

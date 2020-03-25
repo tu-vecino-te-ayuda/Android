@@ -3,18 +3,17 @@ package org.tuvecinoteayuda.dashboard
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.CardHelpRequestBinding
 
-class HelpRequestAdapter(private var dataSet: List<HelpRequest>) :
-
-    RecyclerView.Adapter<HelpRequestViewHolder>() {
+class HelpRequestAdapter(
+    private var dataSet: List<HelpRequest>
+) : RecyclerView.Adapter<HelpRequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpRequestViewHolder {
-
-        val view = CardHelpRequestBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
+        val view = CardHelpRequestBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return HelpRequestViewHolder(view)
     }
 
@@ -34,9 +33,8 @@ class HelpRequestAdapter(private var dataSet: List<HelpRequest>) :
         holder.onDisappear()
     }
 
-    fun setData(dataSet: List<HelpRequest>){
+    fun setData(dataSet: List<HelpRequest>) {
         this.dataSet = dataSet
         notifyDataSetChanged()
     }
-
 }
