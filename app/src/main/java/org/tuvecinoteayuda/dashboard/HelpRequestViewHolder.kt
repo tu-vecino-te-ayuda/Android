@@ -14,8 +14,14 @@ class HelpRequestViewHolder(
     private val viewModel: HelpRequestViewModel =
         ViewModelFactory.getInstance().create(HelpRequestViewModel::class.java)
 
+    init {
+        binding.apply {
+            lifecycleOwner = this@HelpRequestViewHolder
+            vm = viewModel
+        }
+    }
+
     fun bind(item: HelpRequest) {
-        binding.vm = viewModel
         binding.item = item
         viewModel.findCityById(item.user.state, item.user.city)
     }

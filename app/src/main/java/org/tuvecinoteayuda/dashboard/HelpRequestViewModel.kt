@@ -8,14 +8,13 @@ import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 
 class HelpRequestViewModel(private val repository: RegionRepository) : ViewModel() {
 
-    val city = MutableLiveData<City>()
-    private val _city: MutableLiveData<City>
-        get() = city
+    private val _city: MutableLiveData<City> = MutableLiveData()
+    val city: LiveData<City>
+        get() = _city
 
     //TODO Move to background
     fun findCityById(stateId: String, cityId: String) {
         val city = repository.getCityFromId(stateId, cityId)
-
         city?.let {
             this._city.postValue(it)
         }

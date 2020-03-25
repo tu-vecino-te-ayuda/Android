@@ -13,10 +13,12 @@ class HelpRequestAdapter(
 ) : RecyclerView.Adapter<HelpRequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpRequestViewHolder {
-        val view = CardHelpRequestBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+        return HelpRequestViewHolder(
+            binding = CardHelpRequestBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            ),
+            parentLifecycle = lifecycleOwner.lifecycle
         )
-        return HelpRequestViewHolder(view, lifecycleOwner.lifecycle)
     }
 
     override fun onBindViewHolder(holder: HelpRequestViewHolder, position: Int) {
