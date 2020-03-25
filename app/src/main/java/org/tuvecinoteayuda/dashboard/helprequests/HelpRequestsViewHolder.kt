@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.dashboard
+package org.tuvecinoteayuda.dashboard.helprequests
 
 import androidx.lifecycle.Lifecycle
 import org.tuvecinoteayuda.ViewModelFactory
@@ -6,17 +6,17 @@ import org.tuvecinoteayuda.core.ui.LifecycleViewHolder
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.CardHelpRequestBinding
 
-class HelpRequestViewHolder(
+class HelpRequestsViewHolder(
     private val binding: CardHelpRequestBinding,
     parentLifecycle: Lifecycle
 ) : LifecycleViewHolder(binding.root, parentLifecycle) {
 
-    private val viewModel: HelpRequestViewModel =
-        ViewModelFactory.getInstance().create(HelpRequestViewModel::class.java)
+    private val viewModel: HelpRequestsViewModel =
+        ViewModelFactory.getInstance().create(HelpRequestsViewModel::class.java)
 
     init {
         binding.apply {
-            lifecycleOwner = this@HelpRequestViewHolder
+            lifecycleOwner = this@HelpRequestsViewHolder
             vm = viewModel
         }
     }

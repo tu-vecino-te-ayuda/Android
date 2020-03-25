@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.dashboard
+package org.tuvecinoteayuda.dashboard.helprequests
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 
-class HelpRequestViewModel(private val repository: RegionRepository) : ViewModel() {
+class HelpRequestsViewModel(private val repository: RegionRepository) : ViewModel() {
 
     private val _city: MutableLiveData<City> = MutableLiveData()
     val city: LiveData<City>

@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.dashboard
+package org.tuvecinoteayuda.dashboard.helprequests
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.CardHelpRequestBinding
 
-class HelpRequestAdapter(
+class HelpRequestsAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private var dataSet: List<HelpRequest> = emptyList()
-) : RecyclerView.Adapter<HelpRequestViewHolder>() {
+) : RecyclerView.Adapter<HelpRequestsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpRequestViewHolder {
-        return HelpRequestViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpRequestsViewHolder {
+        return HelpRequestsViewHolder(
             binding = CardHelpRequestBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ),
@@ -21,18 +21,18 @@ class HelpRequestAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: HelpRequestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HelpRequestsViewHolder, position: Int) {
         holder.bind(dataSet[position])
     }
 
     override fun getItemCount() = dataSet.size
 
-    override fun onViewAttachedToWindow(holder: HelpRequestViewHolder) {
+    override fun onViewAttachedToWindow(holder: HelpRequestsViewHolder) {
         super.onViewAttachedToWindow(holder)
         holder.onAppear()
     }
 
-    override fun onViewDetachedFromWindow(holder: HelpRequestViewHolder) {
+    override fun onViewDetachedFromWindow(holder: HelpRequestsViewHolder) {
         super.onViewDetachedFromWindow(holder)
         holder.onDisappear()
     }

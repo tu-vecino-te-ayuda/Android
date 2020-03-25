@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
+import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels { ViewModelFactory.getInstance() }
-    private val adapter: HelpRequestAdapter by lazy { HelpRequestAdapter(viewLifecycleOwner) }
+    private val adapter: HelpRequestsAdapter by lazy {
+        HelpRequestsAdapter(
+            viewLifecycleOwner
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +39,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViews() {
-        binding.requestList.layoutManager = LinearLayoutManager(requireContext())
-        binding.requestList.adapter = adapter
-        binding.requestList.addItemDecoration(
-            VerticalItemDecorator(
-                resources.getDimension(R.dimen.spacing_2x_large).toInt()
+        binding.requestList.apply {
+            adapter = this@DashboardFragment.adapter
+            addItemDecoration(
+                VerticalItemDecorator(resources.getDimension(R.dimen.spacing_2x_large).toInt())
             )
-        )
+        }
     }
 
     override fun onResume() {

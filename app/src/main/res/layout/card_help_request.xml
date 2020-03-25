@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="org.tuvecinoteayuda.dashboard.HelpRequestViewModel" />
+            type="org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsViewModel" />
 
         <variable
             name="item"
