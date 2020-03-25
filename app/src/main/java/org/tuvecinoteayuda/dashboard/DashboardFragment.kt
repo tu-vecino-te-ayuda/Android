@@ -17,7 +17,7 @@ class DashboardFragment : Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels { ViewModelFactory.getInstance() }
-    private val adapter: HelpRequestAdapter = HelpRequestAdapter(emptyList())
+    private val adapter: HelpRequestAdapter by lazy { HelpRequestAdapter(viewLifecycleOwner) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

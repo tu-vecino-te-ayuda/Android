@@ -6,9 +6,16 @@
 
     <data>
 
+        <import type="org.tuvecinoteayuda.core.util.DateUtilsKt" />
+
         <variable
             name="vm"
-            type="org.tuvecinoteayuda.dashboard.DashboardViewModel" />
+            type="org.tuvecinoteayuda.dashboard.HelpRequestViewModel" />
+
+        <variable
+            name="item"
+            type="org.tuvecinoteayuda.data.helprequests.models.HelpRequest" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,14 +26,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin">
 
             <View
                 android:id="@+id/state"
-                android:background="@color/pending"
                 android:layout_width="10dp"
                 android:layout_height="0dp"
+                android:background="@color/pending"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin"
+                android:text="@{item.helpRequestType.name}"
                 app:layout_constraintBottom_toTopOf="@id/subtitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/state"
@@ -50,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
+                android:text="@{item.message}"
                 app:layout_constraintBottom_toBottomOf="@id/date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/state"
@@ -59,13 +68,14 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
                 style="@style/H4"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:drawablePadding="@dimen/spacing_large"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
                 android:drawableStart="@drawable/ic_date_range_black_24dp"
+                android:drawablePadding="@dimen/spacing_large"
+                android:text="@{DateUtilsKt.formatDate(item.createdAt)}"
+                android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/location"
                 app:layout_constraintStart_toEndOf="@id/state"
@@ -75,13 +85,14 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/location"
                 style="@style/H4"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:drawablePadding="@dimen/spacing_large"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
                 android:drawableStart="@drawable/ic_location_on_black_24dp"
+                android:drawablePadding="@dimen/spacing_large"
+                android:text="@{vm.city.name}"
+                android:textAlignment="textStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/date"
