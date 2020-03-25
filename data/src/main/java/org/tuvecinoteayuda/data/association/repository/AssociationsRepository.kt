@@ -2,10 +2,7 @@ package org.tuvecinoteayuda.data.association.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.tuvecinoteayuda.data.BaseRepository
-import org.tuvecinoteayuda.data.CommonInterceptor
-import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.ServiceFactory
+import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.association.api.AssociationApi
 import org.tuvecinoteayuda.data.association.models.AssociationListResponse
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
@@ -34,7 +31,7 @@ class AssociationsRepository(
     companion object {
         fun newInstance(dispatcher: CoroutineDispatcher): AssociationsRepository {
             return AssociationsRepository(
-                ServiceFactory.create(CommonInterceptor.newInstance()), dispatcher
+                ServiceFactory.create(CommonInterceptor.newInstance(TokenProvider)), dispatcher
             )
         }
     }

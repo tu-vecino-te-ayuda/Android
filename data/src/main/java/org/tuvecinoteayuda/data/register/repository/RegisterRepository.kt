@@ -2,10 +2,7 @@ package org.tuvecinoteayuda.data.register.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.tuvecinoteayuda.data.BaseRepository
-import org.tuvecinoteayuda.data.CommonInterceptor
-import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.ServiceFactory
+import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.ActivityAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
@@ -15,7 +12,8 @@ import org.tuvecinoteayuda.data.register.models.RegisterUserRequest
 
 class RegisterRepository private constructor(
     private val api: RegisterApi,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val tokenProvider: TokenProvider
 ) : BaseRepository() {
 
     fun getNearByAreaType(): List<NearByAreaTypeId> {
@@ -49,14 +47,21 @@ class RegisterRepository private constructor(
             city, state, zipCode, corporateName, cif, userTypeId, nearbyAreasId, activityAreaType
         )
 
-        return safeApiCall(dispatcher) { api.registerUser(request) }
+        val register = safeApiCall(dispatcher) { api.registerUser(request) }
+
+        when (register) {
+            is ResultWrapper.Success -> tokenProvider.token = register.value.token
+        }
+
+        return register
     }
 
     companion object {
         fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): RegisterRepository {
             return RegisterRepository(
-                ServiceFactory.create(CommonInterceptor.newInstance()),
-                dispatcher
+                ServiceFactory.create(CommonInterceptor.newInstance(TokenProvider)),
+                dispatcher,
+                TokenProvider
             )
         }
     }

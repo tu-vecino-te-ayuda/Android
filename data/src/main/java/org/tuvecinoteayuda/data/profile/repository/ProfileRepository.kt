@@ -2,10 +2,7 @@ package org.tuvecinoteayuda.data.profile.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.tuvecinoteayuda.data.BaseRepository
-import org.tuvecinoteayuda.data.CommonInterceptor
-import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.ServiceFactory
+import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.User
 import org.tuvecinoteayuda.data.profile.api.UserApi
 import org.tuvecinoteayuda.data.profile.models.ProfileResponse
@@ -25,10 +22,11 @@ class ProfileRepository private constructor(
     }
 
     companion object {
-        
+
         fun newInstance(dispatcher: CoroutineDispatcher): ProfileRepository {
             return ProfileRepository(
-                ServiceFactory.create<UserApi>(CommonInterceptor.newInstance()), dispatcher
+                ServiceFactory.create<UserApi>(CommonInterceptor.newInstance(TokenProvider)),
+                dispatcher
             )
         }
     }

@@ -3,6 +3,8 @@ package org.tuvecinoteayuda
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.tuvecinoteayuda.dashboard.DashboardViewModel
+import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
@@ -23,6 +25,8 @@ class ViewModelFactory private constructor(
                         RegionRepository.newInstance(),
                         RegisterRepository.newInstance()
                     )
+                isAssignableFrom(DashboardViewModel::class.java)->
+                    DashboardViewModel(HelpRequestRepository.newInstance())
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

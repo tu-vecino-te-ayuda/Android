@@ -2,10 +2,7 @@ package org.tuvecinoteayuda.data.helprequests.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.tuvecinoteayuda.data.BaseRepository
-import org.tuvecinoteayuda.data.CommonInterceptor
-import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.ServiceFactory
+import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
@@ -39,7 +36,7 @@ class HelpRequestRepository(
     companion object {
         fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): HelpRequestRepository {
             return HelpRequestRepository(
-                ServiceFactory.create(CommonInterceptor.newInstance()),
+                ServiceFactory.create(CommonInterceptor.newInstance(TokenProvider)),
                 dispatcher
             )
         }
