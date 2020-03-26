@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import org.tuvecinoteayuda.DashboardType
+import org.tuvecinoteayuda.dashboard.DashboardType
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.showSnackBarError
@@ -78,13 +78,13 @@ class LoginFragment : Fragment() {
 
             val type = when (userType.id) {
                 UserTypeId.VOLUNTARIO_ID -> {
-                    DashboardType.Voluntary
+                    DashboardType.VOLUNTARY
                 }
                 UserTypeId.SOLICITANTE_ID -> {
-                    DashboardType.Requester
+                    DashboardType.REQUESTER
                 }
                 else -> {
-                    DashboardType.Voluntary
+                    DashboardType.VOLUNTARY
                 }
             }
             findNavController().navigate(

@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.tuvecinoteayuda.DashboardType
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.hide
@@ -62,7 +60,7 @@ class DashboardFragment : Fragment() {
                     viewModel.getMyRequest()
                 }
                 R.id.pending_request -> {
-                    viewModel.getAllRequest()
+                    viewModel.getPendingRequest()
                 }
 
                 else -> {
@@ -100,6 +98,7 @@ class DashboardFragment : Fragment() {
                 ScreenState.LOADING_DATA -> {
                     showLoading()
                     hideData()
+                    hideEmptyData()
                 }
                 ScreenState.DATA_LOADED -> {
                     hideLoading()
@@ -128,11 +127,17 @@ class DashboardFragment : Fragment() {
         viewModel.onRequestedLoadedEvent.observeEvent(viewLifecycleOwner, {
             binding.bottomNavigation.hide()
         })
+
+        viewModel.onAllRequestEmpty.observeEvent(viewLifecycleOwner, {
+            binding.emptyText.text = getString(R.string.dashboard_all_empty_list)
+        })
+
+        viewModel.onMyRequestEmpty.observeEvent(viewLifecycleOwner, {
+            binding.emptyText.text = getString(R.string.dashboard_mine_empty_list)
+        })
     }
 
     private fun observeViewModelData() {
-
-
         viewModel.allRequest.observe(viewLifecycleOwner, Observer { requestList ->
             adapter.setData(requestList)
         })
@@ -143,11 +148,11 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showLoading() {
-        loading.show()
+        binding.loading.show()
     }
 
     private fun hideLoading() {
-        loading.hide()
+        binding.loading.hide()
     }
 
     private fun showData() {
@@ -159,14 +164,18 @@ class DashboardFragment : Fragment() {
         binding.requestList.hide()
     }
 
+    private fun hideEmptyData() {
+        binding.emptyText.hide()
+    }
+
     private fun showError() {
-        loading.hide()
+        binding.loading.hide()
         binding.requestList.hide()
         binding.emptyText.hide()
     }
 
     private fun showEmptyData() {
-        loading.hide()
+        binding.loading.hide()
         binding.requestList.hide()
         binding.emptyText.show()
 

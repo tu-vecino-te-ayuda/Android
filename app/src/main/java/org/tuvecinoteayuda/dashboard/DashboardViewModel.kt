@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.tuvecinoteayuda.DashboardType
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
@@ -37,6 +36,14 @@ class DashboardViewModel(
     val onVoluntaryLoadedEvent: LiveData<Event<Unit>>
         get() = _onVoluntaryLoadedEvent
 
+    private val _onAllRequestEmpty = MutableLiveData<Event<Unit>>()
+    val onAllRequestEmpty: LiveData<Event<Unit>>
+        get() = _onAllRequestEmpty
+
+    private val _onMyRequestEmpty = MutableLiveData<Event<Unit>>()
+    val onMyRequestEmpty: LiveData<Event<Unit>>
+        get() = _onMyRequestEmpty
+
     //Data
     private val _request = MutableLiveData<List<HelpRequest>>()
     val allRequest: LiveData<List<HelpRequest>>
@@ -46,24 +53,26 @@ class DashboardViewModel(
     val requestError: LiveData<String>
         get() = _requestError
 
-    private var userType: DashboardType = DashboardType.Voluntary
+    private var userType: DashboardType = DashboardType.VOLUNTARY
+    private var requestType: RequestType = RequestType.PENDING
 
     fun start(userType: DashboardType) {
         this.userType = userType
         when (userType) {
-            DashboardType.Requester -> {
+            DashboardType.REQUESTER -> {
                 _onRequestedLoadedEvent.postValue(Event(Unit))
                 getMyRequest()
             }
-            DashboardType.Voluntary -> {
+            DashboardType.VOLUNTARY -> {
                 _onVoluntaryLoadedEvent.postValue(Event(Unit))
-                getAllRequest()
+                getPendingRequest()
             }
         }
     }
 
     //TODO Join this two calls
     fun getMyRequest() {
+        requestType = RequestType.MINE
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
             when (val pendingList = helpRequestRepository.getRequest()) {
@@ -75,7 +84,8 @@ class DashboardViewModel(
     }
 
     //TODO Join this two calls
-    fun getAllRequest() {
+    fun getPendingRequest() {
+        requestType = RequestType.PENDING
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
             when (val requestList = helpRequestRepository.getPendingRequestList()) {
@@ -95,7 +105,17 @@ class DashboardViewModel(
             }
         )
 
-        _showButton.postValue(this.userType == DashboardType.Requester)
+        if (data.isEmpty()) {
+            when (requestType) {
+                RequestType.MINE -> {
+                    _onMyRequestEmpty.postValue(Event(Unit))
+                }
+                RequestType.PENDING -> {
+                    _onAllRequestEmpty.postValue(Event(Unit))
+                }
+            }
+        }
+        _showButton.postValue(this.userType == DashboardType.REQUESTER)
         _request.postValue(data)
     }
 

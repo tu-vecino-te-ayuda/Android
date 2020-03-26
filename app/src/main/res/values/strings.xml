@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dashboard_empty_list">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana! "</string>
+    <string name="dashboard_mine_empty_list">"Por ahora no tienes solicitudes de ayuda en tu lista ¿Empezamos?"</string>
+    <string name="dashboard_all_empty_list">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana!"</string>
     <string name="my_request">Mis Solicitudes</string>
     <string name="all_request">Todas las Solicitudes</string>
     <string name="dashboard_new_request">Nueva solicitud</string>
