@@ -32,7 +32,7 @@ data class User(
     var state: String,
 
     @field:SerializedName("nearby_areas_id")
-    var nearbyAreasId: NearByAreaTypeId,
+    var nearbyAreasId: String,
 
     @field:SerializedName("email")
     var email: String,

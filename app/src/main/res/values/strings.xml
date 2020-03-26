@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_empty_list">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana! "</string>
+</resources>

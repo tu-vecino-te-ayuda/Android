@@ -7,8 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
+import org.tuvecinoteayuda.core.ext.hide
+import org.tuvecinoteayuda.core.ext.show
+import org.tuvecinoteayuda.core.ext.showSnackBarError
+import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
@@ -45,6 +50,22 @@ class DashboardFragment : Fragment() {
                 VerticalItemDecorator(resources.getDimension(R.dimen.spacing_2x_large).toInt())
             )
         }
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+            when (item.itemId) {
+                R.id.my_request -> {
+                    viewModel.getMyRequest()
+                }
+                R.id.pending_request -> {
+                    viewModel.getAllRequest()
+                }
+
+                else -> {
+                }
+            }
+            true
+        }
     }
 
     override fun onResume() {
@@ -58,8 +79,68 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeViewModelData() {
-        viewModel.requests.observe(viewLifecycleOwner, Observer { requestList ->
-            adapter.setData(requestList)
+        viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                ScreenState.LOADING_DATA -> {
+                    showLoading()
+                    hideData()
+                }
+                ScreenState.DATA_LOADED -> {
+                    hideLoading()
+                    showData()
+                }
+                ScreenState.ERROR -> {
+                    hideLoading()
+                    showError()
+                }
+                ScreenState.EMPTY_DATA -> {
+                    hideLoading()
+                    showEmptyData()
+                }
+                else -> hideLoading()
+            }
+
+            viewModel.allRequest.observe(viewLifecycleOwner, Observer { requestList ->
+                adapter.setData(requestList)
+            })
+
+            viewModel.requesrError.observe(viewLifecycleOwner, Observer { error ->
+                showSnackBarError(error)
+            })
         })
     }
+
+    private fun showLoading() {
+        loading.show()
+    }
+
+    private fun hideLoading() {
+        loading.hide()
+    }
+
+    private fun showData() {
+        binding.requestList.show()
+        binding.emptyText.hide()
+    }
+
+    private fun hideData() {
+        binding.requestList.hide()
+    }
+
+    private fun showError() {
+        loading.hide()
+        binding.requestList.hide()
+        binding.emptyText.hide()
+    }
+
+    private fun showEmptyData() {
+        loading.hide()
+        binding.requestList.hide()
+        binding.emptyText.show()
+
+    }
+
 }
+
+
+
