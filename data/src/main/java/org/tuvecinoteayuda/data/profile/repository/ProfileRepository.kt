@@ -21,9 +21,13 @@ class ProfileRepository private constructor(
         return safeApiCall(dispatcher) { api.updateProfile(user) }
     }
 
+    suspend fun doLogout() {
+        TokenProvider.token = null
+    }
+
     companion object {
 
-        fun newInstance(dispatcher: CoroutineDispatcher): ProfileRepository {
+        fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): ProfileRepository {
             return ProfileRepository(
                 ServiceFactory.create<UserApi>(CommonInterceptor.newInstance(TokenProvider)),
                 dispatcher

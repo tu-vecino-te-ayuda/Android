@@ -65,9 +65,6 @@ class LoginFragment : Fragment() {
                 ScreenState.LOADING_DATA -> binding.loginButton.showLoading()
                 else -> binding.loginButton.hideLoading()
             }
-
-            binding.loginUser.setText("prueba@ayuda.com")
-            binding.loginPassword.setText("xataka123")
         })
         loginViewModel.userError.observe(viewLifecycleOwner, Observer { error ->
             binding.loginUserContainer.error =

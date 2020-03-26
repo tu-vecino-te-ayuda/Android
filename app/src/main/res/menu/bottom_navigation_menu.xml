@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/my_request"
-        android:icon="@drawable/ic_android_black_24dp"
-        android:title="Mis Solicitudes" />
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/my_request" />
     <item
         android:id="@+id/pending_request"
-        android:icon="@drawable/ic_android_black_24dp"
-        android:title="Solicitudes " />
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/all_request" />
 </menu>

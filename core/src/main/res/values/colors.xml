@@ -28,5 +28,6 @@
     <color name="gray">#a9a9a9</color>
     <color name="red">#FF6347</color>
     <color name="pending">#ffc107</color>
+    <color name="dark_gray">#363636</color>
 
 </resources>
