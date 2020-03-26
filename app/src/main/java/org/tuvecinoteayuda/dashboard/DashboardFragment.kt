@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import org.tuvecinoteayuda.DashboardType
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.hide
@@ -15,11 +17,13 @@ import org.tuvecinoteayuda.core.ext.show
 import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
+import org.tuvecinoteayuda.core.util.observeEvent
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
+    private val args: DashboardFragmentArgs by navArgs()
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels { ViewModelFactory.getInstance() }
     private val adapter: HelpRequestsAdapter by lazy {
@@ -70,12 +74,28 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.start()
+        viewModel.start(DashboardType.values()[args.dashboardtype])
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        observeViewModelEvents()
         observeViewModelData()
+    }
+
+    override fun onDestroy() {
+        viewModel.stop()
+        super.onDestroy()
+    }
+
+    private fun observeViewModelEvents() {
+        viewModel.onVoluntaryLoadedEvent.observeEvent(viewLifecycleOwner, {
+            binding.bottomNavigation.show()
+        })
+
+        viewModel.onRequestedLoadedEvent.observeEvent(viewLifecycleOwner, {
+            binding.bottomNavigation.hide()
+        })
     }
 
     private fun observeViewModelData() {

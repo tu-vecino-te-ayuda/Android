@@ -73,8 +73,14 @@
     </fragment>
 
     <fragment
+
         android:id="@+id/dashboardFragment"
         android:name="org.tuvecinoteayuda.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment">
+        <argument
+            android:name="dashboardtype"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
