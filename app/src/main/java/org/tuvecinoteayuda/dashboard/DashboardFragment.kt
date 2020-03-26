@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
@@ -17,6 +18,7 @@ import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
 import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToProfileFragment
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
 
@@ -25,11 +27,7 @@ class DashboardFragment : Fragment() {
     private val args: DashboardFragmentArgs by navArgs()
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels { ViewModelFactory.getInstance() }
-    private val adapter: HelpRequestsAdapter by lazy {
-        HelpRequestsAdapter(
-            viewLifecycleOwner
-        )
-    }
+    private val adapter: HelpRequestsAdapter = HelpRequestsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,8 +40,21 @@ class DashboardFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             initViews()
+            setupListeners()
             return root
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        observeViewModelScreen()
+        observeViewModelEvents()
+        observeViewModelData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.start(DashboardType.values()[args.dashboardtype])
     }
 
     private fun initViews() {
@@ -62,27 +73,17 @@ class DashboardFragment : Fragment() {
                 R.id.pending_request -> {
                     viewModel.getPendingRequest()
                 }
-                else -> { /* do nothing */}
+                else -> { /* do nothing */
+                }
             }
             true
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.start(DashboardType.values()[args.dashboardtype])
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        observeViewModelScreen()
-        observeViewModelEvents()
-        observeViewModelData()
-    }
-
-    override fun onDestroy() {
-        viewModel.stop()
-        super.onDestroy()
+    private fun setupListeners() {
+        binding.profile.setOnClickListener {
+            findNavController().navigate(actionDashboardFragmentToProfileFragment())
+        }
     }
 
     private fun observeViewModelScreen() {
@@ -177,8 +178,4 @@ class DashboardFragment : Fragment() {
         binding.requestList.hide()
         binding.emptyText.show()
     }
-
 }
-
-
-

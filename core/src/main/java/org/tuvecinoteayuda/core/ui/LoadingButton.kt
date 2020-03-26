@@ -13,9 +13,14 @@ class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    var text: String
+        set(value) {
+            button.text = value
+        }
+        get() = button.text.toString()
+
     init {
         LayoutInflater.from(getContext()).inflate(R.layout.loading_button, this)
-
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.LoadingButton,

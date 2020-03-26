@@ -43,7 +43,7 @@ fun Fragment.showSnackBarError(
             val context = view.context
 
             val group = it.view as ViewGroup
-            group.setBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
+            group.setBackgroundColor(ContextCompat.getColor(view.context, R.color.gray))
             ViewCompat.setElevation(
                 group, context.resources.getDimensionPixelSize(
                     R

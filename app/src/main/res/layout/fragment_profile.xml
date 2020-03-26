@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="org.tuvecinoteayuda.profile.ProfileViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:animateLayoutChanges="true"
+            android:overScrollMode="never"
+            tools:context="org.tuvecinoteayuda.register.RegisterFragment">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_background"
+                    android:padding="@dimen/default_margin_large">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:enabled="false"
+                        android:hint="@string/register_name"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_person_black_24dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/name"
+                            style="@style/TextInputEditTextOutlined"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:text="@={vm.name}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/email_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:enabled="false"
+                        android:hint="@string/register_email"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/name_container"
+                        app:startIconDrawable="@drawable/ic_email_black_24dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email"
+                            style="@style/TextInputEditTextOutlined"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text="@={vm.email}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phone_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:enabled="false"
+                        android:hint="@string/register_phone"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/email_container"
+                        app:startIconDrawable="@drawable/ic_local_phone_black_24dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phone"
+                            style="@style/TextInputEditTextOutlined"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:text="@={vm.phone}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/area_container"
+                        style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{vm.edit}"
+                        android:hint="@string/register_area"
+                        android:labelFor="@id/area"
+                        android:visibility="@{vm.areas.size() == 0 ? View.GONE : View.VISIBLE}"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/phone_container"
+                        app:startIconDrawable="@drawable/ic_map_black_24dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/area"
+                            style="@style/AutoCompleteTextView"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:text="@{vm.area.name}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:enabled="@{vm.edit}"
+                        android:hint="@string/register_address"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/area_container"
+                        app:startIconDrawable="@drawable/ic_place_black_24dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/address"
+                            style="@style/TextInputEditTextOutlined"
+                            android:inputType="textPostalAddress"
+                            android:maxLines="1"
+                            android:text="@={vm.address}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/region_container"
+                        style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                        android:enabled="@{vm.edit}"
+                        android:hint="@string/register_region"
+                        android:labelFor="@id/region"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/address_container">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/region"
+                            style="@style/AutoCompleteTextView"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:text="@={vm.region}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/city_container"
+                        style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="@dimen/spacing_x_small"
+                        android:enabled="@{vm.edit}"
+                        android:hint="@string/register_city"
+                        android:labelFor="@id/city"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toStartOf="@id/postal_code_container"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/region_container">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/city"
+                            style="@style/AutoCompleteTextView"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:text="@={vm.city}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/postal_code_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/spacing_x_small"
+                        android:enabled="@{vm.edit}"
+                        android:hint="@string/register_postal_code"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/city_container"
+                        app:layout_constraintTop_toBottomOf="@id/region_container">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/postal_code"
+                            style="@style/TextInputEditTextOutlined"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="@={vm.postalCode}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <org.tuvecinoteayuda.core.ui.LoadingButton
+                        android:id="@+id/edit_update_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/min_tappable_size"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/default_margin_xxxlarge"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/postal_code_container" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

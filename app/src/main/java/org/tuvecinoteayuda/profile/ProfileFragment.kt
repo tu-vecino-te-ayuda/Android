@@ -1,48 +1,38 @@
-package org.tuvecinoteayuda.register
+package org.tuvecinoteayuda.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
-import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
-import org.tuvecinoteayuda.data.regions.models.City
-import org.tuvecinoteayuda.data.regions.models.Region
-import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
-import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
-import org.tuvecinoteayuda.core.ui.ScreenState
-import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.core.ext.clearOnFocus
 import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
 import org.tuvecinoteayuda.core.ext.setMaxLength
 import org.tuvecinoteayuda.core.ext.showSnackBarError
+import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
+import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
+import org.tuvecinoteayuda.data.regions.models.City
+import org.tuvecinoteayuda.data.regions.models.Region
+import org.tuvecinoteayuda.databinding.FragmentProfileBinding
+import org.tuvecinoteayuda.register.RegisterFragmentDirections
+import org.tuvecinoteayuda.register.RegisterViewModel
 
-class RegisterFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
-    private val args: RegisterFragmentArgs by navArgs()
-    private lateinit var binding: FragmentRegisterBinding
-    private val viewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance() }
+    private lateinit var binding: FragmentProfileBinding
+    private val viewModel: ProfileViewModel by viewModels { ViewModelFactory.getInstance() }
 
-    private val areaAdapter by lazy {
-        AutoCompleteAdapter<NearByAreaTypeId>(
-            requireContext()
-        )
-    }
-    private val regionsAdapter by lazy {
-        AutoCompleteAdapter<Region>(
-            requireContext()
-        )
-    }
-    private val citiesAdapter by lazy {
-        AutoCompleteAdapter<City>(
-            requireContext()
-        )
-    }
+    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
+    private val regionsAdapter by lazy { AutoCompleteAdapter<Region>(requireContext()) }
+    private val citiesAdapter by lazy { AutoCompleteAdapter<City>(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,15 +40,15 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        FragmentRegisterBinding.inflate(inflater, container, false).apply {
+        FragmentProfileBinding.inflate(inflater, container, false).apply {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             area.setAdapter(areaAdapter)
             region.setAdapter(regionsAdapter)
             city.setAdapter(citiesAdapter)
-            setupListeners()
             configureViews()
+            setupListeners()
             return root
         }
     }
@@ -70,12 +60,22 @@ class RegisterFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.start(RegisterType.values()[args.registerType])
+        viewModel.start()
+    }
+
+    private fun configureViews() {
+        binding.phone.setMaxLength(RegisterViewModel.MAX_PHONE_LENGTH)
+        binding.postalCode.setMaxLength(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        binding.toolbar.setTitle(R.string.profile_title)
     }
 
     private fun setupListeners() {
-        binding.registerButton.setOnButtonClickListener {
-            viewModel.register()
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.editUpdateButton.setOnButtonClickListener {
+            viewModel.editUpdate()
         }
         binding.area.setOnItemClickListener { _, _, position, _ ->
             viewModel.area.value = areaAdapter.getItem(position)
@@ -83,16 +83,13 @@ class RegisterFragment : Fragment() {
         binding.nameContainer.removeErrorOnTyping()
         binding.emailContainer.removeErrorOnTyping()
         binding.phoneContainer.removeErrorOnTyping()
-        binding.passwordContainer.removeErrorOnTyping()
-        binding.addressContainer.removeErrorOnTyping()
         binding.regionContainer.removeErrorOnTyping()
+        binding.addressContainer.removeErrorOnTyping()
         binding.cityContainer.removeErrorOnTyping()
         binding.postalCodeContainer.removeErrorOnTyping()
-    }
-
-    private fun configureViews() {
-        binding.phone.setMaxLength(RegisterViewModel.MAX_PHONE_LENGTH)
-        binding.postalCode.setMaxLength(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
+        binding.area.clearOnFocus()
+        binding.region.clearOnFocus()
+        binding.city.clearOnFocus()
     }
 
     private fun observeViewModelData() {
@@ -105,9 +102,13 @@ class RegisterFragment : Fragment() {
     private fun observeScreenState() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
-                ScreenState.LOADING_DATA -> binding.registerButton.showLoading()
-                else -> binding.registerButton.hideLoading()
+                ScreenState.LOADING_DATA -> binding.editUpdateButton.showLoading()
+                else -> binding.editUpdateButton.hideLoading()
             }
+        })
+        viewModel.edit.observe(viewLifecycleOwner, Observer { edit ->
+            binding.editUpdateButton.text =
+                getString(if (edit) R.string.profile_update_button else R.string.profile_edit_button)
         })
     }
 
@@ -136,10 +137,6 @@ class RegisterFragment : Fragment() {
             binding.phoneContainer.error =
                 if (error) getString(R.string.register_phone_invalid) else null
         })
-        viewModel.passwordError.observe(viewLifecycleOwner, Observer { error ->
-            binding.passwordContainer.error =
-                if (error) getString(R.string.register_password_invalid) else null
-        })
         viewModel.areaError.observe(viewLifecycleOwner, Observer { error ->
             binding.cityContainer.error =
                 if (error) getString(R.string.register_area_invalid) else null
@@ -163,11 +160,11 @@ class RegisterFragment : Fragment() {
     }
 
     private fun observeEvents() {
-        viewModel.onRegisterSuccessEvent.observeEvent(viewLifecycleOwner) {
-            findNavController().navigate(RegisterFragmentDirections.actionRegisterFormFragmentToDashboardFragment())
+        viewModel.onProfileUpdateSuccessEvent.observeEvent(viewLifecycleOwner) {
+            showSnackBarError(R.string.profile_profile_updated)
         }
-        viewModel.onRegisterFailedEvent.observeEvent(viewLifecycleOwner) {
-            showSnackBarError(R.string.register_error)
+        viewModel.onProfileUpdateFailedEvent.observeEvent(viewLifecycleOwner) {
+            showSnackBarError(R.string.profile_error_updating_profile)
         }
     }
 }

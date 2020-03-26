@@ -55,4 +55,12 @@
     <string name="dashboard_requests">Solicitudes</string>
     <string name="dashboard_profile">Perfil</string>
 
+    <!-- Profile -->
+    <string name="profile_title">Perfil</string>
+    <string name="profile_edit_button">Editar</string>
+    <string name="profile_update_button">Actualizar</string>
+    <string name="profile_profile_updated">Perfil actualizado!</string>
+    <string name="profile_error_updating_profile">Error actualizando perfil...</string>
+
+
 </resources>

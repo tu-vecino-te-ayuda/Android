@@ -16,13 +16,13 @@ data class User(
     @field:SerializedName("city")
     var city: String,
 
-    @field:SerializedName("user_status_id")
+    @field:SerializedName("user_status")
     var userStatusId: UserTypeId,
 
     @field:SerializedName("name")
     var name: String,
 
-    @field:SerializedName("user_type_id")
+    @field:SerializedName("user_type")
     var userTypeId: UserTypeId,
 
     @field:SerializedName("id")
@@ -31,7 +31,7 @@ data class User(
     @field:SerializedName("state")
     var state: String,
 
-    @field:SerializedName("nearby_areas_id")
+    @field:SerializedName("nearby_areas")
     var nearbyAreasId: NearByAreaTypeId,
 
     @field:SerializedName("email")

@@ -88,7 +88,7 @@ class RegisterViewModel(
         emit(regionRepository.getRegions())
     }
     val cities = Transformations.map(region) { regionName ->
-        regionRepository.getCitiesFromRegion(regionName)
+        regionRepository.getCitiesByRegionName(regionName)
     }
     val areas = Transformations.map(registerType) { registerType ->
         when(registerType) {
@@ -103,6 +103,7 @@ class RegisterViewModel(
     }
 
     fun register() {
+        _screenState.value = ScreenState.LOADING_DATA
         viewModelScope.launch {
             // Name
             val currentName = name.value

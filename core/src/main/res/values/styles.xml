@@ -98,6 +98,12 @@
         <item name="android:backgroundTint">@color/black</item>
     </style>
 
+    <style name="DashboardToolbarTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/h3color</item>
+    </style>
+
     <!-- Forms -->
 
     <style name="TextInputLayoutOutlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.tuvecinoteayuda.core.ext
 
 /**
@@ -14,4 +16,8 @@ inline fun <T, R> T?.letOrElse(notNullBlock: (T) -> R, nullBlock: () -> R): R {
  */
 inline fun <T> T.alsoOrElse(notNullBlock: (T) -> Unit, nullBlock: (T) -> Unit) {
     this?.also(notNullBlock) ?: run(nullBlock)
+}
+
+inline fun <T, R> T?.ifNullLet(nullBlock: () -> R): R? {
+    return this?.let { null } ?: nullBlock.invoke()
 }
