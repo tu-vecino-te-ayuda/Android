@@ -8,13 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import org.tuvecinoteayuda.DashboardType
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
-import org.tuvecinoteayuda.databinding.FragmentLoginBinding
-import org.tuvecinoteayuda.login.LoginFragmentDirections.*
+import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.observeEvent
-import org.tuvecinoteayuda.core.ext.showSnackBarError
+import org.tuvecinoteayuda.data.commons.models.UserTypeId
+import org.tuvecinoteayuda.databinding.FragmentLoginBinding
+import org.tuvecinoteayuda.login.LoginFragmentDirections.*
 
 class LoginFragment : Fragment() {
 
@@ -75,8 +77,24 @@ class LoginFragment : Fragment() {
             binding.loginPasswordContainer.error =
                 if (error) getString(R.string.login_login_error_invalid_password) else null
         })
-        loginViewModel.onLoginSuccessEvent.observeEvent(viewLifecycleOwner) {
-            findNavController().navigate(actionLoginFragmentToDashboardFragment())
+        loginViewModel.onLoginSuccessEvent.observeEvent(viewLifecycleOwner) { userType ->
+
+            val type = when (userType.id) {
+                UserTypeId.VOLUNTARIO_ID -> {
+                    DashboardType.Voluntary
+                }
+                UserTypeId.SOLICITANTE_ID -> {
+                    DashboardType.Requester
+                }
+                else -> {
+                    DashboardType.Voluntary
+                }
+            }
+            findNavController().navigate(
+                actionLoginFragmentToDashboardFragment().setDashboardtype(
+                    type.ordinal
+                )
+            )
         }
         loginViewModel.onLoginFailedEvent.observeEvent(viewLifecycleOwner) {
             showSnackBarError(it)

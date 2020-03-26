@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.tuvecinoteayuda.DashboardType
 import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
+
 
 class DashboardViewModel(private val repository: HelpRequestRepository) : ViewModel() {
 
@@ -17,6 +20,16 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
     val screenState: LiveData<ScreenState>
         get() = _screenState
 
+    //Events
+    private val _onRequestedLoadedEvent = MutableLiveData<Event<Unit>>()
+    val onRequestedLoadedEvent: LiveData<Event<Unit>>
+        get() = _onRequestedLoadedEvent
+
+    private val _onVoluntaryLoadedEvent = MutableLiveData<Event<Unit>>()
+    val onVoluntaryLoadedEvent: LiveData<Event<Unit>>
+        get() = _onVoluntaryLoadedEvent
+
+    //Data
     private val _request = MutableLiveData<List<HelpRequest>>()
     val allRequest: LiveData<List<HelpRequest>>
         get() = _request
@@ -26,8 +39,17 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
         get() = _requestError
 
 
-    fun start() {
-        getAllRequest()
+    fun start(userType: DashboardType) {
+        when (userType) {
+            DashboardType.Requester -> {
+                _onRequestedLoadedEvent.postValue(Event(Unit))
+                getMyRequest()
+            }
+            DashboardType.Voluntary -> {
+                _onVoluntaryLoadedEvent.postValue(Event(Unit))
+                getAllRequest()
+            }
+        }
     }
 
     //TODO Join this two calls
@@ -69,5 +91,9 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
     private fun showError(error: String) {
         _screenState.postValue(ScreenState.ERROR)
         _requestError.postValue(error)
+    }
+
+    fun stop() {
+        repository.clearToken()
     }
 }

@@ -38,4 +38,8 @@ open class BaseRepository {
             null
         }
     }
+
+    fun clearToken() {
+        TokenProvider.token = null
+    }
 }

@@ -10,6 +10,7 @@ import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
 import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.data.commons.models.UserTypeId
 
 class LoginViewModel(
     private val repository: LoginRepository
@@ -21,8 +22,8 @@ class LoginViewModel(
         get() = _screenState
 
     // Events
-    private val _onLoginSuccessEvent = MutableLiveData<Event<Unit>>()
-    val onLoginSuccessEvent: LiveData<Event<Unit>>
+    private val _onLoginSuccessEvent = MutableLiveData<Event<UserTypeId>>()
+    val onLoginSuccessEvent: LiveData<Event<UserTypeId>>
         get() = _onLoginSuccessEvent
     private val _onLoginFailedEvent = MutableLiveData<Event<String>>()
     val onLoginFailedEvent: LiveData<Event<String>>
@@ -80,7 +81,7 @@ class LoginViewModel(
 
     private fun onLoginSuccess(authResponse: AuthResponse) {
         _screenState.value = ScreenState.DATA_LOADED
-        _onLoginSuccessEvent.postValue(Event(Unit))
+        _onLoginSuccessEvent.postValue(Event(authResponse.user.userTypeId))
     }
 
     private fun onLoginFailed(error: String) {
