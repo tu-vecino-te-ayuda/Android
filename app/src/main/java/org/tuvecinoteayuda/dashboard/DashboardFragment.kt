@@ -14,6 +14,7 @@ import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.hide
 import org.tuvecinoteayuda.core.ext.show
+import org.tuvecinoteayuda.core.ext.showOrHide
 import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
@@ -56,7 +57,6 @@ class DashboardFragment : Fragment() {
         }
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
-
             when (item.itemId) {
                 R.id.my_request -> {
                     viewModel.getMyRequest()
@@ -79,6 +79,7 @@ class DashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        observeViewModelScreen()
         observeViewModelEvents()
         observeViewModelData()
     }
@@ -88,17 +89,12 @@ class DashboardFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun observeViewModelEvents() {
-        viewModel.onVoluntaryLoadedEvent.observeEvent(viewLifecycleOwner, {
-            binding.bottomNavigation.show()
+    private fun observeViewModelScreen() {
+
+        viewModel.showButton.observe(viewLifecycleOwner, Observer { show ->
+            binding.newHelpRequestButton.showOrHide(show)
         })
 
-        viewModel.onRequestedLoadedEvent.observeEvent(viewLifecycleOwner, {
-            binding.bottomNavigation.hide()
-        })
-    }
-
-    private fun observeViewModelData() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
                 ScreenState.LOADING_DATA -> {
@@ -119,14 +115,30 @@ class DashboardFragment : Fragment() {
                 }
                 else -> hideLoading()
             }
+        })
 
-            viewModel.allRequest.observe(viewLifecycleOwner, Observer { requestList ->
-                adapter.setData(requestList)
-            })
+    }
 
-            viewModel.requesrError.observe(viewLifecycleOwner, Observer { error ->
-                showSnackBarError(error)
-            })
+    private fun observeViewModelEvents() {
+        viewModel.onVoluntaryLoadedEvent.observeEvent(viewLifecycleOwner, {
+            binding.bottomNavigation.show()
+            binding.newHelpRequestButton.hide()
+        })
+
+        viewModel.onRequestedLoadedEvent.observeEvent(viewLifecycleOwner, {
+            binding.bottomNavigation.hide()
+        })
+    }
+
+    private fun observeViewModelData() {
+
+
+        viewModel.allRequest.observe(viewLifecycleOwner, Observer { requestList ->
+            adapter.setData(requestList)
+        })
+
+        viewModel.requestError.observe(viewLifecycleOwner, Observer { error ->
+            showSnackBarError(error)
         })
     }
 

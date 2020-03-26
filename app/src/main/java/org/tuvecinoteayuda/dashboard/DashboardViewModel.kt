@@ -11,14 +11,22 @@ import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
+import org.tuvecinoteayuda.data.profile.repository.ProfileRepository
 
 
-class DashboardViewModel(private val repository: HelpRequestRepository) : ViewModel() {
+class DashboardViewModel(
+    private val helpRequestRepository: HelpRequestRepository,
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
 
     // State
     private val _screenState = MutableLiveData(ScreenState.INITIAL)
     val screenState: LiveData<ScreenState>
         get() = _screenState
+
+    private val _showButton = MutableLiveData<Boolean>()
+    val showButton: LiveData<Boolean>
+        get() = _showButton
 
     //Events
     private val _onRequestedLoadedEvent = MutableLiveData<Event<Unit>>()
@@ -35,11 +43,13 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
         get() = _request
 
     private val _requestError = MutableLiveData<String>()
-    val requesrError: LiveData<String>
+    val requestError: LiveData<String>
         get() = _requestError
 
+    private var userType: DashboardType = DashboardType.Voluntary
 
     fun start(userType: DashboardType) {
+        this.userType = userType
         when (userType) {
             DashboardType.Requester -> {
                 _onRequestedLoadedEvent.postValue(Event(Unit))
@@ -56,7 +66,7 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
     fun getMyRequest() {
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val pendingList = repository.getRequest()) {
+            when (val pendingList = helpRequestRepository.getRequest()) {
                 is ResultWrapper.Success -> onDataLoaded(pendingList.value.data)
                 is ResultWrapper.GenericError -> pendingList.error?.message?.let { showError(it) }
                 else -> showError("")
@@ -68,7 +78,7 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
     fun getAllRequest() {
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val requestList = repository.getPendingRequestList()) {
+            when (val requestList = helpRequestRepository.getPendingRequestList()) {
                 is ResultWrapper.Success -> onDataLoaded(requestList.value.data)
                 is ResultWrapper.GenericError -> requestList.error?.message?.let { showError(it) }
                 else -> showError("")
@@ -84,8 +94,9 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
                 ScreenState.DATA_LOADED
             }
         )
-        _request.postValue(data)
 
+        _showButton.postValue(this.userType == DashboardType.Requester)
+        _request.postValue(data)
     }
 
     private fun showError(error: String) {
@@ -94,6 +105,8 @@ class DashboardViewModel(private val repository: HelpRequestRepository) : ViewMo
     }
 
     fun stop() {
-        repository.clearToken()
+        viewModelScope.launch {
+            profileRepository.doLogout()
+        }
     }
 }

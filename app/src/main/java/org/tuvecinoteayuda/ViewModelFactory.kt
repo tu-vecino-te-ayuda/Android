@@ -7,6 +7,7 @@ import org.tuvecinoteayuda.dashboard.DashboardViewModel
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsViewModel
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
+import org.tuvecinoteayuda.data.profile.repository.ProfileRepository
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
@@ -27,7 +28,7 @@ class ViewModelFactory private constructor(
                         RegisterRepository.newInstance()
                     )
                 isAssignableFrom(DashboardViewModel::class.java) ->
-                    DashboardViewModel(HelpRequestRepository.newInstance())
+                    DashboardViewModel(HelpRequestRepository.newInstance(), ProfileRepository.newInstance())
                 isAssignableFrom(HelpRequestsViewModel::class.java) ->
                     HelpRequestsViewModel(
                         RegionRepository.newInstance()

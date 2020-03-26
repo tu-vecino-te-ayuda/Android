@@ -51,14 +51,31 @@
             app:lottie_fileName="animations/animation_loading.json"
             app:lottie_loop="true" />
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/new_help_request_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:contentDescription="@string/dashboard_new_request"
+            android:text="@string/dashboard_new_request"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            app:icon="@drawable/ic_add_black_24dp"
+            app:layout_anchor="@id/request_list"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/colorPrimaryDark"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
+            android:background="@color/dark_gray"
+            app:itemIconTint="@drawable/menu_selector"
+            app:itemTextColor="@drawable/menu_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"

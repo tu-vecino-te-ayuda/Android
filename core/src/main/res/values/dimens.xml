@@ -44,5 +44,6 @@
     <dimen name="spacing_3x_small">1dp</dimen>
     <dimen name="spacing_4x_small">1px</dimen>
     <dimen name="spacing_zero">0dp</dimen>
+    <dimen name="default_icon_size">24dp</dimen>
 
 </resources>
