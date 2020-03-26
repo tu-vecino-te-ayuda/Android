@@ -62,9 +62,7 @@ class DashboardFragment : Fragment() {
                 R.id.pending_request -> {
                     viewModel.getPendingRequest()
                 }
-
-                else -> {
-                }
+                else -> { /* do nothing */}
             }
             true
         }
@@ -178,7 +176,6 @@ class DashboardFragment : Fragment() {
         binding.loading.hide()
         binding.requestList.hide()
         binding.emptyText.show()
-
     }
 
 }
