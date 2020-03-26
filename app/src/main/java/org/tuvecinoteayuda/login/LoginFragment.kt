@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
                 else -> binding.loginButton.hideLoading()
             }
 
-            binding.loginUser.setText("prueba@voluntario.com")
+            binding.loginUser.setText("prueba@ayuda.com")
             binding.loginPassword.setText("xataka123")
         })
         loginViewModel.userError.observe(viewLifecycleOwner, Observer { error ->

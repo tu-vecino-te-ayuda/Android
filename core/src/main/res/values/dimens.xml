@@ -10,6 +10,8 @@
 
     <dimen name="min_tappable_size">48dp</dimen>
 
+    <dimen name="card_min_radius">5dp</dimen>
+    <dimen name="card_default_elevation">3dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_button_radius">15dp</dimen>
     <dimen name="form_line_width">1dp</dimen>

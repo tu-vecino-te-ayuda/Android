@@ -144,4 +144,9 @@
         <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
     </style>
 
+    <style name="DefaultCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/card_min_radius</item>
+        <item name="cardElevation">@dimen/card_default_elevation</item>
+    </style>
+
 </resources>
