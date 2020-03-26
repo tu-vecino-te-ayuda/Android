@@ -9,7 +9,10 @@ import retrofit2.HttpException
 
 open class BaseRepository {
 
-    suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
+    suspend fun <T> safeApiCall(
+        dispatcher: CoroutineDispatcher,
+        apiCall: suspend () -> T
+    ): ResultWrapper<T> {
         return withContext(dispatcher) {
             try {
                 ResultWrapper.Success(apiCall.invoke())
@@ -22,7 +25,10 @@ open class BaseRepository {
                         ResultWrapper.GenericError(code, errorResponse)
                     }
                     else -> {
-                        ResultWrapper.GenericError(null, null)
+                        ResultWrapper.GenericError(
+                            null,
+                            ErrorResponse(message = throwable.message ?: "")
+                        )
                     }
                 }
             }

@@ -77,10 +77,22 @@
         android:id="@+id/dashboardFragment"
         android:name="org.tuvecinoteayuda.dashboard.DashboardFragment"
         android:label="DashboardFragment">
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <argument
             android:name="dashboardtype"
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="org.tuvecinoteayuda.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 
 </navigation>

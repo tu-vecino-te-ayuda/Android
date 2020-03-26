@@ -15,6 +15,32 @@
         android:layout_height="match_parent"
         tools:context="org.tuvecinoteayuda.login.LoginFragment">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="animations/animation_loading.json"
+            app:lottie_loop="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty_text"
+            style="@style/H3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textAlignment="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -31,12 +57,10 @@
 
                 <TextView
                     android:id="@+id/title"
-                    style="@style/H3"
+                    style="@style/DashboardToolbarTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/dashboard_my_requests"
-                    android:textAllCaps="true"
-                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@id/profile"
                     app:layout_constraintEnd_toStartOf="@id/profile"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +90,21 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/new_help_request_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:contentDescription="@string/dashboard_new_request"
+            android:text="@string/dashboard_new_request"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:icon="@drawable/ic_add_black_24dp"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

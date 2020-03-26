@@ -14,7 +14,7 @@ class HelpRequestsViewModel(private val repository: RegionRepository) : ViewMode
 
     //TODO Move to background
     fun findCityById(stateId: String, cityId: String) {
-        val city = repository.getCityFromId(stateId, cityId)
+        val city = repository.getCityById(stateId, cityId)
         city?.let {
             this._city.postValue(it)
         }

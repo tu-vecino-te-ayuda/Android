@@ -56,7 +56,6 @@ class LoginFragment : Fragment() {
         binding.loginNeedHelp.setOnClickListener {
             findNavController().navigate(actionLoginFragmentToNeedHelpFragment())
         }
-
     }
 
     private fun observeScreenState() {

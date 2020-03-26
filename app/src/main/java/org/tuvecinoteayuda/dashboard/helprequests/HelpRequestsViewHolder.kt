@@ -1,15 +1,18 @@
 package org.tuvecinoteayuda.dashboard.helprequests
 
-import androidx.lifecycle.Lifecycle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ui.LifecycleViewHolder
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.CardHelpRequestBinding
 
 class HelpRequestsViewHolder(
-    private val binding: CardHelpRequestBinding,
-    parentLifecycle: Lifecycle
-) : LifecycleViewHolder(binding.root, parentLifecycle) {
+    private val parent: ViewGroup,
+    private val binding: CardHelpRequestBinding = CardHelpRequestBinding.inflate(
+        LayoutInflater.from(parent.context), parent, false
+    )
+) : LifecycleViewHolder(binding.root) {
 
     private val viewModel: HelpRequestsViewModel =
         ViewModelFactory.getInstance().create(HelpRequestsViewModel::class.java)

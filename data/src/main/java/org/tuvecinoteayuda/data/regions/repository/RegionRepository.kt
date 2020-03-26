@@ -1,10 +1,12 @@
+@file:Suppress("unused")
+
 package org.tuvecinoteayuda.data.regions.repository
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.tuvecinoteayuda.core.ext.letOrElse
-import org.tuvecinoteayuda.data.DataContextWrapper
 import org.tuvecinoteayuda.core.util.getJsonDataFromAsset
+import org.tuvecinoteayuda.data.DataContextWrapper
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 
@@ -25,16 +27,28 @@ class RegionRepository(private val contextWrapper: DataContextWrapper) {
         })
     }
 
-    fun getCitiesFromRegion(regionName: String): List<City> {
-        return getRegions().firstOrNull { it.name == regionName }?.cities ?: listOf()
-    }
-
-    fun getRegionFromId(id: String): Region? {
+    fun getRegionById(id: String): Region? {
         return getRegions().firstOrNull { it.id == id }
     }
 
-    fun getCityFromId(stateId:String, cityId: String): City? {
-        return getRegions().firstOrNull { it.id == stateId }?.cities?.firstOrNull {it.id == cityId}
+    fun getRegionByName(name: String): Region? {
+        return getRegions().firstOrNull { it.name == name }
+    }
+
+    fun getCitiesByRegionId(regionId: String): List<City> {
+        return getRegionById(regionId)?.cities ?: listOf()
+    }
+
+    fun getCitiesByRegionName(regionName: String): List<City> {
+        return getRegionByName(regionName)?.cities ?: listOf()
+    }
+
+    fun getCityById(regionId: String, cityId: String): City? {
+        return getRegionById(regionId)?.cities?.firstOrNull { it.id == cityId }
+    }
+
+    fun getCityByName(regionName: String, cityName: String): City? {
+        return getRegionByName(regionName)?.cities?.firstOrNull { it.name == cityName }
     }
 
     companion object {

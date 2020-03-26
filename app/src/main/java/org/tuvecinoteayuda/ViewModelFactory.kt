@@ -11,6 +11,7 @@ import org.tuvecinoteayuda.data.profile.repository.ProfileRepository
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
+import org.tuvecinoteayuda.profile.ProfileViewModel
 import org.tuvecinoteayuda.register.RegisterViewModel
 
 class ViewModelFactory private constructor(
@@ -22,6 +23,7 @@ class ViewModelFactory private constructor(
             when {
                 isAssignableFrom(LoginViewModel::class.java) ->
                     LoginViewModel(LoginRepository.newInstance())
+
                 isAssignableFrom(RegisterViewModel::class.java) ->
                     RegisterViewModel(
                         RegionRepository.newInstance(),
@@ -33,8 +35,13 @@ class ViewModelFactory private constructor(
                     HelpRequestsViewModel(
                         RegionRepository.newInstance()
                     )
-                else ->
-                    throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+                isAssignableFrom(ProfileViewModel::class.java) ->
+                    ProfileViewModel(
+                        RegionRepository.newInstance(),
+                        RegisterRepository.newInstance(),
+                        ProfileRepository.newInstance()
+                    )
+                else -> error("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T
 

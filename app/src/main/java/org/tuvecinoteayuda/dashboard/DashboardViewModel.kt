@@ -123,10 +123,4 @@ class DashboardViewModel(
         _screenState.postValue(ScreenState.ERROR)
         _requestError.postValue(error)
     }
-
-    fun stop() {
-        viewModelScope.launch {
-            profileRepository.doLogout()
-        }
-    }
 }
