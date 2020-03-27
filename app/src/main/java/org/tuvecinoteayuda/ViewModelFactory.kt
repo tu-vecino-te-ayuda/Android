@@ -33,7 +33,7 @@ class ViewModelFactory private constructor(
                     )
                 isAssignableFrom(DashboardViewModel::class.java) ->
                     DashboardViewModel(
-                        HelpRequestRepository.newInstance(),
+                        HelpRequestRepository.getInstance(),
                         ProfileRepository.newInstance()
                     )
                 isAssignableFrom(HelpRequestsViewModel::class.java) ->
@@ -48,11 +48,11 @@ class ViewModelFactory private constructor(
                     )
                 isAssignableFrom(RequestDetailViewModel::class.java) ->
                     RequestDetailViewModel(
-                        HelpRequestRepository.newInstance()
+                        HelpRequestRepository.getInstance()
                     )
                 isAssignableFrom(RequestHelpViewModel::class.java) ->
                     RequestHelpViewModel(
-                        HelpRequestRepository.newInstance()
+                        HelpRequestRepository.getInstance()
                     )
                 else -> error("Unknown ViewModel class: ${modelClass.name}")
             }

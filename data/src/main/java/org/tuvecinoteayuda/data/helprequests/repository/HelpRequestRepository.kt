@@ -72,7 +72,16 @@ class HelpRequestRepository(
     }
 
     companion object {
-        fun newInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): HelpRequestRepository {
+
+        @Volatile
+        private var INSTANCE: HelpRequestRepository? = null
+
+        fun getInstance(dispatcher: CoroutineDispatcher = Dispatchers.IO): HelpRequestRepository =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildRepository(dispatcher).also { INSTANCE = it }
+            }
+
+        private fun buildRepository(dispatcher: CoroutineDispatcher): HelpRequestRepository {
             return HelpRequestRepository(
                 ServiceFactory.create(CommonInterceptor.newInstance(TokenProvider)),
                 dispatcher
