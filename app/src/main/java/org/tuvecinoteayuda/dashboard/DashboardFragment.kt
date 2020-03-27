@@ -155,12 +155,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showData() {
-        binding.requestList.show()
+        binding.requestListContainer.show()
         binding.emptyText.hide()
     }
 
     private fun hideData() {
-        binding.requestList.hide()
+        binding.requestListContainer.hide()
     }
 
     private fun hideEmptyData() {
@@ -169,13 +169,13 @@ class DashboardFragment : Fragment() {
 
     private fun showError() {
         binding.loading.hide()
-        binding.requestList.hide()
+        binding.requestListContainer.hide()
         binding.emptyText.hide()
     }
 
     private fun showEmptyData() {
         binding.loading.hide()
-        binding.requestList.hide()
+        binding.requestListContainer.hide()
         binding.emptyText.show()
     }
 }
