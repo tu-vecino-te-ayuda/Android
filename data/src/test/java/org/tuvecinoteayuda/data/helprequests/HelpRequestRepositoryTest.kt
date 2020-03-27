@@ -7,13 +7,11 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.commons.ACCEPT_HELP_REQUESTS_RESPONSE_OK
-import org.tuvecinoteayuda.data.commons.CANCEL_HELP_REQUESTS_RESPONSE_OK
-import org.tuvecinoteayuda.data.commons.HELP_REQUESTS_RESPONSE_OK
-import org.tuvecinoteayuda.data.commons.PENDING_REQUESTS_RESPONSE_OK
+import org.tuvecinoteayuda.data.commons.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
+import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
 
 class HelpRequestRepositoryTest {
@@ -89,6 +87,24 @@ class HelpRequestRepositoryTest {
 
             val result = repository.cancelAcceptedRequest("")
             assertEquals(ResultWrapper.Success(requestResponse), result)
+        }
+    }
+
+    @Test
+    fun `get help request types is success`() {
+        runBlockingTest {
+            val requestTypes =
+                Gson().fromJson<HelpRequestTypeResponse>(
+                    GET_REQUEST_TYPES_RESPONSE_OK,
+                    HelpRequestTypeResponse::class.java
+                )
+
+            coEvery {
+                repository.getRequestTypes()
+            } returns ResultWrapper.Success(requestTypes)
+
+            val result = repository.getRequestTypes()
+            assertEquals(ResultWrapper.Success(requestTypes), result)
         }
     }
 }

@@ -21,6 +21,8 @@ const val ACCEPT_HELP_REQUESTS_RESPONSE_OK =
 const val CANCEL_HELP_REQUESTS_RESPONSE_OK =
     "{\"message\":\"Se ha cancelado la inscripci\\u00f3n. \\u00a1L\\u00e1stima, esperamos que en otra ocasi\\u00f3n puedas ayudar a tus vecin@s!\",\"status_code\":200,\"status\":\"200 OK\"}"
 
+const val GET_REQUEST_TYPES_RESPONSE_OK = "{\"data\":[{\"id\":1,\"name\":\"Compra de comida o medicamentos\"},{\"id\":2,\"name\":\"Cuidado de mayores\"},{\"id\":3,\"name\":\"Acompa\\u00f1amiento telef\\u00f3nico\"},{\"id\":4,\"name\":\"Cuidado de ni\\u00f1os\"}]}\n"
+
 const val ALL_ASSOCIATIONS_RESPONSE_OK =
     "{\"data\":[{\"id\":94,\"name\":\"Red\",\"user_type_id\":{\"id\":3,\"name\":\"Entidad\"},\"corporate_name\":\"Red de Solidaridad Burgos\",\"cif\":\"V9237400H\",\"city\":\"09059\",\"state\":\"09\",\"zip_code\":\"09001\",\"activity_areas_id\":{\"id\":2,\"name\":\"Provincial\"}},{\"id\":173,\"name\":\"Rodrigo Trascasa Alcalde\",\"user_type_id\":{\"id\":3,\"name\":\"Entidad\"},\"corporate_name\":\"ASOCIACION BURGOS HEAVY METAL\",\"cif\":\"G09539859\",\"city\":\"09059\",\"state\":\"09\",\"zip_code\":\"09003\",\"activity_areas_id\":{\"id\":2,\"name\":\"Provincial\"}},{\"id\":221,\"name\":\"Daniel Boyano Sotillo\",\"user_type_id\":{\"id\":3,\"name\":\"Entidad\"},\"corporate_name\":\"Cryosanabria\",\"cif\":\"G49295892\",\"city\":\"49166\",\"state\":\"49\",\"zip_code\":\"49300\",\"activity_areas_id\":{\"id\":1,\"name\":\"Local\"}}]}"
 const val MY_ASSOCIATIONS_RESPONSE_OK =

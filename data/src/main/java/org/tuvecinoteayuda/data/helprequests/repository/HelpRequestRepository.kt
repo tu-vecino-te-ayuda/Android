@@ -7,6 +7,7 @@ import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
+import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
 
 class HelpRequestRepository(
     private val api: HelpRequestApi,
@@ -20,6 +21,11 @@ class HelpRequestRepository(
     suspend fun getRequest(): ResultWrapper<HelpRequestListResponse> {
         return safeApiCall(dispatcher) { api.getRequest() }
     }
+
+    suspend fun getRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
+        return safeApiCall(dispatcher) { api.getHelpRequestTypes() }
+    }
+
 
     suspend fun acceptRequest(id: String): ResultWrapper<HelpRequestListResponse> {
         return safeApiCall(dispatcher) { api.acceptRequest(id) }

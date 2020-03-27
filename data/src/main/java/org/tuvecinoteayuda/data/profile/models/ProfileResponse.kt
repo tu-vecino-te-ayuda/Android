@@ -6,5 +6,5 @@ import org.tuvecinoteayuda.data.commons.models.User
 data class ProfileResponse(
 
 	@field:SerializedName("data")
-	val user: User?
+	val user: User
 )
