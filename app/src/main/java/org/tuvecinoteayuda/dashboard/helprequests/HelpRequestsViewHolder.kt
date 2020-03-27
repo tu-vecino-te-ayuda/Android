@@ -24,8 +24,9 @@ class HelpRequestsViewHolder(
         }
     }
 
-    fun bind(item: HelpRequest) {
+    fun bind(item: HelpRequest, onItemClick: (HelpRequest) -> Unit) {
         binding.item = item
         viewModel.findCityById(item.user.state, item.user.city)
+        itemView.setOnClickListener { onItemClick.invoke(item) }
     }
 }

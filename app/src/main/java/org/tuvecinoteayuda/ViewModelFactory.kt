@@ -13,6 +13,7 @@ import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
 import org.tuvecinoteayuda.profile.ProfileViewModel
 import org.tuvecinoteayuda.register.RegisterViewModel
+import org.tuvecinoteayuda.request_detail.RequestDetailViewModel
 import org.tuvecinoteayuda.requesthelp.RequestHelpViewModel
 
 class ViewModelFactory private constructor(
@@ -44,6 +45,10 @@ class ViewModelFactory private constructor(
                         RegionRepository.newInstance(),
                         RegisterRepository.newInstance(),
                         ProfileRepository.newInstance()
+                    )
+                isAssignableFrom(RequestDetailViewModel::class.java) ->
+                    RequestDetailViewModel(
+                        HelpRequestRepository.newInstance()
                     )
                 isAssignableFrom(RequestHelpViewModel::class.java) ->
                     RequestHelpViewModel(

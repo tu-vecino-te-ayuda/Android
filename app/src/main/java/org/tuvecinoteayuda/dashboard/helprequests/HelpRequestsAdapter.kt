@@ -1,12 +1,12 @@
 package org.tuvecinoteayuda.dashboard.helprequests
 
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import org.tuvecinoteayuda.core.ui.LifecycleAdapter
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 
 class HelpRequestsAdapter(
-    private var dataSet: List<HelpRequest> = emptyList()
+    private var dataSet: List<HelpRequest> = emptyList(),
+    private var onItemClick: (HelpRequest) -> Unit
 ) : LifecycleAdapter<HelpRequestsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpRequestsViewHolder {
@@ -14,7 +14,7 @@ class HelpRequestsAdapter(
     }
 
     override fun onBindViewHolder(holder: HelpRequestsViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(dataSet[position], onItemClick)
     }
 
     override fun getItemCount() = dataSet.size

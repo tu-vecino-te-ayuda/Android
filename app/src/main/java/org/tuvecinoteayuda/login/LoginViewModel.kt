@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newCoroutineContext
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.login.repository.LoginRepository
@@ -31,7 +33,6 @@ class LoginViewModel(
     private val _onLoginFailedGenericEvent = MutableLiveData<Event<Unit>>()
     val onLoginFailedGenericEvent: LiveData<Event<Unit>>
         get() = _onLoginFailedGenericEvent
-
 
     // Data
     val user = MutableLiveData<String>()

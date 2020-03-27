@@ -21,6 +21,7 @@ import org.tuvecinoteayuda.core.util.observeEvent
 import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToProfileFragment
 import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToRequestHelpFragment
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
+import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -28,7 +29,8 @@ class DashboardFragment : Fragment() {
     private val args: DashboardFragmentArgs by navArgs()
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels { ViewModelFactory.getInstance() }
-    private val adapter: HelpRequestsAdapter = HelpRequestsAdapter()
+    private val adapter: HelpRequestsAdapter =
+        HelpRequestsAdapter(onItemClick = { item -> onItemClicked(item) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -181,5 +183,12 @@ class DashboardFragment : Fragment() {
         binding.loading.hide()
         binding.requestListContainer.hide()
         binding.emptyText.show()
+    }
+
+    private fun onItemClicked(item: HelpRequest) {
+        findNavController().navigate(
+            DashboardFragmentDirections.actionDashboardFragmentToRequestDetailFragment()
+                .setRequestId(item.id)
+        )
     }
 }

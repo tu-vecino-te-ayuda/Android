@@ -95,12 +95,33 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_requestDetailFragment"
+            app:destination="@id/RequestDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="org.tuvecinoteayuda.profile.ProfileFragment"
         android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/RequestDetailFragment"
+        android:name="org.tuvecinoteayuda.request_detail.RequestDetailFragment"
+        android:label="RequestDetail">
+
+        <argument
+            android:name="request_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/requestHelpFragment"
