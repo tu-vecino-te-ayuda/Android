@@ -189,7 +189,7 @@ class RegisterViewModel(
                     RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
                     else -> error("Invalid register type!")
                 },
-                activityAreaType = currentArea.id
+                nearbyAreasId = currentArea.id
             )
             when (response) {
                 is ResultWrapper.Success -> onRegisterSuccess()

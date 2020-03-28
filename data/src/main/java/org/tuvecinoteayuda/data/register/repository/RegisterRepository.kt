@@ -39,7 +39,7 @@ class RegisterRepository private constructor(
         cif: String? = null,
         @UserTypeId.Companion.UserType userTypeId: Int,
         @NearByAreaTypeId.Companion.NearByAreaType nearbyAreasId: Int? = null,
-        @ActivityAreaTypeId.Companion.ActivityAreaType activityAreaType: Int? = null
+        @ActivityAreaTypeId.Companion.ActivityAreaType activityAreaType: Int? = null // Only for Associations
     ): ResultWrapper<AuthResponse> {
 
         val request = RegisterUserRequest(
