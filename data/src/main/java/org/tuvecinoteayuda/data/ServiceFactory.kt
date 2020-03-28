@@ -2,6 +2,7 @@ package org.tuvecinoteayuda.data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.tuvecinoteayuda.data.BuildConfig.SERVER_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,7 +20,7 @@ class ServiceFactory {
             val retrofit: Retrofit = Retrofit.Builder()
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.tuvecinoteayuda.org/api/")
+                .baseUrl(SERVER_BASE_URL)
                 .build()
 
             return retrofit.create(S::class.java)
