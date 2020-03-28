@@ -19,6 +19,7 @@ import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
 import org.tuvecinoteayuda.core.util.observeEvent
 import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToProfileFragment
+import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToRequestHelpFragment
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
 
@@ -83,6 +84,9 @@ class DashboardFragment : Fragment() {
     private fun setupListeners() {
         binding.profile.setOnClickListener {
             findNavController().navigate(actionDashboardFragmentToProfileFragment())
+        }
+        binding.newHelpRequestButton.setOnClickListener {
+            findNavController().navigate(actionDashboardFragmentToRequestHelpFragment())
         }
     }
 

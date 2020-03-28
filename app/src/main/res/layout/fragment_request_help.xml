@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.tuvecinoteayuda.core.ui.ScreenState" />
+
+        <variable
+            name="vm"
+            type="org.tuvecinoteayuda.requesthelp.RequestHelpViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="org.tuvecinoteayuda.requesthelp.RequestHelpFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:animateLayoutChanges="true"
+            android:overScrollMode="never">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_background"
+                    android:padding="@dimen/default_margin_large">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/help_request_type_container"
+                        style="@style/TextInputLayoutOutlinedExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{vm.screenState == ScreenState.DATA_LOADED}"
+                        android:hint="@string/request_help_help_request_type"
+                        android:labelFor="@id/help_request_type"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_accessibility_black_24dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/help_request_type"
+                            style="@style/AutoCompleteTextView"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:text="@{vm.helpRequestType.name}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/message_container"
+                        style="@style/TextInputLayoutOutlined"
+                        android:enabled="@{vm.screenState == ScreenState.DATA_LOADED}"
+                        android:hint="@string/request_help_message"
+                        android:labelFor="@id/message"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/help_request_type_container"
+                        app:startIconDrawable="@drawable/ic_message_black_24dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/message"
+                            style="@style/TextInputEditTextOutlined"
+                            android:gravity="start|top"
+                            android:inputType="textCapSentences|textMultiLine"
+                            android:maxLines="100"
+                            android:text="@={vm.message}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <org.tuvecinoteayuda.core.ui.LoadingButton
+                        android:id="@+id/create_request_button"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/min_tappable_size"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/default_margin_xxxlarge"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+                        android:text="@string/request_help_create_request_button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/message_container" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

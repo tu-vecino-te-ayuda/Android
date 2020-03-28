@@ -208,10 +208,10 @@
                 android:layout_marginStart="@dimen/default_margin_xxxlarge"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+                android:text="@string/register_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postal_code_container"
-                app:loading_button_text="@string/register_button" />
+                app:layout_constraintTop_toBottomOf="@id/postal_code_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

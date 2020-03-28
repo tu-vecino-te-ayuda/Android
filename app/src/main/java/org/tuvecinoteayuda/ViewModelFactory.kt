@@ -13,6 +13,7 @@ import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
 import org.tuvecinoteayuda.profile.ProfileViewModel
 import org.tuvecinoteayuda.register.RegisterViewModel
+import org.tuvecinoteayuda.requesthelp.RequestHelpViewModel
 
 class ViewModelFactory private constructor(
 ) : ViewModelProvider.NewInstanceFactory() {
@@ -30,7 +31,10 @@ class ViewModelFactory private constructor(
                         RegisterRepository.newInstance()
                     )
                 isAssignableFrom(DashboardViewModel::class.java) ->
-                    DashboardViewModel(HelpRequestRepository.newInstance(), ProfileRepository.newInstance())
+                    DashboardViewModel(
+                        HelpRequestRepository.newInstance(),
+                        ProfileRepository.newInstance()
+                    )
                 isAssignableFrom(HelpRequestsViewModel::class.java) ->
                     HelpRequestsViewModel(
                         RegionRepository.newInstance()
@@ -40,6 +44,10 @@ class ViewModelFactory private constructor(
                         RegionRepository.newInstance(),
                         RegisterRepository.newInstance(),
                         ProfileRepository.newInstance()
+                    )
+                isAssignableFrom(RequestHelpViewModel::class.java) ->
+                    RequestHelpViewModel(
+                        HelpRequestRepository.newInstance()
                     )
                 else -> error("Unknown ViewModel class: ${modelClass.name}")
             }

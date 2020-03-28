@@ -84,10 +84,10 @@
                 android:layout_marginStart="@dimen/default_margin_xxxlarge"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin_xxxlarge"
+                android:text="@string/login_do_login"
                 app:layout_constraintEnd_toEndOf="@id/login_password_container"
                 app:layout_constraintStart_toStartOf="@id/login_password_container"
-                app:layout_constraintTop_toBottomOf="@id/login_password_container"
-                app:loading_button_text="@string/login_do_login" />
+                app:layout_constraintTop_toBottomOf="@id/login_password_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
