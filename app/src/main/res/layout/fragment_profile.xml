@@ -66,7 +66,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/name"
                             style="@style/TextInputEditTextOutlined"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={vm.name}" />
 
@@ -107,6 +107,7 @@
                             android:id="@+id/phone"
                             style="@style/TextInputEditTextOutlined"
                             android:inputType="phone"
+                            android:maxLength="9"
                             android:maxLines="1"
                             android:text="@={vm.phone}" />
 
@@ -152,7 +153,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/address"
                             style="@style/TextInputEditTextOutlined"
-                            android:inputType="textPostalAddress"
+                            android:inputType="textPostalAddress|textCapWords"
                             android:maxLines="1"
                             android:text="@={vm.address}" />
 
@@ -172,8 +173,9 @@
                         <AutoCompleteTextView
                             android:id="@+id/region"
                             style="@style/AutoCompleteTextView"
-                            android:inputType="none"
+                            android:inputType="textCapWords"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@={vm.region}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -194,8 +196,9 @@
                         <AutoCompleteTextView
                             android:id="@+id/city"
                             style="@style/AutoCompleteTextView"
-                            android:inputType="none"
+                            android:inputType="textCapWords"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@={vm.city}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -215,7 +218,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/postal_code"
                             style="@style/TextInputEditTextOutlined"
-                            android:inputType="text"
+                            android:inputType="number"
+                            android:maxLength="5"
                             android:maxLines="1"
                             android:text="@={vm.postalCode}" />
 

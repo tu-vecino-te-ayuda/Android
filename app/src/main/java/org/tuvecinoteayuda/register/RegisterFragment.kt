@@ -11,16 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
+import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
+import org.tuvecinoteayuda.core.ext.showSnackBarError
+import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
+import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.observeEvent
 import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.databinding.FragmentRegisterBinding
-import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
-import org.tuvecinoteayuda.core.ui.ScreenState
-import org.tuvecinoteayuda.core.util.observeEvent
-import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
-import org.tuvecinoteayuda.core.ext.setMaxLength
-import org.tuvecinoteayuda.core.ext.showSnackBarError
 
 class RegisterFragment : Fragment() {
 
@@ -28,21 +27,9 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels { ViewModelFactory.getInstance() }
 
-    private val areaAdapter by lazy {
-        AutoCompleteAdapter<NearByAreaTypeId>(
-            requireContext()
-        )
-    }
-    private val regionsAdapter by lazy {
-        AutoCompleteAdapter<Region>(
-            requireContext()
-        )
-    }
-    private val citiesAdapter by lazy {
-        AutoCompleteAdapter<City>(
-            requireContext()
-        )
-    }
+    private val areaAdapter by lazy { AutoCompleteAdapter<NearByAreaTypeId>(requireContext()) }
+    private val regionsAdapter by lazy { AutoCompleteAdapter<Region>(requireContext()) }
+    private val citiesAdapter by lazy { AutoCompleteAdapter<City>(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,8 +44,8 @@ class RegisterFragment : Fragment() {
             area.setAdapter(areaAdapter)
             region.setAdapter(regionsAdapter)
             city.setAdapter(citiesAdapter)
-            setupListeners()
             configureViews()
+            setupListeners()
             return root
         }
     }
@@ -73,7 +60,15 @@ class RegisterFragment : Fragment() {
         viewModel.start(RegisterType.values()[args.registerType])
     }
 
+    private fun configureViews() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        binding.toolbar.setTitle(R.string.register_title)
+    }
+
     private fun setupListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.registerButton.setOnButtonClickListener {
             viewModel.register()
         }
@@ -88,11 +83,6 @@ class RegisterFragment : Fragment() {
         binding.regionContainer.removeErrorOnTyping()
         binding.cityContainer.removeErrorOnTyping()
         binding.postalCodeContainer.removeErrorOnTyping()
-    }
-
-    private fun configureViews() {
-        binding.phone.setMaxLength(RegisterViewModel.MAX_PHONE_LENGTH)
-        binding.postalCode.setMaxLength(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
     }
 
     private fun observeViewModelData() {
@@ -141,7 +131,7 @@ class RegisterFragment : Fragment() {
                 if (error) getString(R.string.register_password_invalid) else null
         })
         viewModel.areaError.observe(viewLifecycleOwner, Observer { error ->
-            binding.cityContainer.error =
+            binding.areaContainer.error =
                 if (error) getString(R.string.register_area_invalid) else null
         })
         viewModel.regionError.observe(viewLifecycleOwner, Observer { error ->

@@ -3,14 +3,13 @@ package org.tuvecinoteayuda.register
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
-import org.tuvecinoteayuda.data.commons.models.AuthResponse
 import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.UserTypeId
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
-import org.tuvecinoteayuda.core.util.Event
-import org.tuvecinoteayuda.core.ui.ScreenState
 
 class RegisterViewModel(
     private val regionRepository: RegionRepository,
@@ -91,7 +90,7 @@ class RegisterViewModel(
         regionRepository.getCitiesByRegionName(regionName)
     }
     val areas = Transformations.map(registerType) { registerType ->
-        when(registerType) {
+        when (registerType) {
             RegisterType.Voluntary -> registerRepository.getNearByAreaType()
             else -> listOf()
         }
@@ -121,7 +120,7 @@ class RegisterViewModel(
             }
             // Phone
             val currentPhone = phone.value
-            if (currentPhone.isNullOrBlank() || currentPhone.length != 9) {
+            if (currentPhone.isNullOrBlank() || currentPhone.length != PHONE_LENGTH) {
                 _phoneError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -137,7 +136,7 @@ class RegisterViewModel(
             }
             // Area
             val currentArea = area.value
-            if (currentArea != null) {
+            if (currentArea == null) {
                 _areaError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -150,22 +149,26 @@ class RegisterViewModel(
                 return@launch
             }
             // Region
-            val currentRegion = region.value
-            if (currentRegion.isNullOrBlank()) {
+            val currentRegion =
+                region.value?.let { name -> regionRepository.getRegionByName(name) }
+            if (currentRegion == null) {
                 _regionError.postValue(true)
                 onInvalidData()
                 return@launch
             }
             // City
-            val currentCity = city.value
-            if (currentCity.isNullOrBlank()) {
+            val currentCity =
+                city.value?.let { name -> regionRepository.getCityByName(currentRegion.name, name) }
+            if (currentCity == null) {
                 _cityError.postValue(true)
                 onInvalidData()
                 return@launch
             }
             // Postal code
             val currentPostalCode = postalCode.value
-            if (currentPostalCode.isNullOrBlank()) {
+            if (currentPostalCode.isNullOrBlank()
+                || currentPostalCode.length != POSTAL_CODE_LENGTH
+            ) {
                 _postalCodeError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -178,18 +181,18 @@ class RegisterViewModel(
                 password = currentPassword,
                 passwordConfirmation = currentPassword,
                 address = currentAddress,
-                city = currentCity,
-                state = currentRegion,
+                city = currentCity.id,
+                state = currentRegion.id,
                 zipCode = currentPostalCode,
                 userTypeId = when (registerType.value) {
                     RegisterType.Voluntary -> UserTypeId.VOLUNTARIO_ID
                     RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
                     else -> error("Invalid register type!")
                 },
-                activityAreaType = currentArea?.id
+                activityAreaType = currentArea.id
             )
             when (response) {
-                is ResultWrapper.Success -> onRegisterSuccess(response.value)
+                is ResultWrapper.Success -> onRegisterSuccess()
                 else -> onRegisterFailed()
             }
         }
@@ -199,13 +202,9 @@ class RegisterViewModel(
         _screenState.value = ScreenState.DATA_LOADED
     }
 
-    private fun onRegisterSuccess(authResponse: AuthResponse) {
+    private fun onRegisterSuccess() {
         _screenState.value = ScreenState.DATA_LOADED
-        _onRegisterSuccessEvent.postValue(
-            Event(
-                Unit
-            )
-        )
+        _onRegisterSuccessEvent.postValue(Event(Unit))
     }
 
     private fun onRegisterFailed() {
@@ -214,8 +213,8 @@ class RegisterViewModel(
     }
 
     companion object {
-        const val MAX_PHONE_LENGTH = 9
-        const val MAX_ZIP_CODE_LENGTH = 9
+        const val PHONE_LENGTH = 9
+        const val POSTAL_CODE_LENGTH = 5
         const val MIN_PASSWORD_CHARACTERS = 8
     }
 }
