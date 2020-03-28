@@ -28,7 +28,7 @@ class LoadingButton @JvmOverloads constructor(
         ).apply {
 
             try {
-                button.text = getString(R.styleable.LoadingButton_loading_button_text)
+                button.text = getString(R.styleable.LoadingButton_android_text)
             } finally {
                 recycle()
             }

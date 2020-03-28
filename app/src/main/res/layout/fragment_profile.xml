@@ -15,7 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context="org.tuvecinoteayuda.register.RegisterFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -35,8 +36,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:animateLayoutChanges="true"
-            android:overScrollMode="never"
-            tools:context="org.tuvecinoteayuda.register.RegisterFragment">
+            android:overScrollMode="never">
 
             <FrameLayout
                 android:layout_width="match_parent"
