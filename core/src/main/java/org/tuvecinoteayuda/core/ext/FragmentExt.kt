@@ -21,7 +21,7 @@ fun Fragment.showToast(
     duration: Int = Toast.LENGTH_LONG
 ) {
     context?.also {
-        Toast.makeText(it, msg, Toast.LENGTH_LONG).show()
+        Toast.makeText(it, msg, duration).show()
     }
 }
 

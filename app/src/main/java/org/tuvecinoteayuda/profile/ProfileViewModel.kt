@@ -113,7 +113,7 @@ class ProfileViewModel(
     }
 
     private fun onProfileLoaded(profileResponse: ProfileResponse) {
-        val user = profileResponse.user ?: return
+        val user = profileResponse.user
         this.user = user
         registerType.postValue(
             when (user.userTypeId.id) {

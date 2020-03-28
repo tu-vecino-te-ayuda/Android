@@ -53,6 +53,8 @@ class ViewModelFactory private constructor(
                 isAssignableFrom(RequestHelpViewModel::class.java) ->
                     RequestHelpViewModel(
                         HelpRequestRepository.getInstance()
+                    ,
+                        RegionRepository.newInstance()
                     )
                 else -> error("Unknown ViewModel class: ${modelClass.name}")
             }

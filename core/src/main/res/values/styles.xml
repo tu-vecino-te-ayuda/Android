@@ -155,4 +155,10 @@
         <item name="cardElevation">@dimen/card_default_elevation</item>
     </style>
 
+    <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="iconTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
 </resources>

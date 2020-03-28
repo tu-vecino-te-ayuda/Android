@@ -5,7 +5,10 @@ import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
-import retrofit2.http.*
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface HelpRequestApi {
 
@@ -24,7 +27,7 @@ interface HelpRequestApi {
     @GET("help-requests/pending")
     suspend fun getPendingHelpRequests(): HelpRequestResponse
 
-    @GET("help-requests/accept/{id}")
+    @POST("help-requests/accept/{id}")
     suspend fun acceptHelpRequest(@Path("id") id: String): HelpRequestListResponse
 
     @DELETE("help-requests/revert/{id}")

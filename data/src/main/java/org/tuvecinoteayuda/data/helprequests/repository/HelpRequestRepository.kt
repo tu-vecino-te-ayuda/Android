@@ -1,8 +1,8 @@
 package org.tuvecinoteayuda.data.helprequests.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
@@ -17,14 +17,34 @@ class HelpRequestRepository(
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
-    private var helpRequestResponse: HelpRequestResponse? = null
+    private var helpRequestResponseCache: List<HelpRequest>? = null
 
     suspend fun getPendingRequestList(): ResultWrapper<HelpRequestResponse> {
-        val result = safeApiCallAsync(dispatcher) { api.pendingRequest() }.await()
+        return safeApiCall(dispatcher) { api.pendingRequest() }
+    }
 
+    private suspend fun cacheHelpRequest(helpRequestList:  List<HelpRequest>) {
+        coroutineScope {
+            helpRequestResponseCache = helpRequestList
+        }
+    }
+
+    suspend fun getPendingRequestListAndCache(): ResultWrapper<HelpRequestResponse> {
+        val result = getPendingRequestList()
         when (result) {
             is ResultWrapper.Success -> {
-                cacheHelpRequestAsync(result.value).await()
+                cacheHelpRequest(result.value.data)
+            }
+        }
+
+        return result
+    }
+
+    suspend fun getRequestAndCache(): ResultWrapper<HelpRequestListResponse> {
+        val result = getRequest()
+        when (result) {
+            is ResultWrapper.Success -> {
+                cacheHelpRequest(result.value.data)
             }
         }
 
@@ -63,12 +83,8 @@ class HelpRequestRepository(
         return safeApiCall(dispatcher) { api.cancelAcceptedHelpRequest(id) }
     }
 
-    fun findRequestById(requestId: Int): HelpRequest? {
-        return this.helpRequestResponse?.data?.firstOrNull { it.id == requestId }
-    }
-
-    private suspend fun cacheHelpRequestAsync(helpRequestResponse: HelpRequestResponse): Deferred<Unit> {
-        return callAsync(dispatcher) { this.helpRequestResponse = helpRequestResponse }
+    fun findRequestById(requestId: String): HelpRequest? {
+        return this.helpRequestResponseCache?.firstOrNull { it.id == requestId }
     }
 
     companion object {

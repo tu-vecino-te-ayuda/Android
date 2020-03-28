@@ -9,7 +9,7 @@ data class HelpRequest(
 	val createdAt: String,
 
 	@field:SerializedName("id")
-	val id: Int,
+	val id: String,
 
 	@field:SerializedName("message")
 	val message: String,
