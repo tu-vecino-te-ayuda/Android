@@ -26,6 +26,7 @@
     <string name="want_to_help_button">¡Quiero Ayudar!</string>
 
     <!--Register-->
+    <string name="register_title">Registro</string>
     <string name="register_name">Nombre y Apellidos</string>
     <string name="register_name_invalid">Nombre y Apellidos no válidos</string>
     <string name="register_phone">Teléfono</string>

@@ -14,6 +14,8 @@ import org.tuvecinoteayuda.data.profile.repository.ProfileRepository
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.register.RegisterType
+import org.tuvecinoteayuda.register.RegisterViewModel.Companion.PHONE_LENGTH
+import org.tuvecinoteayuda.register.RegisterViewModel.Companion.POSTAL_CODE_LENGTH
 
 class ProfileViewModel(
     private val regionRepository: RegionRepository,
@@ -158,7 +160,7 @@ class ProfileViewModel(
             }
             // Phone
             val currentPhone = phone.value
-            if (currentPhone.isNullOrBlank() || currentPhone.length != 9) {
+            if (currentPhone.isNullOrBlank() || currentPhone.length != PHONE_LENGTH) {
                 _phoneError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -195,7 +197,9 @@ class ProfileViewModel(
             }
             // Postal code
             val currentPostalCode = postalCode.value
-            if (currentPostalCode.isNullOrBlank()) {
+            if (currentPostalCode.isNullOrBlank()
+                || currentPostalCode.length != POSTAL_CODE_LENGTH
+            ) {
                 _postalCodeError.postValue(true)
                 onInvalidData()
                 return@launch

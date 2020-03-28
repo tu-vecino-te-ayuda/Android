@@ -12,7 +12,6 @@ import org.tuvecinoteayuda.R
 import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.clearOnFocus
 import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
-import org.tuvecinoteayuda.core.ext.setMaxLength
 import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
 import org.tuvecinoteayuda.core.ui.ScreenState
@@ -21,7 +20,6 @@ import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.databinding.FragmentProfileBinding
-import org.tuvecinoteayuda.register.RegisterViewModel
 
 class ProfileFragment : Fragment() {
 
@@ -62,8 +60,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun configureViews() {
-        binding.phone.setMaxLength(RegisterViewModel.MAX_PHONE_LENGTH)
-        binding.postalCode.setMaxLength(RegisterViewModel.MAX_ZIP_CODE_LENGTH)
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         binding.toolbar.setTitle(R.string.profile_title)
     }
@@ -136,7 +132,7 @@ class ProfileFragment : Fragment() {
                 if (error) getString(R.string.register_phone_invalid) else null
         })
         viewModel.areaError.observe(viewLifecycleOwner, Observer { error ->
-            binding.cityContainer.error =
+            binding.areaContainer.error =
                 if (error) getString(R.string.register_area_invalid) else null
         })
         viewModel.regionError.observe(viewLifecycleOwner, Observer { error ->

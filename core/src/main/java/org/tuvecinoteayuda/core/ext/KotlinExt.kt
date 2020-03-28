@@ -19,5 +19,5 @@ inline fun <T> T.alsoOrElse(notNullBlock: (T) -> Unit, nullBlock: (T) -> Unit) {
 }
 
 inline fun <T, R> T?.ifNullLet(nullBlock: () -> R): R? {
-    return this?.let { null } ?: nullBlock.invoke()
+    return this?.let { return null } ?: nullBlock.invoke()
 }
