@@ -36,7 +36,6 @@ class RequestHelpFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
-            helpRequestType.setAdapter(helpRequestTypeAdapter)
             configureViews()
             setupListeners()
             return root
@@ -56,6 +55,7 @@ class RequestHelpFragment : Fragment() {
     private fun configureViews() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         binding.toolbar.setTitle(R.string.request_help_title)
+        binding.helpRequestType.setAdapter(helpRequestTypeAdapter)
     }
 
     private fun setupListeners() {
