@@ -19,18 +19,14 @@ class HelpRequestRepository(
 
     private var helpRequestResponseCache: List<HelpRequest>? = null
 
-    suspend fun getPendingRequestList(): ResultWrapper<HelpRequestResponse> {
-        return safeApiCall(dispatcher) { api.pendingRequest() }
-    }
-
     private suspend fun cacheHelpRequest(helpRequestList:  List<HelpRequest>) {
         coroutineScope {
             helpRequestResponseCache = helpRequestList
         }
     }
 
-    suspend fun getPendingRequestListAndCache(): ResultWrapper<HelpRequestResponse> {
-        val result = getPendingRequestList()
+    suspend fun getPendingHelpRequestListAndCache(): ResultWrapper<HelpRequestResponse> {
+        val result = getPendingHelpRequest()
         when (result) {
             is ResultWrapper.Success -> {
                 cacheHelpRequest(result.value.data)
@@ -40,8 +36,12 @@ class HelpRequestRepository(
         return result
     }
 
-    suspend fun getRequestAndCache(): ResultWrapper<HelpRequestListResponse> {
-        val result = getRequest()
+    suspend fun getPendingHelpRequest(): ResultWrapper<HelpRequestResponse> {
+        return safeApiCall(dispatcher) { api.getPendingHelpRequests() }
+    }
+
+    suspend fun getMyRequestAndCache(): ResultWrapper<HelpRequestListResponse> {
+        val result = getMyHelpRequests()
         when (result) {
             is ResultWrapper.Success -> {
                 cacheHelpRequest(result.value.data)
@@ -49,18 +49,14 @@ class HelpRequestRepository(
         }
 
         return result
-    }
-
-    suspend fun getRequest(): ResultWrapper<HelpRequestListResponse> {
-        return safeApiCall(dispatcher) { api.getRequest() }
-    }
-
-    suspend fun getHelpRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
-        return safeApiCall(dispatcher) { api.getHelpRequestTypes() }
     }
 
     suspend fun getMyHelpRequests(): ResultWrapper<HelpRequestListResponse> {
         return safeApiCall(dispatcher) { api.getMyHelpRequests() }
+    }
+
+    suspend fun getHelpRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
+        return safeApiCall(dispatcher) { api.getHelpRequestTypes() }
     }
 
     suspend fun createHelpRequest(helpRequest: CreateHelpRequestRequest): ResultWrapper<MessageResponse> {

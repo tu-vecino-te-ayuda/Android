@@ -75,7 +75,7 @@ class DashboardViewModel(
         requestType = RequestType.MINE
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val pendingList = helpRequestRepository.getMyHelpRequests()) {
+            when (val pendingList = helpRequestRepository.getMyRequestAndCache()) {
                 is ResultWrapper.Success -> onDataLoaded(pendingList.value.data)
                 is ResultWrapper.GenericError -> pendingList.error?.message?.let { showError(it) }
                 else -> showError("")
@@ -88,7 +88,7 @@ class DashboardViewModel(
         requestType = RequestType.PENDING
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val requestList = helpRequestRepository.getPendingHelpRequests()) {
+            when (val requestList = helpRequestRepository.getPendingHelpRequestListAndCache()) {
                 is ResultWrapper.Success -> onDataLoaded(requestList.value.data)
                 is ResultWrapper.GenericError -> requestList.error?.message?.let { showError(it) }
                 else -> showError("")

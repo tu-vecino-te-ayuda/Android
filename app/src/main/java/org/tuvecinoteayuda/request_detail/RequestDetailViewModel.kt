@@ -59,7 +59,7 @@ class RequestDetailViewModel(
     fun acceptRequest() {
         item?.also {
             viewModelScope.launch(Dispatchers.IO) {
-                when (val result = requestRepository.acceptRequest(it.id)) {
+                when (val result = requestRepository.acceptHelpRequest(it.id)) {
                     is ResultWrapper.Success -> {
                         _onAcceptRequestSuccessEvent.postValue(Event(Unit))
                     }

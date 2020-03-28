@@ -5,10 +5,7 @@ import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface HelpRequestApi {
 

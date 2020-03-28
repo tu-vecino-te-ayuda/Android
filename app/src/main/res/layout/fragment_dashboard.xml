@@ -73,7 +73,6 @@
                     android:layout_height="40dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:src="@drawable/profile"
-                    android:foreground="?android:attr/selectableItemBackground"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="@dimen/spacing_2x_small"
                     app:layout_constraintEnd_toEndOf="parent"
