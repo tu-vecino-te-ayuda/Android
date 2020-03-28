@@ -21,8 +21,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="org.tuvecinoteayuda.register.RegisterFormActivity" />
-
         <activity android:name="org.tuvecinoteayuda.intro.IntroActivity" />
     </application>
 

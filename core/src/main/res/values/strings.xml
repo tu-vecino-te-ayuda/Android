@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">TuVecinoTeAyuda</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">TuVecin@TeAyuda</string>
+
+    <!--Intro-->
     <string name="intro_next">Siguiente</string>
     <string name="intro_skip">Saltar</string>
 
@@ -17,16 +18,12 @@
     <!--Need help-->
     <string name="need_help_title">Necesito Ayuda</string>
     <string name="need_help_subtitle">Si necesitas ayuda o sabes de alguien que la pueda necesitar, rellena este formulario y una persona voluntaria de confianza te ayudará a cubrir tus necesidades, tales como hacerte la compra de alimentos, fármacos, útiles de casa, cuidar a los niños o algún otro tipo de asistencia.</string>
-    <string name="need_help_button">Necesito Ayuda</string>
-
+    <string name="need_help_button">¡Necesito Ayuda!</string>
 
     <!--Want to help-->
-    <string name="want_to_help_voluntary_title">Voluntari@</string>
-    <string name="want_to_help_voluntary_subtitle">¿Quieres ayudar a otras personas? ¡Apúntate! Puedes ayudar tanto a que personas en riesgo no tengan que exponerse, como echando una mano a quien no pueda atender a sus mayores o niños.</string>
-    <string name="want_to_help_voluntary_button">"¡Quiero Ayudar!"</string>
     <string name="want_to_help_title">Voluntari@</string>
     <string name="want_to_help_subtitle">¿Quieres ayudar a otras personas? ¡Apúntate! Puedes ayudar tanto a que personas en riesgo no tengan que exponerse, como echando una mano a quien no pueda atender a sus mayores o niños.</string>
-    <string name="want_to_help_button">"¡Quiero Ayudar!"</string>
+    <string name="want_to_help_button">¡Quiero Ayudar!</string>
 
     <!--Register-->
     <string name="register_name">Nombre y Apellidos</string>
@@ -51,16 +48,20 @@
     <string name="register_error">Error en el registro</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_my_requests">Mis Solicitudes</string>
-    <string name="dashboard_requests">Solicitudes</string>
+    <string name="dashboard_title_my_requests">Mis Solicitudes</string>
+    <string name="dashboard_title_all_requests">Solicitudes</string>
     <string name="dashboard_profile">Perfil</string>
+    <string name="dashboard_my_requests_empty">Por ahora no tienes solicitudes de ayuda en tu lista ¿Empezamos?</string>
+    <string name="dashboard_all_requests_empty">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana!"</string>
+    <string name="dashboard_my_requests_button">Mis Solicitudes</string>
+    <string name="dashboard_all_requests_button">Todas las Solicitudes</string>
+    <string name="dashboard_new_request_button">Solicitar ayuda</string>
 
     <!-- Profile -->
     <string name="profile_title">Perfil</string>
     <string name="profile_edit_button">Editar</string>
     <string name="profile_update_button">Actualizar</string>
     <string name="profile_profile_updated">Perfil actualizado!</string>
-    <string name="profile_error_updating_profile">Error actualizando perfil...</string>
-
+    <string name="profile_error_updating_profile">Error actualizando perfil…</string>
 
 </resources>

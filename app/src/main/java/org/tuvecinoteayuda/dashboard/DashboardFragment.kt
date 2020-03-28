@@ -128,11 +128,11 @@ class DashboardFragment : Fragment() {
         })
 
         viewModel.onAllRequestEmpty.observeEvent(viewLifecycleOwner, {
-            binding.emptyText.text = getString(R.string.dashboard_all_empty_list)
+            binding.emptyText.text = getString(R.string.dashboard_all_requests_empty)
         })
 
         viewModel.onMyRequestEmpty.observeEvent(viewLifecycleOwner, {
-            binding.emptyText.text = getString(R.string.dashboard_mine_empty_list)
+            binding.emptyText.text = getString(R.string.dashboard_my_requests_empty)
         })
     }
 

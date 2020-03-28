@@ -3,9 +3,9 @@
     <item
         android:id="@+id/my_request"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/my_request" />
+        android:title="@string/dashboard_my_requests_button" />
     <item
         android:id="@+id/pending_request"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/all_request" />
+        android:title="@string/dashboard_all_requests_button" />
 </menu>
