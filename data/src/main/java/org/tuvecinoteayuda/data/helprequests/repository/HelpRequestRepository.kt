@@ -5,8 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
+import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
+import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
 
 class HelpRequestRepository(
@@ -14,29 +15,32 @@ class HelpRequestRepository(
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
-    suspend fun getPendingRequestList(): ResultWrapper<HelpRequestResponse> {
-        return safeApiCall(dispatcher) { api.pendingRequest() }
-    }
-
-    suspend fun getRequest(): ResultWrapper<HelpRequestListResponse> {
-        return safeApiCall(dispatcher) { api.getRequest() }
-    }
-
-    suspend fun getRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
+    suspend fun getHelpRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
         return safeApiCall(dispatcher) { api.getHelpRequestTypes() }
     }
 
-
-    suspend fun acceptRequest(id: String): ResultWrapper<HelpRequestListResponse> {
-        return safeApiCall(dispatcher) { api.acceptRequest(id) }
+    suspend fun getMyHelpRequests(): ResultWrapper<HelpRequestListResponse> {
+        return safeApiCall(dispatcher) { api.getMyHelpRequests() }
     }
 
-    suspend fun cancelAcceptedRequest(id: String): ResultWrapper<MessageResponse> {
-        return safeApiCall(dispatcher) { api.cancelAcceptedRequest(id) }
+    suspend fun createHelpRequest(helpRequest: CreateHelpRequestRequest): ResultWrapper<MessageResponse> {
+        return safeApiCall(dispatcher) { api.createHelpRequest(helpRequest) }
     }
 
-    suspend fun cancelMyRequest(id: String): ResultWrapper<MessageResponse> {
-        return safeApiCall(dispatcher) { api.cancelMyRequest(id) }
+    suspend fun deleteHelpRequest(id: String): ResultWrapper<MessageResponse> {
+        return safeApiCall(dispatcher) { api.deleteHelpRequest(id) }
+    }
+
+    suspend fun getPendingHelpRequests(): ResultWrapper<HelpRequestResponse> {
+        return safeApiCall(dispatcher) { api.getPendingHelpRequests() }
+    }
+
+    suspend fun acceptHelpRequest(id: String): ResultWrapper<HelpRequestListResponse> {
+        return safeApiCall(dispatcher) { api.acceptHelpRequest(id) }
+    }
+
+    suspend fun cancelAcceptedHelpRequest(id: String): ResultWrapper<MessageResponse> {
+        return safeApiCall(dispatcher) { api.cancelAcceptedHelpRequest(id) }
     }
 
     companion object {

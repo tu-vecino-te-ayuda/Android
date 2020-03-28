@@ -28,10 +28,10 @@ class HelpRequestRepositoryTest {
                 )
 
             coEvery {
-                repository.getPendingRequestList()
+                repository.getPendingHelpRequests()
             } returns ResultWrapper.Success(loginResponse)
 
-            val result = repository.getPendingRequestList()
+            val result = repository.getPendingHelpRequests()
             assertEquals(ResultWrapper.Success(loginResponse), result)
         }
     }
@@ -46,10 +46,10 @@ class HelpRequestRepositoryTest {
                 )
 
             coEvery {
-                repository.getRequest()
+                repository.getMyHelpRequests()
             } returns ResultWrapper.Success(requestResponse)
 
-            val result = repository.getRequest()
+            val result = repository.getMyHelpRequests()
             assertEquals(ResultWrapper.Success(requestResponse), result)
         }
     }
@@ -64,10 +64,10 @@ class HelpRequestRepositoryTest {
                 )
 
             coEvery {
-                repository.acceptRequest(any())
+                repository.acceptHelpRequest(any())
             } returns ResultWrapper.Success(requestResponse)
 
-            val result = repository.acceptRequest("")
+            val result = repository.acceptHelpRequest("")
             assertEquals(ResultWrapper.Success(requestResponse), result)
         }
     }
@@ -82,10 +82,10 @@ class HelpRequestRepositoryTest {
                 )
 
             coEvery {
-                repository.cancelAcceptedRequest(any())
+                repository.cancelAcceptedHelpRequest(any())
             } returns ResultWrapper.Success(requestResponse)
 
-            val result = repository.cancelAcceptedRequest("")
+            val result = repository.cancelAcceptedHelpRequest("")
             assertEquals(ResultWrapper.Success(requestResponse), result)
         }
     }
@@ -100,10 +100,10 @@ class HelpRequestRepositoryTest {
                 )
 
             coEvery {
-                repository.getRequestTypes()
+                repository.getHelpRequestTypes()
             } returns ResultWrapper.Success(requestTypes)
 
-            val result = repository.getRequestTypes()
+            val result = repository.getHelpRequestTypes()
             assertEquals(ResultWrapper.Success(requestTypes), result)
         }
     }
