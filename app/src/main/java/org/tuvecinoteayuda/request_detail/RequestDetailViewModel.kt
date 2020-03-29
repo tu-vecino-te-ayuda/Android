@@ -45,15 +45,24 @@ class RequestDetailViewModel(
         get() = _onAcceptRequestErrorEvent
 
     private var item: HelpRequest? = null
-    fun start(requestId: String) {
-        val request = requestRepository.findRequestById(requestId)
 
-        request?.let {
-            item = it
-            _helpRequest.postValue(it)
-            _state.postValue(regionRepository.getRegionById(it.user.state))
-            _city.postValue(regionRepository.getCityById(it.user.state, it.user.city))
-        } ?: error("Invalid args")
+    fun start(requestId: String) {
+        if (_screenState.value != ScreenState.INITIAL) return
+        getRequest(requestId)
+    }
+
+    private fun getRequest(requestId: String) {
+        _screenState.value = ScreenState.LOADING_DATA
+        viewModelScope.launch {
+            val request = requestRepository.findRequestById(requestId)
+            request?.let {
+                item = it
+                _helpRequest.postValue(it)
+                _state.postValue(regionRepository.getRegionById(it.user.state))
+                _city.postValue(regionRepository.getCityById(it.user.state, it.user.city))
+                _screenState.postValue(ScreenState.DATA_LOADED)
+            } ?: error("Invalid args")
+        }
     }
 
     fun acceptRequest() {

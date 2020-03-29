@@ -136,7 +136,7 @@ class RegisterViewModel(
             }
             // Area
             val currentArea = area.value
-            if (currentArea == null) {
+            if (registerType.value == RegisterType.Voluntary && currentArea == null) {
                 _areaError.postValue(true)
                 onInvalidData()
                 return@launch
@@ -189,7 +189,7 @@ class RegisterViewModel(
                     RegisterType.Requester -> UserTypeId.SOLICITANTE_ID
                     else -> error("Invalid register type!")
                 },
-                nearbyAreasId = currentArea.id
+                nearbyAreasId = currentArea?.id
             )
             when (response) {
                 is ResultWrapper.Success -> onRegisterSuccess()

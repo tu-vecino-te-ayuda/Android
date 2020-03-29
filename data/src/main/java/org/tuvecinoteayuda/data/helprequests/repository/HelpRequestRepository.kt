@@ -1,59 +1,18 @@
 package org.tuvecinoteayuda.data.helprequests.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import org.tuvecinoteayuda.data.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.api.HelpRequestApi
-import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
+import org.tuvecinoteayuda.data.helprequests.models.*
 
 class HelpRequestRepository(
     private val api: HelpRequestApi,
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository() {
 
-    private var helpRequestResponseCache: List<HelpRequest>? = null
-
-    private suspend fun cacheHelpRequest(helpRequestList:  List<HelpRequest>) {
-        coroutineScope {
-            helpRequestResponseCache = helpRequestList
-        }
-    }
-
-    suspend fun getPendingHelpRequestListAndCache(): ResultWrapper<HelpRequestResponse> {
-        val result = getPendingHelpRequest()
-        when (result) {
-            is ResultWrapper.Success -> {
-                cacheHelpRequest(result.value.data)
-            }
-        }
-
-        return result
-    }
-
-    suspend fun getPendingHelpRequest(): ResultWrapper<HelpRequestResponse> {
-        return safeApiCall(dispatcher) { api.getPendingHelpRequests() }
-    }
-
-    suspend fun getMyRequestAndCache(): ResultWrapper<HelpRequestListResponse> {
-        val result = getMyHelpRequests()
-        when (result) {
-            is ResultWrapper.Success -> {
-                cacheHelpRequest(result.value.data)
-            }
-        }
-
-        return result
-    }
-
-    suspend fun getMyHelpRequests(): ResultWrapper<HelpRequestListResponse> {
-        return safeApiCall(dispatcher) { api.getMyHelpRequests() }
-    }
+    private var pendingHelpRequestCache: List<HelpRequest>? = null
+    private var myHelpRequestCache: List<HelpRequest>? = null
 
     suspend fun getHelpRequestTypes(): ResultWrapper<HelpRequestTypeResponse> {
         return safeApiCall(dispatcher) { api.getHelpRequestTypes() }
@@ -67,8 +26,14 @@ class HelpRequestRepository(
         return safeApiCall(dispatcher) { api.deleteHelpRequest(id) }
     }
 
+    suspend fun getMyHelpRequests(): ResultWrapper<HelpRequestListResponse> {
+        return safeApiCall(dispatcher) { api.getMyHelpRequests() }
+            .also { cacheMyHelpRequest(it) }
+    }
+
     suspend fun getPendingHelpRequests(): ResultWrapper<HelpRequestResponse> {
         return safeApiCall(dispatcher) { api.getPendingHelpRequests() }
+            .also { cachePendingHelpRequest(it) }
     }
 
     suspend fun acceptHelpRequest(id: String): ResultWrapper<HelpRequestListResponse> {
@@ -79,8 +44,38 @@ class HelpRequestRepository(
         return safeApiCall(dispatcher) { api.cancelAcceptedHelpRequest(id) }
     }
 
-    fun findRequestById(requestId: String): HelpRequest? {
-        return this.helpRequestResponseCache?.firstOrNull { it.id == requestId }
+    suspend fun findRequestById(requestId: String): HelpRequest? {
+        return coroutineScope {
+            withContext(Dispatchers.Default) {
+                myHelpRequestCache?.firstOrNull { it.id == requestId }
+                    ?.run { return@withContext this }
+                pendingHelpRequestCache?.firstOrNull { it.id == requestId }
+            }
+        }
+    }
+
+    private suspend fun cachePendingHelpRequest(response: ResultWrapper<HelpRequestResponse>) {
+        coroutineScope {
+            launch {
+                when (response) {
+                    is ResultWrapper.Success -> {
+                        pendingHelpRequestCache = response.value.data
+                    }
+                }
+            }
+        }
+    }
+
+    private suspend fun cacheMyHelpRequest(response: ResultWrapper<HelpRequestListResponse>) {
+        coroutineScope {
+            launch {
+                when (response) {
+                    is ResultWrapper.Success -> {
+                        myHelpRequestCache = response.value.data
+                    }
+                }
+            }
+        }
     }
 
     companion object {

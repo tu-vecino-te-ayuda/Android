@@ -18,8 +18,7 @@ import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.ui.VerticalItemDecorator
 import org.tuvecinoteayuda.core.util.observeEvent
-import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToProfileFragment
-import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.actionDashboardFragmentToRequestHelpFragment
+import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.*
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
@@ -161,12 +160,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showData() {
-        binding.requestListContainer.show()
+        binding.requestList.show()
         binding.emptyText.hide()
     }
 
     private fun hideData() {
-        binding.requestListContainer.hide()
+        binding.requestList.hide()
     }
 
     private fun hideEmptyData() {
@@ -175,20 +174,19 @@ class DashboardFragment : Fragment() {
 
     private fun showError() {
         binding.loading.hide()
-        binding.requestListContainer.hide()
+        binding.requestList.hide()
         binding.emptyText.hide()
     }
 
     private fun showEmptyData() {
         binding.loading.hide()
-        binding.requestListContainer.hide()
+        binding.requestList.hide()
         binding.emptyText.show()
     }
 
     private fun onItemClicked(item: HelpRequest) {
         findNavController().navigate(
-            DashboardFragmentDirections.actionDashboardFragmentToRequestDetailFragment()
-                .setRequestId(item.id)
+            actionDashboardFragmentToRequestDetailFragment().setRequestId(item.id)
         )
     }
 }

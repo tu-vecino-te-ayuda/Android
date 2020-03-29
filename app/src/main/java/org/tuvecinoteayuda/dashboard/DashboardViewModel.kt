@@ -57,17 +57,9 @@ class DashboardViewModel(
     private var requestType: RequestType = RequestType.PENDING
 
     fun start(userType: DashboardType) {
+        if (_screenState.value != ScreenState.INITIAL) return
         this.userType = userType
-        when (userType) {
-            DashboardType.REQUESTER -> {
-                _onRequestedLoadedEvent.postValue(Event(Unit))
-                getMyRequest()
-            }
-            DashboardType.VOLUNTARY -> {
-                _onVoluntaryLoadedEvent.postValue(Event(Unit))
-                getPendingRequest()
-            }
-        }
+        getMyRequest()
     }
 
     //TODO Join this two calls
@@ -75,7 +67,7 @@ class DashboardViewModel(
         requestType = RequestType.MINE
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val pendingList = helpRequestRepository.getMyRequestAndCache()) {
+            when (val pendingList = helpRequestRepository.getMyHelpRequests()) {
                 is ResultWrapper.Success -> onDataLoaded(pendingList.value.data)
                 is ResultWrapper.GenericError -> pendingList.error?.message?.let { showError(it) }
                 else -> showError("")
@@ -88,7 +80,7 @@ class DashboardViewModel(
         requestType = RequestType.PENDING
         _screenState.postValue(ScreenState.LOADING_DATA)
         viewModelScope.launch {
-            when (val requestList = helpRequestRepository.getPendingHelpRequestListAndCache()) {
+            when (val requestList = helpRequestRepository.getPendingHelpRequests()) {
                 is ResultWrapper.Success -> onDataLoaded(requestList.value.data)
                 is ResultWrapper.GenericError -> requestList.error?.message?.let { showError(it) }
                 else -> showError("")

@@ -74,4 +74,7 @@
     <string name="request_help_create_request_button">Crear solicitud</string>
     <string name="request_help_request_created">Solicitud creada!</string>
     <string name="request_help_request_failed">Error creando la solicitud!</string>
+
+    <!-- Request detail -->
+    <string name="request_detail_i_help_you">¡Yo te ayudo!</string>
 </resources>

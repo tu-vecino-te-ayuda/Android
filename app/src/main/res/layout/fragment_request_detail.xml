@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:contentDescription="@string/dashboard_new_request"
+            android:contentDescription="@string/request_detail_i_help_you"
             android:text="@string/request_detail_i_help_you"
             app:icon="@drawable/ic_help"
             app:layout_constraintBottom_toBottomOf="parent"
