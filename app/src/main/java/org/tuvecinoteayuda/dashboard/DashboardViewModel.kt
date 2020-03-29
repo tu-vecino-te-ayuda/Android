@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.core.ui.ScreenState
-import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
@@ -23,96 +22,60 @@ class DashboardViewModel(
     val screenState: LiveData<ScreenState>
         get() = _screenState
 
-    private val _showButton = MutableLiveData<Boolean>()
-    val showButton: LiveData<Boolean>
-        get() = _showButton
-
-    //Events
-    private val _onRequestedLoadedEvent = MutableLiveData<Event<Unit>>()
-    val onRequestedLoadedEvent: LiveData<Event<Unit>>
-        get() = _onRequestedLoadedEvent
-
-    private val _onVoluntaryLoadedEvent = MutableLiveData<Event<Unit>>()
-    val onVoluntaryLoadedEvent: LiveData<Event<Unit>>
-        get() = _onVoluntaryLoadedEvent
-
-    private val _onAllRequestEmpty = MutableLiveData<Event<Unit>>()
-    val onAllRequestEmpty: LiveData<Event<Unit>>
-        get() = _onAllRequestEmpty
-
-    private val _onMyRequestEmpty = MutableLiveData<Event<Unit>>()
-    val onMyRequestEmpty: LiveData<Event<Unit>>
-        get() = _onMyRequestEmpty
-
     //Data
-    private val _request = MutableLiveData<List<HelpRequest>>()
-    val allRequest: LiveData<List<HelpRequest>>
-        get() = _request
+    private val _dashboardType = MutableLiveData<DashboardType>()
+    val dashboardType: LiveData<DashboardType>
+        get() = _dashboardType
+
+    private val _currentTab = MutableLiveData(DashboardTab.MY_REQUESTS)
+    val currentTab: LiveData<DashboardTab>
+        get() = _currentTab
+
+    private val _requests = MutableLiveData<List<HelpRequest>>()
+    val requests: LiveData<List<HelpRequest>>
+        get() = _requests
 
     private val _requestError = MutableLiveData<String>()
     val requestError: LiveData<String>
         get() = _requestError
 
-    private var userType: DashboardType = DashboardType.VOLUNTARY
-    private var requestType: RequestType = RequestType.PENDING
-
     fun start(userType: DashboardType) {
         if (_screenState.value != ScreenState.INITIAL) return
-        this.userType = userType
+        _dashboardType.value = userType
         getMyRequest()
     }
 
-    //TODO Join this two calls
     fun getMyRequest() {
-        requestType = RequestType.MINE
         _screenState.postValue(ScreenState.LOADING_DATA)
+        _currentTab.value = DashboardTab.MY_REQUESTS
         viewModelScope.launch {
-            when (val pendingList = helpRequestRepository.getMyHelpRequests()) {
-                is ResultWrapper.Success -> onDataLoaded(pendingList.value.data)
-                is ResultWrapper.GenericError -> pendingList.error?.message?.let { showError(it) }
+            when (val response = helpRequestRepository.getMyHelpRequests()) {
+                is ResultWrapper.Success -> onDataLoaded(response.value.data)
+                is ResultWrapper.GenericError -> response.error?.message?.let { showError(it) }
                 else -> showError("")
             }
         }
     }
 
-    //TODO Join this two calls
     fun getPendingRequest() {
-        requestType = RequestType.PENDING
         _screenState.postValue(ScreenState.LOADING_DATA)
+        _currentTab.value = DashboardTab.PENDING_REQUESTS
         viewModelScope.launch {
-            when (val requestList = helpRequestRepository.getPendingHelpRequests()) {
-                is ResultWrapper.Success -> onDataLoaded(requestList.value.data)
-                is ResultWrapper.GenericError -> requestList.error?.message?.let { showError(it) }
+            when (val response = helpRequestRepository.getPendingHelpRequests()) {
+                is ResultWrapper.Success -> onDataLoaded(response.value.data)
+                is ResultWrapper.GenericError -> response.error?.message?.let { showError(it) }
                 else -> showError("")
             }
         }
     }
 
     private fun onDataLoaded(data: List<HelpRequest>) {
-        _screenState.postValue(
-            if (data.isEmpty()) {
-                ScreenState.EMPTY_DATA
-            } else {
-                ScreenState.DATA_LOADED
-            }
-        )
-
-        if (data.isEmpty()) {
-            when (requestType) {
-                RequestType.MINE -> {
-                    _onMyRequestEmpty.postValue(Event(Unit))
-                }
-                RequestType.PENDING -> {
-                    _onAllRequestEmpty.postValue(Event(Unit))
-                }
-            }
-        }
-        _showButton.postValue(this.userType == DashboardType.REQUESTER)
-        _request.postValue(data)
+        _requests.postValue(data)
+        _screenState.postValue(ScreenState.DATA_LOADED)
     }
 
     private fun showError(error: String) {
-        _screenState.postValue(ScreenState.ERROR)
         _requestError.postValue(error)
+        _screenState.postValue(ScreenState.ERROR)
     }
 }

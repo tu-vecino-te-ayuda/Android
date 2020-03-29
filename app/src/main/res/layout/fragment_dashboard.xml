@@ -5,6 +5,14 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="org.tuvecinoteayuda.dashboard.DashboardType" />
+
+        <import type="org.tuvecinoteayuda.dashboard.DashboardTab" />
+
+        <import type="org.tuvecinoteayuda.core.ui.ScreenState" />
+
         <variable
             name="vm"
             type="org.tuvecinoteayuda.dashboard.DashboardViewModel" />
@@ -21,7 +29,7 @@
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{vm.screenState == ScreenState.LOADING_DATA ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +44,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@{vm.currentTab == DashboardTab.MY_REQUESTS ? @string/dashboard_my_requests_empty : @string/dashboard_my_requests_empty}"
             android:textAlignment="center"
-            android:visibility="gone"
+            android:visibility="@{vm.screenState == ScreenState.LOADING_DATA || vm.requests.size() > 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:orientation="vertical"
+                    android:visibility="@{vm.requests.size() > 0 ? View.VISIBLE : View.GONE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +111,7 @@
             android:layout_margin="@dimen/default_margin"
             android:contentDescription="@string/dashboard_new_request_button"
             android:text="@string/dashboard_new_request_button"
-            android:visibility="gone"
+            android:visibility="@{vm.dashboardType == DashboardType.VOLUNTARY ? View.VISIBLE : View.GONE}"
             app:icon="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/dark_gray"
+            android:visibility="@{vm.dashboardType == DashboardType.VOLUNTARY ? View.VISIBLE : View.GONE}"
             app:itemIconTint="@drawable/menu_selector"
             app:itemTextColor="@drawable/menu_selector"
             app:layout_constraintBottom_toBottomOf="parent"
