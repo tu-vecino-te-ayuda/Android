@@ -29,5 +29,6 @@
     <color name="red">#FF6347</color>
     <color name="pending">#ffc107</color>
     <color name="dark_gray">#363636</color>
+    <color name="green">#4CAF50</color>
 
 </resources>

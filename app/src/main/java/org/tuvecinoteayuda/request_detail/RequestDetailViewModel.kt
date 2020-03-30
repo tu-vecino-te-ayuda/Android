@@ -9,7 +9,9 @@ import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
+import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
+import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
@@ -40,6 +42,10 @@ class RequestDetailViewModel(
     private val _onAcceptRequestSuccessEvent = MutableLiveData<Event<Unit>>()
     val onAcceptRequestSuccessEvent: LiveData<Event<Unit>>
         get() = _onAcceptRequestSuccessEvent
+    private val _onCancelRequestSuccessEvent = MutableLiveData<Event<String>>()
+    val onCancelRequestSuccessEvent: LiveData<Event<String>>
+        get() = _onCancelRequestSuccessEvent
+
     private val _onAcceptRequestErrorEvent = MutableLiveData<Event<String>>()
     val onAcceptRequestErrorEvent: LiveData<Event<String>>
         get() = _onAcceptRequestErrorEvent
@@ -67,18 +73,53 @@ class RequestDetailViewModel(
 
     fun acceptRequest() {
         item?.also {
+            _screenState.postValue(ScreenState.LOADING_DATA)
             viewModelScope.launch(Dispatchers.IO) {
                 when (val result = requestRepository.acceptHelpRequest(it.id)) {
                     is ResultWrapper.Success -> {
-                        _onAcceptRequestSuccessEvent.postValue(Event(Unit))
+                        onAcceptedSuccess(result.value)
                     }
-                    is ResultWrapper.GenericError ->{
-                        _onAcceptRequestErrorEvent.postValue(Event(result.error!!.message))
+                    is ResultWrapper.GenericError -> {
+                        onError(result.error!!.message)
                     }
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         }
+    }
+
+    fun cancelRequest() {
+        item?.also {
+            _screenState.postValue(ScreenState.LOADING_DATA)
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = requestRepository.cancelAcceptedHelpRequest(it.id)) {
+                    is ResultWrapper.Success -> {
+                        onCancelSuccess(result.value)
+                    }
+                    is ResultWrapper.GenericError -> {
+                        onError(result.error!!.message)
+                    }
+                    else -> {
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onAcceptedSuccess(request: HelpRequestListResponse) {
+        _screenState.postValue(ScreenState.DATA_LOADED)
+        _onAcceptRequestSuccessEvent.postValue(Event(Unit))
+    }
+
+    private fun onCancelSuccess(message: MessageResponse) {
+        _screenState.postValue(ScreenState.DATA_LOADED)
+        _onCancelRequestSuccessEvent.postValue(Event(message.message))
+    }
+
+    private fun onError(error: String) {
+        _screenState.postValue(ScreenState.DATA_LOADED)
+        _onAcceptRequestErrorEvent.postValue(Event(error))
 
     }
 }

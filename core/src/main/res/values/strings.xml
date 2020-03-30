@@ -77,4 +77,5 @@
 
     <!-- Request detail -->
     <string name="request_detail_i_help_you">¡Yo te ayudo!</string>
+    <string name="request_detail_cancel">Cancelar</string>
 </resources>
