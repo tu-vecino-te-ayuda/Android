@@ -4,8 +4,10 @@ import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.view.View
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.postDelayed
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -38,4 +40,9 @@ fun AutoCompleteTextView.clearOnFocus() {
         text.clear()
         postDelayed(200) { showDropDown() }
     }
+}
+
+@BindingAdapter("app:menu")
+fun Toolbar.setMenu(id: Int) {
+    if (id != -1) this.inflateMenu(id)
 }

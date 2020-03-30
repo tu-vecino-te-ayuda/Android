@@ -13,6 +13,7 @@ import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.clearOnFocus
 import org.tuvecinoteayuda.core.ext.removeErrorOnTyping
 import org.tuvecinoteayuda.core.ext.showSnackBarError
+import org.tuvecinoteayuda.core.ext.showSuccesSnackbar
 import org.tuvecinoteayuda.core.ui.AutoCompleteAdapter
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.observeEvent
@@ -107,7 +108,7 @@ class RequestHelpFragment : Fragment() {
 
     private fun observeEvents() {
         viewModel.onHelpRequestCreatedEvent.observeEvent(viewLifecycleOwner) {
-            showSnackBarError(R.string.request_help_request_created)
+            showSuccesSnackbar(R.string.request_help_request_created)
             findNavController().popBackStack()
         }
         viewModel.onHelpRequestFailedEvent.observeEvent(viewLifecycleOwner) {

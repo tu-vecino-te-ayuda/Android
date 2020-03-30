@@ -2,6 +2,7 @@ package org.tuvecinoteayuda.core.ext
 
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -32,8 +33,29 @@ fun Fragment.showSnackBarError(
     showSnackBarError(getString(msg), duration)
 }
 
-fun Fragment.showSnackBarError(
+fun Fragment.showSuccesSnackbar(
+    @StringRes msg: Int,
+    duration: Int = Snackbar.LENGTH_SHORT
+) {
+    showSnackBar(getString(msg), R.color.green, duration)
+}
+
+fun Fragment.showSuccesSnackbar(
     msg: String,
+    duration: Int = Snackbar.LENGTH_SHORT
+) {
+    showSnackBar(msg, R.color.green, duration)
+}
+
+fun Fragment.showSnackBarError(
+    msg: String, duration: Int = Snackbar.LENGTH_SHORT
+) {
+    showSnackBar(msg, R.color.red, duration)
+}
+
+fun Fragment.showSnackBar(
+    msg: String,
+    @ColorRes color: Int,
     duration: Int = Snackbar.LENGTH_SHORT
 ) {
 
@@ -43,7 +65,7 @@ fun Fragment.showSnackBarError(
             val context = view.context
 
             val group = it.view as ViewGroup
-            group.setBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
+            group.setBackgroundColor(ContextCompat.getColor(view.context, color))
             ViewCompat.setElevation(
                 group, context.resources.getDimensionPixelSize(
                     R
