@@ -76,6 +76,15 @@
     <string name="request_help_request_failed">Error creando la solicitud!</string>
 
     <!-- Request detail -->
+    <string name="request_detail_title">Solicitud de Ayuda</string>
     <string name="request_detail_i_help_you">¡Yo te ayudo!</string>
     <string name="request_detail_cancel">Cancelar</string>
+    <string name="request_detail_created_at">Creada el:</string>
+    <string name="request_detail_adress">Dirección:</string>
+    <string name="request_detail_state">Provincia:</string>
+    <string name="request_detail_city">Cty:</string>
+    <string name="request_detail_phone">Teléfono</string>
+    <string name="request_detail_accepted">Solicitud aceptada correctamente</string>
+    <string name="request_detail_cancel_success">Solicitud de ayuda cancelada</string>
+
 </resources>

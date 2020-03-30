@@ -36,7 +36,7 @@ class HelpRequestRepository(
             .also { cachePendingHelpRequest(it) }
     }
 
-    suspend fun acceptHelpRequest(id: String): ResultWrapper<HelpRequestListResponse> {
+    suspend fun acceptHelpRequest(id: String): ResultWrapper<AcceptHelpRequestResponse> {
         return safeApiCall(dispatcher) { api.acceptHelpRequest(id) }
     }
 

@@ -1,10 +1,7 @@
 package org.tuvecinoteayuda.data.helprequests.api
 
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
-import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
+import org.tuvecinoteayuda.data.helprequests.models.*
 import retrofit2.http.*
 
 interface HelpRequestApi {
@@ -25,7 +22,7 @@ interface HelpRequestApi {
     suspend fun getPendingHelpRequests(): HelpRequestResponse
 
     @POST("help-requests/accept/{id}")
-    suspend fun acceptHelpRequest(@Path("id") id: String): HelpRequestListResponse
+    suspend fun acceptHelpRequest(@Path("id") id: String): AcceptHelpRequestResponse
 
     @DELETE("help-requests/revert/{id}")
     suspend fun cancelAcceptedHelpRequest(@Path("id") id: String): MessageResponse

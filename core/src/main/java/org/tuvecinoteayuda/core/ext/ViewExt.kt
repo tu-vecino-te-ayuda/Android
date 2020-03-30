@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import org.tuvecinoteayuda.core.ui.RowView
 
 fun View?.hide() {
     this?.visibility = View.GONE
@@ -45,4 +46,14 @@ fun AutoCompleteTextView.clearOnFocus() {
 @BindingAdapter("app:menu")
 fun Toolbar.setMenu(id: Int) {
     if (id != -1) this.inflateMenu(id)
+}
+
+@BindingAdapter("app:title")
+fun RowView.setTitle(title: String?) {
+    this.binding.title.text = title
+}
+
+@BindingAdapter("app:subtitle")
+fun RowView.setSubtitle(subtitle: String?) {
+    this.binding.subtitle.text = subtitle
 }

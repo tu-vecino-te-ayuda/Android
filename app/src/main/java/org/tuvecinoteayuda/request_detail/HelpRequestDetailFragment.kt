@@ -15,13 +15,12 @@ import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ext.showSuccesSnackbar
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.observeEvent
-import org.tuvecinoteayuda.databinding.FragmentRequestDetailBinding
 
-class RequestDetailFragment : Fragment() {
+class HelpRequestDetailFragment : Fragment() {
 
-    private val args: RequestDetailFragmentArgs by navArgs()
-    private lateinit var binding: FragmentRequestDetailBinding
-    private val viewModel: RequestDetailViewModel by viewModels { ViewModelFactory.getInstance() }
+    private val args: HelpRequestDetailFragmentArgs by navArgs()
+    private lateinit var binding: HelpRequestDetailFragmentB
+    private val viewModel: HelpRequestDetailViewModel by viewModels { ViewModelFactory.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +28,7 @@ class RequestDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        FragmentRequestDetailBinding.inflate(inflater, container, false).apply {
+        HelpRequestDetailFragment.inflate(inflater, container, false).apply {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
@@ -41,7 +40,7 @@ class RequestDetailFragment : Fragment() {
 
     private fun configureViews() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
-        binding.toolbar.setTitle(R.string.profile_title)
+        binding.toolbar.setTitle(R.string.request_detail_title)
     }
 
     private fun setUpListeners() {

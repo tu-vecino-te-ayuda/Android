@@ -7,4 +7,10 @@
     <declare-styleable name="LoadingButton">
         <attr name="android:text" format="string" localization="suggested" />
     </declare-styleable>
+
+    <declare-styleable name="RowView">
+        <attr name="android:src" format="reference" />
+        <attr name="title" format="string" localization="suggested" />
+        <attr name="subtitle" format="string" />
+    </declare-styleable>
 </resources>
