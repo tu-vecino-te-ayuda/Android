@@ -28,9 +28,9 @@
 
             <View
                 android:id="@+id/state"
-                android:layout_width="10dp"
+                android:layout_width="@dimen/spacing_l_large"
                 android:layout_height="0dp"
-                android:background="@color/pending"
+                android:background="@{item.isAccepted() ?@color/green :@color/pending}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
