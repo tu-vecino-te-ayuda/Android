@@ -15,11 +15,12 @@ import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ext.showSuccesSnackbar
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.observeEvent
+import org.tuvecinoteayuda.databinding.FragmentHelpRequestDetailBinding
 
 class HelpRequestDetailFragment : Fragment() {
 
     private val args: HelpRequestDetailFragmentArgs by navArgs()
-    private lateinit var binding: HelpRequestDetailFragmentB
+    private lateinit var binding: FragmentHelpRequestDetailBinding
     private val viewModel: HelpRequestDetailViewModel by viewModels { ViewModelFactory.getInstance() }
 
     override fun onCreateView(
@@ -28,7 +29,7 @@ class HelpRequestDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        HelpRequestDetailFragment.inflate(inflater, container, false).apply {
+        FragmentHelpRequestDetailBinding.inflate(inflater, container, false).apply {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
@@ -49,9 +50,12 @@ class HelpRequestDetailFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.toolbar.setOnMenuItemClickListener { item ->
-            when(item.itemId){
-                R.id.cancel_request -> {viewModel.cancelRequest()}
-                else-> {/*Do nothing*/}
+            when (item.itemId) {
+                R.id.cancel_request -> {
+                    viewModel.cancelRequest()
+                }
+                else -> {/*Do nothing*/
+                }
             }
             true
         }
@@ -79,17 +83,16 @@ class HelpRequestDetailFragment : Fragment() {
 
     private fun observeEvents() {
         viewModel.onAcceptRequestSuccessEvent.observeEvent(viewLifecycleOwner, {
-            showSuccesSnackbar("Aceptado!")
+            showSuccesSnackbar(R.string.request_detail_accepted)
         })
 
         viewModel.onCancelRequestSuccessEvent.observeEvent(viewLifecycleOwner, {
-            showSuccesSnackbar("Cancelada!")
+            showSuccesSnackbar(R.string.request_detail_cancel_success)
         })
 
         viewModel.onAcceptRequestErrorEvent.observeEvent(viewLifecycleOwner, { error ->
             showSnackBarError(error)
         })
     }
-
 
 }
