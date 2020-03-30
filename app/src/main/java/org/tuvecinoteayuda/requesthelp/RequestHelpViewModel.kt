@@ -38,6 +38,11 @@ class RequestHelpViewModel(
     val messageError: LiveData<Boolean>
         get() = _messageError
 
+    val termsAndConditions = MutableLiveData<Boolean>(false)
+    private val _termsAndConditionsError = MutableLiveData<Unit>()
+    val termsAndConditionsError: LiveData<Unit>
+        get() = _termsAndConditionsError
+
     // Spinners data
     val helpRequestTypes = liveData(Dispatchers.IO) {
         _screenState.postValue(ScreenState.LOADING_DATA)
@@ -71,6 +76,15 @@ class RequestHelpViewModel(
                 onInvalidData()
                 return@launch
             }
+
+            // Terms and conditions
+            val accepted = termsAndConditions.value ?: false
+            if (!accepted) {
+                _termsAndConditionsError.postValue(Unit)
+                onInvalidData()
+                return@launch
+            }
+
             // Call create request endpoint
             val request = CreateHelpRequestRequest(
                 helpRequestTypeId = currentHelpRequestType.id,

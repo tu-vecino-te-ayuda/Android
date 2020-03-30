@@ -99,18 +99,39 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@={vm.termsAndConditions}"
+                        app:layout_constraintBottom_toTopOf="@id/termsAndConditions"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/termsAndConditions" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/termsAndConditions"
+                        android:layout_width="0dp"
+                        android:textAlignment="textStart"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/checkbox"
+                        app:layout_constraintTop_toBottomOf="@id/message_container"
+                        android:text="@string/request_help_terms_and_conditions"
+                        tools:text="@string/request_help_terms_and_conditions" />
+
                     <org.tuvecinoteayuda.core.ui.LoadingButton
                         android:id="@+id/create_request_button"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/min_tappable_size"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/default_margin_xxxlarge"
-                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/default_margin_xlarge"
                         android:layout_marginEnd="@dimen/default_margin_xxxlarge"
                         android:text="@string/request_help_create_request_button"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/message_container" />
+                        app:layout_constraintTop_toBottomOf="@id/checkbox" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
