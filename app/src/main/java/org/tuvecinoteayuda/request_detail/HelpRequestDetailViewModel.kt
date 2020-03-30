@@ -11,13 +11,12 @@ import org.tuvecinoteayuda.core.util.Event
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
-import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.repository.HelpRequestRepository
 import org.tuvecinoteayuda.data.regions.models.City
 import org.tuvecinoteayuda.data.regions.models.Region
 import org.tuvecinoteayuda.data.regions.repository.RegionRepository
 
-class RequestDetailViewModel(
+class HelpRequestDetailViewModel(
     private val requestRepository: HelpRequestRepository,
     private val regionRepository: RegionRepository
 ) : ViewModel() {
@@ -77,7 +76,7 @@ class RequestDetailViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 when (val result = requestRepository.acceptHelpRequest(it.id)) {
                     is ResultWrapper.Success -> {
-                        onAcceptedSuccess(result.value)
+                        onAcceptedSuccess(result.value.data)
                     }
                     is ResultWrapper.GenericError -> {
                         onError(result.error!!.message)
@@ -107,7 +106,9 @@ class RequestDetailViewModel(
         }
     }
 
-    private fun onAcceptedSuccess(request: HelpRequestListResponse) {
+    private fun onAcceptedSuccess(request: HelpRequest) {
+        item = request
+        _helpRequest.postValue(request)
         _screenState.postValue(ScreenState.DATA_LOADED)
         _onAcceptRequestSuccessEvent.postValue(Event(Unit))
     }
@@ -120,6 +121,5 @@ class RequestDetailViewModel(
     private fun onError(error: String) {
         _screenState.postValue(ScreenState.DATA_LOADED)
         _onAcceptRequestErrorEvent.postValue(Event(error))
-
     }
 }

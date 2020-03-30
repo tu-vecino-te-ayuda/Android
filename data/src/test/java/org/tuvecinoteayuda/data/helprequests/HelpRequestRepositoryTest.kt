@@ -9,6 +9,7 @@ import org.junit.Test
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.*
 import org.tuvecinoteayuda.data.commons.models.MessageResponse
+import org.tuvecinoteayuda.data.helprequests.models.AcceptHelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestListResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestResponse
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestTypeResponse
@@ -58,9 +59,9 @@ class HelpRequestRepositoryTest {
     fun `accept help request is success`() {
         runBlockingTest {
             val requestResponse =
-                Gson().fromJson<HelpRequestListResponse>(
+                Gson().fromJson<AcceptHelpRequestResponse>(
                     ACCEPT_HELP_REQUESTS_RESPONSE_OK,
-                    HelpRequestListResponse::class.java
+                    AcceptHelpRequestResponse::class.java
                 )
 
             coEvery {

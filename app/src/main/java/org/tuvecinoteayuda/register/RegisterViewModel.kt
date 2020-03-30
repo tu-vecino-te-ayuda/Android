@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.Event
+import org.tuvecinoteayuda.dashboard.DashboardType
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.commons.models.NearByAreaTypeId
 import org.tuvecinoteayuda.data.commons.models.UserTypeId
@@ -22,8 +23,8 @@ class RegisterViewModel(
         get() = _screenState
 
     // Events
-    private val _onRegisterSuccessEvent = MutableLiveData<Event<Unit>>()
-    val onRegisterSuccessEvent: LiveData<Event<Unit>>
+    private val _onRegisterSuccessEvent = MutableLiveData<Event<DashboardType>>()
+    val onRegisterSuccessEvent: LiveData<Event<DashboardType>>
         get() = _onRegisterSuccessEvent
     private val _onRegisterFailedEvent = MutableLiveData<Event<Unit>>()
     val onRegisterFailedEvent: LiveData<Event<Unit>>
@@ -204,7 +205,16 @@ class RegisterViewModel(
 
     private fun onRegisterSuccess() {
         _screenState.value = ScreenState.DATA_LOADED
-        _onRegisterSuccessEvent.postValue(Event(Unit))
+
+        _onRegisterSuccessEvent.postValue(
+            Event(
+                when (registerType.value) {
+                    RegisterType.Voluntary -> DashboardType.VOLUNTARY
+                    RegisterType.Requester -> DashboardType.REQUESTER
+                    else -> error("Invalid register type!")
+                }
+            )
+        )
     }
 
     private fun onRegisterFailed() {
