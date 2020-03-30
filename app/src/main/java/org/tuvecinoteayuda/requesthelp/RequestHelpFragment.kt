@@ -104,6 +104,12 @@ class RequestHelpFragment : Fragment() {
             binding.messageContainer.error =
                 if (error) getString(R.string.request_help_message_invalid) else null
         })
+
+        viewModel.termsAndConditionsError.observe(viewLifecycleOwner, Observer { error ->
+            showSnackBarError(R.string.request_help_terms_and_conditions_error)
+        })
+
+
     }
 
     private fun observeEvents() {

@@ -66,7 +66,7 @@
     <string name="profile_error_updating_profile">Error actualizando perfil…</string>
 
     <!-- Request help -->
-    <string name="request_help_title">Solicitar ayuda</string>
+    <string name="request_help_title">Nueva solicitud de ayuda</string>
     <string name="request_help_help_request_type">Tipo de ayuda</string>
     <string name="request_help_help_request_type_invalid">Tipo de ayuda no válida</string>
     <string name="request_help_message">Comentario</string>
@@ -74,6 +74,9 @@
     <string name="request_help_create_request_button">Crear solicitud</string>
     <string name="request_help_request_created">Solicitud creada!</string>
     <string name="request_help_request_failed">Error creando la solicitud!</string>
+    <string name="request_help_terms_and_conditions">Acepto que la plataforma automaticamente facilite mi nombre y
+                         teléfono de contacto, al voluntario que acepte mi petición de ayuda</string>
+    <string name="request_help_terms_and_conditions_error">Debes aceptar los términos y condiciones</string>
 
     <!-- Request detail -->
     <string name="request_detail_title">Solicitud de Ayuda</string>
