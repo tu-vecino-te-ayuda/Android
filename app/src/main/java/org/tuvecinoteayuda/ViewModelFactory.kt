@@ -13,7 +13,7 @@ import org.tuvecinoteayuda.data.register.repository.RegisterRepository
 import org.tuvecinoteayuda.login.LoginViewModel
 import org.tuvecinoteayuda.profile.ProfileViewModel
 import org.tuvecinoteayuda.register.RegisterViewModel
-import org.tuvecinoteayuda.request_detail.HelpRequestDetailViewModel
+import org.tuvecinoteayuda.requestdetail.HelpRequestDetailViewModel
 import org.tuvecinoteayuda.requesthelp.RequestHelpViewModel
 
 class ViewModelFactory private constructor(

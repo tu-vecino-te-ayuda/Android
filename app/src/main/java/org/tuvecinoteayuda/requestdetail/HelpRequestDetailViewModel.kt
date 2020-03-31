@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.request_detail
+package org.tuvecinoteayuda.requestdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,7 +26,7 @@ class HelpRequestDetailViewModel(
     val screenState: LiveData<ScreenState>
         get() = _screenState
 
-    //Variables
+    //Data
     private val _helpRequest = MutableLiveData<HelpRequest>()
     val helpRequest: LiveData<HelpRequest>
         get() = _helpRequest
@@ -36,6 +36,14 @@ class HelpRequestDetailViewModel(
     private val _city: MutableLiveData<City> = MutableLiveData()
     val city: LiveData<City>
         get() = _city
+
+    private val _helpRequestType = MutableLiveData<HelpRequestType>()
+    val helpRequestType: LiveData<HelpRequestType>
+        get() = _helpRequestType
+
+    private val _showDelete = MutableLiveData<Boolean>(false)
+    val showDelete: LiveData<Boolean>
+        get() = _showDelete
 
     //Events
     private val _onAcceptRequestSuccessEvent = MutableLiveData<Event<Unit>>()
@@ -51,8 +59,12 @@ class HelpRequestDetailViewModel(
 
     private var item: HelpRequest? = null
 
-    fun start(requestId: String) {
+    fun start(
+        requestId: String,
+        helpRequestType: HelpRequestType
+    ) {
         if (_screenState.value != ScreenState.INITIAL) return
+        _helpRequestType.postValue(helpRequestType)
         getRequest(requestId)
     }
 
@@ -66,6 +78,8 @@ class HelpRequestDetailViewModel(
                 _state.postValue(regionRepository.getRegionById(it.user.state))
                 _city.postValue(regionRepository.getCityById(it.user.state, it.user.city))
                 _screenState.postValue(ScreenState.DATA_LOADED)
+                _showDelete.postValue(helpRequestType.value == HelpRequestType.REQUESTER || it.isAccepted())
+
             } ?: error("Invalid args")
         }
     }
@@ -109,6 +123,7 @@ class HelpRequestDetailViewModel(
     private fun onAcceptedSuccess(request: HelpRequest) {
         item = request
         _helpRequest.postValue(request)
+        _showDelete.postValue(helpRequestType.value == HelpRequestType.REQUESTER || request.isAccepted())
         _screenState.postValue(ScreenState.DATA_LOADED)
         _onAcceptRequestSuccessEvent.postValue(Event(Unit))
     }

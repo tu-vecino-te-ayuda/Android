@@ -112,13 +112,18 @@
 
     <fragment
         android:id="@+id/HelpRequestDetailFragment"
-        android:name="org.tuvecinoteayuda.request_detail.HelpRequestDetailFragment"
+        android:name="org.tuvecinoteayuda.requestdetail.HelpRequestDetailFragment"
         android:label="HelpRequestDetail">
 
         <argument
             android:name="request_id"
             android:defaultValue="-1"
             app:argType="string" />
+
+        <argument
+            android:name="user_type"
+            android:defaultValue="0"
+            app:argType="integer" />
 
     </fragment>
 

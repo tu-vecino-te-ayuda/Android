@@ -17,6 +17,7 @@ import org.tuvecinoteayuda.dashboard.DashboardFragmentDirections.*
 import org.tuvecinoteayuda.dashboard.helprequests.HelpRequestsAdapter
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequest
 import org.tuvecinoteayuda.databinding.FragmentDashboardBinding
+import org.tuvecinoteayuda.requestdetail.HelpRequestType
 
 class DashboardFragment : Fragment() {
 
@@ -94,8 +95,13 @@ class DashboardFragment : Fragment() {
     }
 
     private fun onItemClicked(item: HelpRequest) {
+        val type = when (DashboardType.values()[args.dashboardtype]) {
+            DashboardType.REQUESTER -> HelpRequestType.REQUESTER
+            DashboardType.VOLUNTARY -> HelpRequestType.VOLUNTARY
+        }
         findNavController().navigate(
             actionDashboardFragmentToRequestDetailFragment().setRequestId(item.id)
+                .setUserType(type.ordinal)
         )
     }
 }
