@@ -9,9 +9,11 @@
 
         <import type="android.view.View" />
 
+        <import type="org.tuvecinoteayuda.requestdetail.HelpRequestType" />
+
         <variable
             name="vm"
-            type="org.tuvecinoteayuda.request_detail.HelpRequestDetailViewModel" />
+            type="org.tuvecinoteayuda.requestdetail.HelpRequestDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -28,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
-                app:menu="@{vm.helpRequest.isAccepted == true ? R.menu.menu_request_detail : -1}"
+                app:menu="@{vm.showDelete  ? R.menu.menu_request_detail : -1}"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -40,7 +42,7 @@
             android:layout_gravity="center"
             android:overScrollMode="never"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            tools:context="org.tuvecinoteayuda.request_detail.HelpRequestDetailFragment">
+            tools:context="org.tuvecinoteayuda.requestdetail.HelpRequestDetailFragment">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
@@ -84,9 +86,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_home"
-                android:visibility="@{vm.helpRequest.isAccepted == true ? View.VISIBLE : View.GONE}"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="@{(vm.helpRequest.isAccepted == true || vm.helpRequestType == HelpRequestType.REQUESTER) ? View.VISIBLE : View.GONE}"
                 android:layout_marginTop="@dimen/default_margin_large"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date"
                 app:subtitle="@{vm.helpRequest.user.address}"
@@ -110,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_city"
                 android:layout_marginTop="@dimen/default_margin_large"
-                android:visibility="@{vm.helpRequest.isAccepted == true ? View.VISIBLE : View.GONE}"
+                android:visibility="@{(vm.helpRequest.isAccepted == true || vm.helpRequestType == HelpRequestType.REQUESTER)  ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/state"
                 app:layout_constraintTop_toBottomOf="@id/address"
@@ -124,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_local_phone_black_24dp"
                 android:layout_marginTop="@dimen/default_margin_large"
-                android:visibility="@{vm.helpRequest.isAccepted == true ? View.VISIBLE : View.GONE}"
+                android:visibility="@{(vm.helpRequest.isAccepted == true || vm.helpRequestType == HelpRequestType.REQUESTER) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/state"
@@ -141,7 +143,7 @@
                 android:layout_marginStart="@dimen/default_margin_xxxlarge"
                 android:layout_marginTop="@dimen/default_margin_xxlarge"
                 android:layout_marginEnd="@dimen/default_margin_xxxlarge"
-                android:visibility="@{vm.helpRequest.isAccepted == true ? View.GONE : View.VISIBLE}"
+                android:visibility="@{(vm.helpRequest.isAccepted == true || vm.helpRequestType == HelpRequestType.REQUESTER) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/phone"

@@ -1,4 +1,4 @@
-package org.tuvecinoteayuda.request_detail
+package org.tuvecinoteayuda.requestdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,7 +69,7 @@ class HelpRequestDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.start(args.requestId)
+        viewModel.start(args.requestId, HelpRequestType.values()[args.userType])
     }
 
     private fun observeScreenState() {

@@ -109,7 +109,6 @@ class RequestHelpFragment : Fragment() {
             showSnackBarError(R.string.request_help_terms_and_conditions_error)
         })
 
-
     }
 
     private fun observeEvents() {
