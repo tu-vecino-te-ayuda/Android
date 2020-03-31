@@ -89,32 +89,27 @@ class HelpRequestDetailViewModel(
             _screenState.postValue(ScreenState.LOADING_DATA)
             viewModelScope.launch(Dispatchers.IO) {
                 when (val result = requestRepository.acceptHelpRequest(it.id)) {
-                    is ResultWrapper.Success -> {
-                        onAcceptedSuccess(result.value.data)
-                    }
-                    is ResultWrapper.GenericError -> {
-                        onError(result.error!!.message)
-                    }
-                    else -> {
-                    }
+                    is ResultWrapper.Success -> onAcceptedSuccess(result.value.data)
+                    is ResultWrapper.GenericError -> onError(result.error?.message ?: "")
+                    else -> onError("")
                 }
             }
         }
     }
 
     fun cancelRequest() {
-        item?.also {
+        item?.let { request ->
             _screenState.postValue(ScreenState.LOADING_DATA)
             viewModelScope.launch(Dispatchers.IO) {
-                when (val result = requestRepository.cancelAcceptedHelpRequest(it.id)) {
-                    is ResultWrapper.Success -> {
-                        onCancelSuccess(result.value)
-                    }
-                    is ResultWrapper.GenericError -> {
-                        onError(result.error!!.message)
-                    }
-                    else -> {
-                    }
+                val result = if (helpRequestType.value == HelpRequestType.REQUESTER) {
+                    requestRepository.cancelMyHelpRequest(request.id)
+                } else {
+                    requestRepository.cancelAcceptedHelpRequest(request.id)
+                }
+                when (result) {
+                    is ResultWrapper.Success -> onCancelSuccess(result.value)
+                    is ResultWrapper.GenericError -> onError(result.error?.message ?: "")
+                    else -> onError("")
                 }
             }
         }

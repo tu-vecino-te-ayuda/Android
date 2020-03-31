@@ -44,6 +44,10 @@ class HelpRequestRepository(
         return safeApiCall(dispatcher) { api.cancelAcceptedHelpRequest(id) }
     }
 
+    suspend fun cancelMyHelpRequest(id: String): ResultWrapper<MessageResponse> {
+        return safeApiCall(dispatcher) { api.cancelMyHelpRequest(id) }
+    }
+
     suspend fun findRequestById(requestId: String): HelpRequest? {
         return coroutineScope {
             withContext(Dispatchers.Default) {

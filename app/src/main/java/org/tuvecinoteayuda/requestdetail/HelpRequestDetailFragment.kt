@@ -84,15 +84,14 @@ class HelpRequestDetailFragment : Fragment() {
     private fun observeEvents() {
         viewModel.onAcceptRequestSuccessEvent.observeEvent(viewLifecycleOwner, {
             showSuccesSnackbar(R.string.request_detail_accepted)
+            findNavController().popBackStack()
         })
-
         viewModel.onCancelRequestSuccessEvent.observeEvent(viewLifecycleOwner, {
             showSuccesSnackbar(R.string.request_detail_cancel_success)
+            findNavController().popBackStack()
         })
-
         viewModel.onAcceptRequestErrorEvent.observeEvent(viewLifecycleOwner, { error ->
             showSnackBarError(error)
         })
     }
-
 }
