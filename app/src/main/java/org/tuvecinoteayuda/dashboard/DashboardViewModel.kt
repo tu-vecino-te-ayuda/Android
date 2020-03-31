@@ -40,9 +40,18 @@ class DashboardViewModel(
         get() = _requestError
 
     fun start(userType: DashboardType) {
-        if (_screenState.value != ScreenState.INITIAL) return
-        _dashboardType.value = userType
-        getMyRequest()
+        if (_screenState.value == ScreenState.INITIAL) {
+            _dashboardType.value = userType
+            _currentTab.value = DashboardTab.MY_REQUESTS
+        }
+        refreshCurrentTab()
+    }
+
+    private fun refreshCurrentTab() {
+        when (_currentTab.value) {
+            DashboardTab.MY_REQUESTS -> getMyRequest()
+            else -> getPendingRequest()
+        }
     }
 
     fun getMyRequest() {
