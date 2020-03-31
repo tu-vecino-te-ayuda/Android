@@ -7,5 +7,5 @@
     <item
         android:id="@+id/pending_request"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/dashboard_all_requests_button" />
+        android:title="@string/dashboard_pending_requests_button" />
 </menu>

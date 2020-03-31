@@ -50,12 +50,12 @@
 
     <!-- Dashboard -->
     <string name="dashboard_title_my_requests">Mis Solicitudes</string>
-    <string name="dashboard_title_all_requests">Solicitudes</string>
+    <string name="dashboard_title_pending_requests">Solicitudes pendientes</string>
     <string name="dashboard_profile">Perfil</string>
     <string name="dashboard_my_requests_empty">Por ahora no tienes solicitudes de ayuda en tu lista ¿Empezamos?</string>
-    <string name="dashboard_all_requests_empty">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana!"</string>
+    <string name="dashboard_pending_requests_empty">"Por ahora no tenemos solicitudes de ayuda en tu zona, gracias por tu colaboración y ¡nos vemos mañana!"</string>
     <string name="dashboard_my_requests_button">Mis Solicitudes</string>
-    <string name="dashboard_all_requests_button">Todas las Solicitudes</string>
+    <string name="dashboard_pending_requests_button">Solicitudes pendientes</string>
     <string name="dashboard_new_request_button">Solicitar ayuda</string>
 
     <!-- Profile -->
