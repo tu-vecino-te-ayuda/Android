@@ -27,4 +27,7 @@ interface HelpRequestApi {
     @DELETE("help-requests/revert/{id}")
     suspend fun cancelAcceptedHelpRequest(@Path("id") id: String): MessageResponse
 
+    @DELETE("help-requests/{id}")
+    suspend fun cancelMyHelpRequest(@Path("id") id: String): MessageResponse
+
 }
