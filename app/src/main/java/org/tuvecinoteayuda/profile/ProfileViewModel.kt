@@ -167,7 +167,7 @@ class ProfileViewModel(
             }
             // Area
             val currentArea = area.value
-            if (currentArea == null) {
+            if (registerType.value == RegisterType.Voluntary && currentArea == null) {
                 _areaError.postValue(true)
                 onInvalidData()
                 return@launch
