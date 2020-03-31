@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tuvecinoteayuda.core.ui.ScreenState
 import org.tuvecinoteayuda.core.util.Event
+import org.tuvecinoteayuda.core.util.resetErrors
 import org.tuvecinoteayuda.data.ResultWrapper
 import org.tuvecinoteayuda.data.helprequests.models.CreateHelpRequestRequest
 import org.tuvecinoteayuda.data.helprequests.models.HelpRequestType
@@ -39,8 +40,8 @@ class RequestHelpViewModel(
         get() = _messageError
 
     val termsAndConditions = MutableLiveData<Boolean>(false)
-    private val _termsAndConditionsError = MutableLiveData<Unit>()
-    val termsAndConditionsError: LiveData<Unit>
+    private val _termsAndConditionsError = MutableLiveData<Boolean>()
+    val termsAndConditionsError: LiveData<Boolean>
         get() = _termsAndConditionsError
 
     // Spinners data
@@ -62,6 +63,8 @@ class RequestHelpViewModel(
     fun createRequest() {
         _screenState.value = ScreenState.LOADING_DATA
         viewModelScope.launch {
+            // Reset errors
+            resetErrors(_helpRequestTypeError, _messageError, _termsAndConditionsError)
             // Help request type
             val currentHelpRequestType = helpRequestType.value
             if (currentHelpRequestType == null) {
@@ -80,7 +83,7 @@ class RequestHelpViewModel(
             // Terms and conditions
             val accepted = termsAndConditions.value ?: false
             if (!accepted) {
-                _termsAndConditionsError.postValue(Unit)
+                _termsAndConditionsError.postValue(true)
                 onInvalidData()
                 return@launch
             }

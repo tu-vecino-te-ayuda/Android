@@ -106,9 +106,9 @@ class RequestHelpFragment : Fragment() {
         })
 
         viewModel.termsAndConditionsError.observe(viewLifecycleOwner, Observer { error ->
-            showSnackBarError(R.string.request_help_terms_and_conditions_error)
+            binding.termsAndConditions.error =
+                if (error) getString(R.string.request_help_terms_and_conditions_invalid) else null
         })
-
     }
 
     private fun observeEvents() {
