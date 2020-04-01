@@ -87,6 +87,9 @@ class DashboardFragment : Fragment() {
         binding.newHelpRequestButton.setOnClickListener {
             findNavController().navigate(actionDashboardFragmentToRequestHelpFragment())
         }
+        binding.startButton.setOnClickListener {
+            binding.bottomNavigation.selectedItemId = R.id.pending_request
+        }
     }
 
     private fun observeViewModelData() {
