@@ -88,5 +88,9 @@
     <string name="request_detail_phone">Teléfono</string>
     <string name="request_detail_accepted">Solicitud aceptada correctamente</string>
     <string name="request_detail_cancel_success">Solicitud de ayuda cancelada</string>
-
+    <string name="request_detail_accept_dialog_title">Confirmar colaboracion</string>
+    <string name="request_detail_accept_dialog_subtitle">Estas apunto de hacer algo importante por una persona que te necesita. ¿Quieres continuar?</string>
+    <string name="request_detail_accept_dialog_confirm">Continuar</string>
+    <string name="request_detail_accept_dialog_cancel">Aceptar</string>
+    
 </resources>

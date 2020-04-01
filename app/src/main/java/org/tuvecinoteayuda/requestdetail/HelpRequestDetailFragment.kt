@@ -14,6 +14,7 @@ import org.tuvecinoteayuda.ViewModelFactory
 import org.tuvecinoteayuda.core.ext.showSnackBarError
 import org.tuvecinoteayuda.core.ext.showSuccesSnackbar
 import org.tuvecinoteayuda.core.ui.ScreenState
+import org.tuvecinoteayuda.core.ui.showDialog
 import org.tuvecinoteayuda.core.util.observeEvent
 import org.tuvecinoteayuda.databinding.FragmentHelpRequestDetailBinding
 
@@ -45,7 +46,9 @@ class HelpRequestDetailFragment : Fragment() {
     }
 
     private fun setUpListeners() {
-        binding.acceptRequestButton.setOnButtonClickListener { viewModel.acceptRequest() }
+        binding.acceptRequestButton.setOnButtonClickListener {
+            this.acceptRequest()
+        }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -58,6 +61,19 @@ class HelpRequestDetailFragment : Fragment() {
                 }
             }
             true
+        }
+    }
+
+    private fun acceptRequest() {
+        context?.run {
+            showDialog(
+                this,
+                getString(R.string.request_detail_accept_dialog_title),
+                getString(R.string.request_detail_accept_dialog_subtitle),
+                getString(R.string.request_detail_accept_dialog_confirm),
+                { viewModel.acceptRequest() },
+                getString(R.string.request_detail_accept_dialog_cancel)
+            )
         }
     }
 
