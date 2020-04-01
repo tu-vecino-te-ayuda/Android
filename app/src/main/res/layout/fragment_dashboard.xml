@@ -40,7 +40,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/empty_text"
-            style="@style/H3"
+            style="@style/H2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -51,6 +51,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start_button"
+            style="@style/Button.MainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_margin_xlarge"
+            android:visibility="@{(vm.screenState != ScreenState.LOADING_DATA &amp;  vm.requests.empty)   &amp; vm.currentTab == DashboardTab.MY_REQUESTS ? View.VISIBLE : View.GONE}"
+            android:text="@string/dashboard_star_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/empty_text" />
 
         <ScrollView
             android:layout_width="0dp"
